@@ -7,8 +7,9 @@
         }
     ],
 	"autoload":{
-		"psr-4":{
-			"Framework\\":"src/Framework"
+		"psr-4": {
+        "App\\src\\": "src/",
+        "App\\config\\":"config/"
 		}
 	},
     "require": {

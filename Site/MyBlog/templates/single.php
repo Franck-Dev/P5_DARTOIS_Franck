@@ -9,32 +9,26 @@
 <div>
     <h1>Mon blog</h1>
     <p>En construction</p>
-    <?php
-    $post = $posts->fetch()
-    ?>
     <div>
-        <h2><?= htmlspecialchars($post->title);?></h2>
-        <p><?= htmlspecialchars($post->content);?></p>
-        <p><?= htmlspecialchars($post->author);?></p>
-        <p>Créé le : <?= htmlspecialchars($post->createdAt);?></p>
+        <h2><?= htmlspecialchars($post->gettitle());?></h2>
+        <p><?= htmlspecialchars($post->getdescription());?></p>
+        <p><?= htmlspecialchars($post->getauthor());?></p>
+        <p>Créé le : <?= htmlspecialchars($post->getcreatedAt());?></p>
     </div>
     <br>
-    <?php
-    $posts ->closeCursor();
-    ?>
     <a href="../public/index.php">Retour à l'accueil</a>
     <div id="comments" class="text-left" style="margin-left: 50px">
         <h3>Commentaires</h3>
+        <a href="../public/index.php?route=addComment&postId=<?= htmlspecialchars($post->getid());?>">Nouveau commentaire</a>
         <?php
-        while($comment = $comments->fetch())
+        foreach($comments as $comment)
         {
             ?>
-            <h4><?= htmlspecialchars($comment->pseudo);?></h4>
-            <p><?= htmlspecialchars($comment->content);?></p>
-            <p>Posté le <?= htmlspecialchars($comment->createdAt);?></p>
+            <h4><?= htmlspecialchars($comment->getpseudo());?></h4>
+            <p><?= htmlspecialchars($comment->getdescription());?></p>
+            <p>Posté le <?= htmlspecialchars($comment->getcreatedAt());?></p>
             <?php
         }
-        $comments->closeCursor();
         ?>
     </div>
 </div>

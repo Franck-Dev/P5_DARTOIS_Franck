@@ -1,29 +1,36 @@
 <?php
 
 namespace App\src\controller;
-use App\src\model\postManager;
-use App\src\model\commentManager;
 
-class frontController
+class frontController extends controller
 {
-    private $postManager;
-    private $commentManager;
 
-    public function __construct()
-    {
-        $this->postManager = new postManager();
-        $this->commentManager = new commentManager();
-    }
     public function home()
     {
          $posts=$this->postManager->getPosts();
         require '../templates/home.php';
+        //echo $this->twig->render('home.php',["posts" => $posts]);
+        //echo $this->twig->render('home.html.twig',[
+        //    "posts" => $posts[1]
+        //  ]);
     }
 
     public function post()
     {
-        $posts=$this->postManager->getPost($_GET['postId']);
-        $comments=$this->commentManager->getCommentsFromArticle($_GET['postId']);
+        $post=$this->postManager->getPost($_GET['postId']);
+        $comments=$this->commentManager->getComments($_GET['postId']);
         require '../templates/single.php';
+    }
+
+    public function addComment($comment)
+    {
+        if(isset($comment['submit'])) {
+            $this->commentManager->addComment($comment);
+            header('Location: ../public/index.php');
+        }
+        return require '../templates/add_comment.php';
+        //return $this->twig->render('add_article', [
+        //    'post' => $post
+        //]);
     }
 }

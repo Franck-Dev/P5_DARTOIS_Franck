@@ -6,11 +6,11 @@ class errorController
 {
     public function errorNotFound()
     {
-        require '../templates/error_404.php';
+        require '../templates/error/error_404.php';
     }
 
     public function errorServer()
     {
-        require '../templates/error_301.php';
+        require '../templates/error/error_301.php';
     }
 }

@@ -9,22 +9,21 @@
     <div>
         <h1>Mon blog</h1>
         <p>En construction</p>
-        <?php
-        
-    while($post = $posts->fetch())
+        <a href="../public/index.php?route=addPost">Nouvel article</a>
+        <?php  
+        //var_dump($posts);
+    foreach($posts as $post)
     {
-        var_dump($post);
         ?>
         <div>
-        <h2><a href="../public/index.php?route=post&postId=<?= htmlspecialchars($post->id);?>"><?= htmlspecialchars($post->title);?></a></h2>
-            <p><?= htmlspecialchars($post->content);?></p>
-            <p><?= htmlspecialchars($post->author);?></p>
-            <p>Créé le : <?= htmlspecialchars($post->createdAt);?></p>
+        <h2><a href="../public/index.php?route=post&postId=<?= htmlspecialchars($post->getid());?>"><?= htmlspecialchars($post->gettitle());?></a></h2>
+            <p><?= htmlspecialchars($post->getdescription());?></p>
+            <p><?= htmlspecialchars($post->getauthor());?></p>
+            <p>Créé le : <?= htmlspecialchars($post->getcreatedAt());?></p>
         </div>
         <br>
         <?php
     }
-    $posts->closeCursor();
     ?>
     </div>
 </body>

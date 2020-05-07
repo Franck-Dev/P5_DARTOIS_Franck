@@ -3,7 +3,6 @@ namespace App\src\manager;
 
 use PDO;
 use Exception;
-use App\src\Model\postManager;
 
 	abstract class Manager
 	{
@@ -56,12 +55,10 @@ use App\src\Model\postManager;
 			 if($parameters)
 			{
 				$result = $this->checkConnect()->prepare($sql);
-				$result->setFetchMode(PDO::FETCH_CLASS,static::class);
 				$result->execute($parameters);
 				return $result;
 			}
 			$result = $this->checkConnect()->query($sql);
-			$result->setFetchMode(PDO::FETCH_CLASS, static::class);
 			return $result;
 		}
 

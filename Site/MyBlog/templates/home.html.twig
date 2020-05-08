@@ -5,7 +5,14 @@
 {% block body %}
     <h1>Mon Blog:</h1>
         <p>En construction</p>
-        {#<pre>{{dump(tat)}}</pre>#}
-       {{posts.title}}
-Dur dur l'apprentissage du POO avec TWIG:(!!!!
+        {# <pre>{{dump(posts)}}</pre> #}
+        {% for post in posts %}
+        <div>
+            <h2><a href="" & {{post.id}} & = & {{post.title}}></a></h2>
+            <p>{{post.description}}</p>
+            <p>{{post.author}}</p>
+            <p>Créé le : {{post.createdAt}}</p>
+        </div>
+        {% endfor %}
+Dur dur l'apprentissage du POO!!!!;-)
 {% endblock %}

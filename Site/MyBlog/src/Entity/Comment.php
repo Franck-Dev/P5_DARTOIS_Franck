@@ -69,7 +69,7 @@ class Comment
      */
     public function setDescription($description)
     {
-        $this->content = $description;
+        $this->description = $description;
     }
 
     /**

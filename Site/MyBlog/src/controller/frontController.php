@@ -8,11 +8,11 @@ class frontController extends controller
     public function home()
     {
          $posts=$this->postManager->getPosts();
-        require '../templates/home.php';
+        //require '../templates/home.php';
         //echo $this->twig->render('home.php',["posts" => $posts]);
-        //echo $this->twig->render('home.html.twig',[
-        //    "posts" => $posts[1]
-        //  ]);
+    echo $this->twig->render('home.html.twig',[
+            "posts" => $posts
+          ]);
     }
 
     public function post()
@@ -29,7 +29,7 @@ class frontController extends controller
             header('Location: ../public/index.php');
         }
         return require '../templates/add_comment.php';
-        //return $this->twig->render('add_article', [
+        //return $this->twig->render('add_comment', [
         //    'post' => $post
         //]);
     }

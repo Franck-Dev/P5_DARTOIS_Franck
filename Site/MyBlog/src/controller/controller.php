@@ -6,6 +6,7 @@ use App\src\model\userManager;
 use App\src\model\commentManager;
 use Twig\Loader\FilesystemLoader;
 use Twig\Environment;
+use Twig\Extension\DebugExtension;
 
 abstract class controller
 {
@@ -24,6 +25,7 @@ abstract class controller
             'debug' => true,
             'cache' => false //'../tmp',
         ]);
+        $this->twig->addExtension(new DebugExtension);
     }
 
 }

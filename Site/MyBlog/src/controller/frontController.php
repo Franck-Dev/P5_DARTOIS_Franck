@@ -10,7 +10,7 @@ class frontController extends controller
          $posts=$this->postManager->getPosts();
         //require '../templates/home.php';
         //echo $this->twig->render('home.php',["posts" => $posts]);
-    echo $this->twig->render('home.html.twig',[
+        echo $this->twig->render('home.html.twig',[
             "posts" => $posts
           ]);
     }
@@ -19,7 +19,11 @@ class frontController extends controller
     {
         $post=$this->postManager->getPost($_GET['postId']);
         $comments=$this->commentManager->getComments($_GET['postId']);
-        require '../templates/single.php';
+        //require '../templates/single.php';
+        echo $this->twig->render('single.html.twig',[
+            "post" => $post,
+            "comments" => $comments
+          ]);
     }
 
     public function addComment($comment)

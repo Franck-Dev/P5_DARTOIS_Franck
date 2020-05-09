@@ -29,7 +29,11 @@ class Router
                     $this->backController->addPost($_POST);
                 } elseif ($_GET['route'] === 'addComment') {
                     $this->frontController->addComment($_POST);
-                } else {
+                }
+                elseif($_GET['route'] === 'AdminPost'){
+                    $this->backController->adminPost();
+                }
+                else{
                     echo 'page inconnue';
                 }
             } else {
@@ -37,7 +41,7 @@ class Router
             }
         }
         catch (Exception $e) {
-            var_dump($e);
+            //var_dump($e);
         }
     }
 }

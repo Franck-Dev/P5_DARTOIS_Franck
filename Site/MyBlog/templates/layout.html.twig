@@ -1,17 +1,101 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Mon Blog{% endblock %}</title>
-		<link rel="stylesheet" href="https://bootswatch.com/4/lumen/bootstrap.min.css">
+<!doctype html>
+<html lang="fr">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <title>{% block title %}{% endblock %}</title>
         {% block stylesheets %}
             <style type="text/css">
+                #content{
+                    background-image:url(../public/Images/FondNuMontagne.jpg);
+                    background-attachment:fixed;
+                }
             </style>
         {% endblock %}
-    </head>
-    <body>
+  </head>
+  <body>
+  <nav class="navbar sticky-top navbar-expand-lg navbar navbar-primary bg-dark">
+  <a class="navbar-brand" href="../public/index.php">
+    <img src="../public/images/TechnoPropre.png" width="30" height="30" style="border-radius:10px" class="d-inline-block align-top" alt="">
+    MyBlog
+  </a>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+            <a class="nav-link" href="#">Mes Projets <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Admin
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="../public/index.php?route=AdminPost">Articles</a>
+            <a class="dropdown-item" href="#">Commentaires</a>
+            <a class="dropdown-item" href="#">Utilisateurs</a>
+            </div>
+        </li>
+    </ul>
+    <form class="form-inline">
+        <button class="btn btn-outline-primary" type="button">Login</button>
+    </form>
+  </div>
+</nav>
+<div class="conteiner-fluid" id="content">
     {% block body %}
-    test du contenu de la page
+
     {% endblock %}
-    </body>
+</div>
+<footer class="bg-secondary text-white-50 py-4"><!-- Footer page -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-3 pl-0">
+                    <ul class="nav flex-column">
+                        <li class="nav-item"><a href="#" class="nav-link">Présentation</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link">Mon CV</a></li>
+                        
+                    </ul>
+                </div>
+                <div class="col-md-3 col-sm-3 pl-0">
+                    <ul class="nav flex-column">
+                        <li class="nav-item"><a href="#" class="nav-link">Mes Articles</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link">Mes Projets</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-sm-3 pl-0">
+                    <ul class="nav flex-column">
+                        <li class="nav-item"><a href="#" class="nav-link">Charte graphique</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link">Legal</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 ml-auto text-right">
+                    <small class="text-uppercase">Partagez</small>
+                    <ul class="nav justify-content-end">
+                        <li class="nav-item"><a href="#" class="nav-link pr-0"><i class="fa fa-pinterest fa-lg"></i></a></li>
+                        <li class="nav-item"><a href="#" class="nav-link pr-0"><i class="fa fa-twitter fa-lg"></i></a></li>
+                        <li class="nav-item"><a href="#" class="nav-link pr-0"><i class="fa fa-instagram fa-lg"></i></a></li>
+                        <li class="nav-item"><a href="#" class="nav-link pr-0"><i class="fa fa-facebook fa-lg"></i></a></li>
+                        <li class="nav-item"><a href="#" class="nav-link pr-0"><i class="fa fa-skype fa-lg"></i></a></li>
+                    </ul>
+                </div>
+                <div class="col-12 text-right small">
+                    @2020 Tous droits résevés
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
 </html>

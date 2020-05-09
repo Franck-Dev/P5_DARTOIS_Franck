@@ -14,4 +14,12 @@ class BackController extends Controller
         //    'post' => $post
         //]);
     }
+
+    public function adminPost()
+    {
+        $posts=$this->postManager->getPosts();
+        echo $this->twig->render('post_Admin.html.twig',[
+            "posts" => $posts
+          ]);
+    }
 }

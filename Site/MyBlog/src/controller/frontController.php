@@ -1,18 +1,12 @@
 <?php
-
 namespace App\src\controller;
 
-class frontController extends controller
+class FrontController extends Controller
 {
-
     public function home()
     {
          $posts=$this->postManager->getPosts();
-        //require '../templates/home.php';
-        //echo $this->twig->render('home.php',["posts" => $posts]);
-    echo $this->twig->render('home.html.twig',[
-            "posts" => $posts
-          ]);
+        require '../templates/home.php';
     }
 
     public function post()
@@ -24,7 +18,7 @@ class frontController extends controller
 
     public function addComment($comment)
     {
-        if(isset($comment['submit'])) {
+        if (isset($comment['submit'])) {
             $this->commentManager->addComment($comment);
             header('Location: ../public/index.php');
         }

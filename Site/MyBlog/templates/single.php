@@ -21,8 +21,7 @@
         <h3>Commentaires</h3>
         <a href="../public/index.php?route=addComment&postId=<?= htmlspecialchars($post->getid());?>">Nouveau commentaire</a>
         <?php
-        foreach($comments as $comment)
-        {
+        foreach ($comments as $comment) {
             ?>
             <h4><?= htmlspecialchars($comment->getpseudo());?></h4>
             <p><?= htmlspecialchars($comment->getdescription());?></p>

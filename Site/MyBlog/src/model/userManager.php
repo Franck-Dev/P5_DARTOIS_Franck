@@ -5,7 +5,8 @@ namespace App\src\model;
 use App\src\entity\User;
 use App\src\manager\Manager;
 
-class userManager extends Manager{
+class UserManager extends Manager
+{
 
     private function buildObject($row)
     {
@@ -28,5 +29,4 @@ class userManager extends Manager{
         $result->closeCursor();
         return $this->buildObject($user);
     }
-
 }

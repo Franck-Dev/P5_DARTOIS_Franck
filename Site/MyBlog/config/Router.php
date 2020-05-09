@@ -21,29 +21,22 @@ class Router
     }
     public function run()
     {
-        try{
-            if(isset($_GET['route']))
-            {
-                if($_GET['route'] === 'post'){
-                    $this->frontController->post($_GET['postId']);   
-                }
-                elseif($_GET['route'] === 'addPost'){
+        try {
+            if (isset($_GET['route'])) {
+                if ($_GET['route'] === 'post') {
+                    $this->frontController->post($_GET['postId']);
+                } elseif ($_GET['route'] === 'addPost') {
                     $this->backController->addPost($_POST);
-                }
-                elseif($_GET['route'] === 'addComment'){
+                } elseif ($_GET['route'] === 'addComment') {
                     $this->frontController->addComment($_POST);
-                }
-                else{
+                } else {
                     echo 'page inconnue';
                 }
-            }
-            else{
+            } else {
                 $this->frontController->home();
             }
         }
-        catch (Exception $e)
-        {
-            //$this->errorController->errorServer();
+        catch (Exception $e) {
             var_dump($e);
         }
     }

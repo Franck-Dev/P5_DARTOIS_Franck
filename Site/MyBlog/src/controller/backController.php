@@ -1,13 +1,11 @@
 <?php
-
 namespace App\src\controller;
 
-
-class backController extends controller
+class BackController extends Controller
 {
     public function addPost($post)
     {
-        if(isset($post['submit'])) {
+        if (isset($post['submit'])) {
             $this->postManager->addPost($post);
             header('Location: ../public/index.php');
         }

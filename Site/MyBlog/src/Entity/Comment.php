@@ -1,5 +1,4 @@
 <?php
-
 namespace App\src\entity;
 
 class Comment
@@ -69,7 +68,7 @@ class Comment
      */
     public function setDescription($description)
     {
-        $this->content = $description;
+        $this->description = $description;
     }
 
     /**

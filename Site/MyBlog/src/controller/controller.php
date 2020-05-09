@@ -7,11 +7,11 @@ use App\src\model\commentManager;
 use Twig\Loader\FilesystemLoader;
 use Twig\Environment;
 
-abstract class controller
+abstract class Controller
 {
     protected $postManager;
     protected $commentManager;
-    Protected $userManager;
+    protected $userManager;
     protected $twig;
 
     public function __construct()
@@ -25,5 +25,4 @@ abstract class controller
             'cache' => false //'../tmp',
         ]);
     }
-
 }

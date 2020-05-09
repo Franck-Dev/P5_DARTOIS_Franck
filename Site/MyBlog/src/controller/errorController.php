@@ -2,7 +2,7 @@
 
 namespace App\src\controller;
 
-class errorController
+class ErrorController
 {
     public function errorNotFound()
     {

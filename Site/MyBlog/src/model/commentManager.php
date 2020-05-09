@@ -5,7 +5,8 @@ namespace App\src\model;
 use App\src\entity\Comment;
 use App\src\manager\Manager;
 
-class commentManager extends Manager{
+class CommentManager extends Manager
+{
 
     private function buildObject($row)
     {
@@ -22,7 +23,7 @@ class commentManager extends Manager{
         $sql = 'SELECT id, pseudo, description, createdAt FROM comment WHERE post_id = ? ORDER BY createdAt DESC';
         $result=$this->createQuery($sql, [$postId]);
         $comments=[];
-        foreach($result as $row){
+        foreach ($result as $row) {
             $commentId=$row['id'];
             $comments[$commentId]=$this->buildObject($row);
         }
@@ -39,5 +40,4 @@ class commentManager extends Manager{
         $sql = 'INSERT INTO comment (post_id, description, pseudo, createdAt) VALUES (?, ?, ?, NOW())';
         $this->createQuery($sql,[$postId, $description, $pseudo]);
     }
-
 }

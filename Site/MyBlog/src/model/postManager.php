@@ -4,7 +4,7 @@ namespace App\src\model;
 use App\src\entity\Post;
 use App\src\manager\Manager;
 
-class postManager extends manager
+class PostManager extends Manager
 {
     private function buildObject($row)
     {
@@ -21,7 +21,7 @@ class postManager extends manager
     {
         $sql='SELECT id, title, description, author, createdAt FROM post ORDER BY id DESC';
         $result= $this->createQuery($sql);
-        foreach($result as $row){
+        foreach ($result as $row) {
             $postId=$row['id'];
             $post[$postId]=$this->buildObject($row);
         }
@@ -29,13 +29,13 @@ class postManager extends manager
         return $post;
     }
 
-    public function getPost($postId){
+    public function getPost($postId)
+    {
         $sql='SELECT id, title, description, author, createdAt FROM post WHERE id = ?';
-        $result= $this->createQuery($sql,[$postId]);
+        $result= $this->createQuery($sql, [$postId]);
         $post=$result->fetch();
         $result->closeCursor();
         return $this->buildObject($post);
-        
     }
 
     public function addPost($post)

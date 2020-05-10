@@ -41,8 +41,7 @@ class PostManager extends Manager
     public function addPost($post)
     {
         //Permet de récupérer les variables $title, $description et $author
-        extract($post);
         $sql = 'INSERT INTO post (title, description, author, createdAt) VALUES (?, ?, ?, NOW())';
-        $this->createQuery($sql, [$title, $description, $author]);
+        $this->createQuery($sql, [$post->get('title'), $post->get('description'), $post->get('author')]);
     }
 }

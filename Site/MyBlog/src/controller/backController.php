@@ -5,14 +5,13 @@ class BackController extends Controller
 {
     public function addPost($post)
     {
-        if (isset($post['submit'])) {
+        if ($post->get('submit')) {
             $this->postManager->addPost($post);
             header('Location: ../public/index.php');
         }
-        return require '../templates/add_post.php';
-        //return $this->twig->render('add_article', [
-        //    'post' => $post
-        //]);
+        return $this->twig->render('add_post', [
+           'post' => $post
+        ]);
     }
 
     public function adminPost()

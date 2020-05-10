@@ -29,11 +29,9 @@ class Router
                     $this->backController->addPost($_POST);
                 } elseif ($_GET['route'] === 'addComment') {
                     $this->frontController->addComment($_POST);
-                }
-                elseif($_GET['route'] === 'AdminPost'){
+                } elseif($_GET['route'] === 'AdminPost'){
                     $this->backController->adminPost();
-                }
-                else{
+                } else{
                     echo 'page inconnue';
                 }
             } else {

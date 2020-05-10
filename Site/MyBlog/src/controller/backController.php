@@ -18,7 +18,7 @@ class BackController extends Controller
     public function adminPost()
     {
         $posts=$this->postManager->getPosts();
-        echo $this->twig->render('post_Admin.html.twig',[
+        echo $this->twig->render('post_Admin.html.twig', [
             "posts" => $posts
           ]);
     }

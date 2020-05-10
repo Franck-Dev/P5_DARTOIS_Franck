@@ -6,7 +6,7 @@ class FrontController extends Controller
     public function home()
     {
          $posts=$this->postManager->getPosts();
-        echo $this->twig->render('home.html.twig',[
+        echo $this->twig->render('home.html.twig', [
             "posts" => $posts
           ]);
     }
@@ -15,7 +15,7 @@ class FrontController extends Controller
     {
         $post=$this->postManager->getPost($_GET['postId']);
         $comments=$this->commentManager->getComments($_GET['postId']);
-        echo $this->twig->render('single.html.twig',[
+        echo $this->twig->render('single.html.twig', [
             "post" => $post,
             "comments" => $comments
           ]);

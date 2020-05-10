@@ -1,0 +1,8 @@
+<form method="post" action="../public/index.php?route=addComment&postId={{post.id}}">
+    <label for="description">Contenu</label><br>
+    <textarea id="description" name="description"></textarea><br>
+    <label for="pseudo">Auteur</label><br>
+    <input type="text" id="pseudo" name="pseudo"><br>
+    <input type="text" hidden="false" id="postId" name="postId" value={{post.id}}><br>
+    <input type="submit" value="Envoyer" id="submit" name="submit">
+</form>

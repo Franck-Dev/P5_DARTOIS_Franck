@@ -6,6 +6,8 @@ use Exception;
 use App\src\controller\backController;
 use App\src\controller\errorController;
 use App\src\controller\frontController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class Router
 {
@@ -21,23 +23,28 @@ class Router
     }
     public function run()
     {
+        $request = Request::createFromGlobals();
+        $response= new Response();
         try {
-            if (isset($_GET['route'])) {
-                if ($_GET['route'] === 'post') {
-                    $this->frontController->post($_GET['postId']);
-                } elseif ($_GET['route'] === 'addPost') {
-                    $this->backController->addPost($_POST);
-                } elseif ($_GET['route'] === 'addComment') {
-                    $this->frontController->addComment($_POST);
-                } else {
-                    echo 'page inconnue';
-                }
+            if ($request->query->get('route')) {
+                if ($request->query->get('route') === 'post') {
+                    $this->frontController->post($request->query->get('postId'));
+                } elseif ($request->query->get('route') === 'addPost') {
+                    $this->backController->addPost($request->request);
+                } elseif ($request->query->get('route') === 'addComment') {
+                    $this->frontController->addComment($request->request);
+                } elseif($request->query->get('route') === 'AdminPost'){
+                    $this->backController->adminPost();
+                } else{
+                    $response->setContent('Page inconnue');
+                    $response->prepare($request);
+                    $response->send();                }
             } else {
                 $this->frontController->home();
             }
         }
         catch (Exception $e) {
-            var_dump($e);
+            //var_dump($e);
         }
     }
 }

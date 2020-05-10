@@ -33,11 +33,7 @@ class CommentManager extends Manager
 
     public function addComment($comment)
     {
-        //Permet de récupérer les variables $title, $description et $author
-        extract($comment);
-        var_dump($description);
-        var_dump($this);
         $sql = 'INSERT INTO comment (post_id, description, pseudo, createdAt) VALUES (?, ?, ?, NOW())';
-        $this->createQuery($sql,[$postId, $description, $pseudo]);
+        $this->createQuery($sql,[$comment->get('postId'), $comment->get('description'), $comment->get('pseudo')]);
     }
 }

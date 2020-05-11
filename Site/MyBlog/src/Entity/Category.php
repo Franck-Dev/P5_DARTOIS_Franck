@@ -1,7 +1,7 @@
 <?php
 namespace App\src\entity;
 
-class Comment
+class Category
 {
     /**
      * @var int
@@ -11,17 +11,12 @@ class Comment
     /**
      * @var string
      */
-    private $user;
+    private $name;
 
     /**
      * @var string
      */
     private $description;
-
-    /**
-     * @var \DateTime
-     */
-    private $createdAtComments;
 
     /**
      * @return int
@@ -42,17 +37,17 @@ class Comment
     /**
      * @return string
      */
-    public function getUser()
+    public function getName()
     {
-        return $this->user;
+        return $this->name;
     }
 
     /**
-     * @param string $user
+     * @param string $name
      */
-    public function setUser($user)
+    public function setName($name)
     {
-        $this->user = $user;
+        $this->name = $name;
     }
 
     /**
@@ -69,21 +64,5 @@ class Comment
     public function setDescription($description)
     {
         $this->description = $description;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getcreatedAtComments()
-    {
-        return $this->createdAtComments;
-    }
-
-    /**
-     * @param \DateTime $createdAtComments
-     */
-    public function setcreatedAtComments($createdAtComments)
-    {
-        $this->createdAtComments = $createdAtComments;
     }
 }

@@ -1,14 +1,15 @@
 <?php
 namespace App\src\controller;
 
-
 class FrontController extends Controller
 {
     public function home()
     {
-         $posts=$this->postManager->getPosts();
+        $categories=$this->categoryManager->getCategories();
+        $posts=$this->postManager->getPosts();
         echo $this->twig->render('home.html.twig', [
-            "posts" => $posts
+            "posts" => $posts,
+            "categories" => $categories
           ]);
     }
 
@@ -24,7 +25,7 @@ class FrontController extends Controller
 
     public function addComment($comment)
     {
-        if ($comment->get('submit')) {
+        if ($comment->request->get('submit')) {
             $this->commentManager->addComment($comment);
             header('Location: ../public/index.php');
         }
@@ -32,5 +33,17 @@ class FrontController extends Controller
         return $this->twig->render('add_comment.html.twig', [
            'comment' => $comment
         ]);
+    }
+
+    public function deleteComment($commentId)
+    {
+            $this->commentManager->deleteComment($commentId);
+            header('Location: ../public/index.php');
+    }
+
+    public function login($userId)
+    {
+            $this->userManager->checkUser($userId);
+            header('Location: ../public/index.php');
     }
 }

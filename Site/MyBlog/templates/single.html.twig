@@ -5,10 +5,10 @@
 {% block body %}
 {# <pre>{{dump(form)}}</pre> #}
 <div class="text-primary">
-    <h2>{{post.title}}</h2>
+    <h2 class="text-center">{{post.title}}</h2>
+    <h4>{{post.chapo}}</h4>
     <p>{{post.description}}</p>
-    <p>{{post.author}}</p>
-    <p>Créé le : {{post.createdAt}}</p>
+    <p class="text-right">{{post.user}} Créé le : {{post.createdAt}}</p>
 </div>
 <br>
 <div id="comments" class="text-white" style="margin-left: 50px">
@@ -33,9 +33,10 @@
         </div>
     </div>
     {% for comment in comments %}
-        <h4>{{comment.pseudo}}</h4>
+        <h4>{{comment.user}}</h4>
         <p>{{comment.description}}</p>
-        Posté le {{comment.createdAt}}
+        Posté le {{comment.createdAtComments}}
+        <a href="../Public/index.php?route=deleteComment&commentId={{comment.id}}" class="btn btn-danger" style="border-radius:40px">Supprimer</a>
     {%  endfor %}
 </div>
 {% endblock %}

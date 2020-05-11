@@ -1,15 +1,61 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
 {% if post %}
     {% set path = ['../public/index.php?route=editPost&postId=',post.Id]|join %}
     {% set btn = 'Modifier' %}
+    {% set cls = 'btn btn-danger' %}
 {% else %}
     {% set path = '../public/index.php?route=addPost' %}
+    {% set btn = 'Enregistrer' %}
+    {% set cls = 'btn btn-primary' %}
 {% endif %}
-<form method="post" action="{{path}}">
-    <label for="title">Titre</label><br>
-    <input type="text" id="title" name="title" value="{{post.title}}"><br>
-    <label for="description">Contenu</label><br>
-    <textarea id="description" name="description">{{post.description}}</textarea><br>
-    <label for="author">Auteur</label><br>
-    <input type="text" id="author" name="author" value="{{post.author}}"><br>
-    <input type="submit" value="{{btn}}" id="submit" name="submit">
+<form class="was-validated" method="post" action="{{path}}">
+    <div class="mb-3">
+        <label for="validationText">Titre</label>
+        <input type="text" class="form-control is-invalid" id="title" name="title" placeholder="Titre de l'article" required value="{{post.title}}">
+        <div class="invalid-feedback">
+            Vous devez écrire un titre à l'article.
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="validationTextarea">Extrait</label>
+        <textarea class="form-control is-invalid" id="chapo" name="chapo" placeholder="Synthèse de l'article">{{post.chapo}}</textarea>
+        <div class="invalid-feedback">
+            Vous devez écrire une Synthèse qui donne envie de lire l'article.
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="validationTextarea">Contenu</label>
+        <textarea class="form-control is-invalid" id="description" name="description" placeholder="Ecrire votre article içi" required>{{post.description}}</textarea>
+        <div class="invalid-feedback">
+            Vous devez écrire un descriptif de l'article.
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="validationTextarea">Choix catégorie</label>
+        <select class="custom-select" id="categoryId" name="categoryId" required>
+        {% for category in categories %}
+            {% if post.category == category.name %}
+                <option selected="selected" value="{{category.id}}">{{category.name}}</option>
+            {% else %}
+                <option value="{{category.id}}">{{category.name}}</option>
+            {% endif %}
+        {% endfor %}
+        </select>
+        <div class="invalid-feedback">
+            veuillez sélectionner une catégorie
+        </div>
+    </div>
+    <div class="custom-file">
+        <input type="file" class="custom-file-input" id="fileUpload">
+        <label class="custom-file-label" for="validatedCustomFile">Télécharger...</label>
+    </div>
+    <div class="mb-3">
+        <label for="validationText">Auteur</label>
+        <input type="text" class="form-control is-invalid" id="userId" name="userId" placeholder="Identifiant" required value="{{post.user}}">
+        <div class="invalid-feedback">
+            Inscrire votre nom.
+        </div>
+    </div>
+    <input class="{{cls}}" type="submit" value="{{btn}}" id="submit" name="submit">
 </form>

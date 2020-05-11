@@ -1,8 +1,27 @@
-<form method="post" action="../public/index.php?route=addComment&postId={{post.id}}">
-    <label for="description">Contenu</label><br>
-    <textarea id="description" name="description"></textarea><br>
-    <label for="pseudo">Auteur</label><br>
-    <input type="text" id="pseudo" name="pseudo"><br>
-    <input type="text" hidden="false" id="postId" name="postId" value={{post.id}}><br>
-    <input type="submit" value="Envoyer" id="submit" name="submit">
+{% if comment %}
+    {% set path = ['../public/index.php?route=editComment&CcommentId=',comment.Id]|join %}
+    {% set btn = 'Modifier' %}
+    {% set cls = 'btn btn-danger' %}
+{% else %}
+    {% set path = ['../public/index.php?route=addComment&postId=',post.id]|join %}
+    {% set btn = 'Enregistrer' %}
+    {% set cls = 'btn btn-primary' %}
+{% endif %}
+<form class="was-validated" method="post" action="{{path}}">
+    <div class="mb-3">
+        <label for="description">Contenu</label>
+        <textarea class="form-control" id="description" name="description" placeholder="Ecrire votre commentaire içi" required></textarea>
+        <div class="invalid-feedback">
+            Vous devez écrire quelques mots.
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="user">Auteur</label>
+        <input type="text" class="form-control is-invalid" id="pseudo" name="pseudo" placeholder="Votre nom" required value="">
+        <div class="invalid-feedback">
+            Identifiant obligatoire.
+        </div>
+    </div>
+    <input class="{{cls}}" type="submit" value="{{btn}}" id="submit" name="submit">
 </form>
+

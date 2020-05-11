@@ -3,11 +3,15 @@
 {% block title %}Administration des articles{% endblock %}
 {% block stylesheet %}{% endblock %}
 {% block body %}
+{# <pre>{{dump(categories)}}</pre> #}
     <h3 class="text-white">Gestion des articles du blog :</h3>
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalPost">
             Nouvel article
         </button>
-        <!-- Modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalCate">
+            Nouvelle catégorie
+        </button>
+        <!-- Modal Post-->
         <div class="modal fade" id="ModalPost" tabindex="-1" role="dialog" aria-labelledby="ModalPostLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -18,20 +22,38 @@
                         </button>
                     </div>
                     <div class="modal-body text-dark">
-                        {% set vars = {'btn': 'Enregistrer'} %}
-                        {% include 'form_AddPost.html.twig' with vars %}
+                        {% include 'form_AddPost.html.twig' with categories %}
                     </div>
                 </div>
             </div>
-        </div>
+        </div><!-- End Modal Post -->
+        <!-- Modal Category -->
+        <div class="modal fade" id="ModalCate" tabindex="-1" role="dialog" aria-labelledby="ModalCateLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header  bg-secondary">
+                        <h5 class="modal-title text-primary" id="ModalCateLabel">Création Nouvelle Categorie :</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body text-dark">
+                        {% set vars = {'btn': 'Enregistrer'} %}
+                        {% include 'form_AddCategory.html.twig' with vars %}
+                    </div>
+                </div>
+            </div>
+        </div><!-- End Modal Category -->
+        <!-- Post's Table -->
         <div class="table-responsive-md">
-            <table class="table table-striped">
+            <table class="table">
                   <thead class="thead-dark">
                     <tr>
                         <th scope="col">Id</th>
                         <th scope="col">Titre</th>
                         <th scope="col">Description</th>
                         <th scope="col">Chapo</th>
+                        <th scope="col">Catégorie</th>
                         <th scope="col">Date de création</th>
                         <th scope="col">Date modification</th>
                         <th scope="col">Auteur</th>
@@ -45,6 +67,7 @@
                             <td>{{post.title}}</td>
                             <td>{{post.description}}</td>
                             <td></td>
+                            <td></td>
                             <td>{{post.createdAt}}</td>
                             <td></td>
                             <td>{{post.author}}</td>
@@ -54,5 +77,5 @@
                     {% endfor %}
                 </tbody>
             </table>
-        </div>
+        </div><!-- End Post's Table -->
 {% endblock %}

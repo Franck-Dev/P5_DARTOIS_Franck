@@ -11,8 +11,8 @@ class App
     public function __construct()
     {
         $this->request = Request::createFromGlobals();
-
     }
+
     public function checkPath($url)
     {
         

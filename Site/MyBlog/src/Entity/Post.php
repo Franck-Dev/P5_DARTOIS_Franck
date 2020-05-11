@@ -16,12 +16,22 @@ class Post
     /**
      * @var string
      */
-    private $description;
+    private $chapo;
 
     /**
      * @var string
      */
-    private $author;
+    private $description;
+
+    /**
+     * @var int
+     */
+    private $category;
+
+    /**
+     * @var string
+     */
+    private $user;
 
     /**
      * @var \DateTime
@@ -63,6 +73,22 @@ class Post
     /**
      * @return string
      */
+    public function getChapo()
+    {
+        return $this->chapo;
+    }
+
+    /**
+     * @param string $chapo
+     */
+    public function setChapo($chapo)
+    {
+        $this->chapo = $chapo;
+    }
+
+    /**
+     * @return string
+     */
     public function getDescription()
     {
         return $this->description;
@@ -79,17 +105,33 @@ class Post
     /**
      * @return string
      */
-    public function getAuthor()
+    public function getUser()
     {
-        return $this->author;
+        return $this->user;
     }
 
     /**
-     * @param string $author
+     * @param string $user
      */
-    public function setAuthor($author)
+    public function setUser($user)
     {
-        $this->author = $author;
+        $this->user = $user;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * @param string $category
+     */
+    public function setCategory($category)
+    {
+        $this->category = $category;
     }
 
     /**

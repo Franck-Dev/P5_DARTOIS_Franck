@@ -12,15 +12,19 @@ class CommentManager extends Manager
     {
         $comment = new Comment();
         $comment->setId($row['id']);
-        $comment->setPseudo($row['pseudo']);
+        $comment->setUser($row['username']);
         $comment->setDescription($row['description']);
-        $comment->setCreatedAt($row['createdAt']);
+        $comment->setCreatedAtComments($row['createdAtComments']);
         return $comment;
     }
 
     public function getComments($postId)
     {
-        $sql = 'SELECT id, pseudo, description, createdAt FROM comment WHERE post_id = ? ORDER BY createdAt DESC';
+        $sql = 'SELECT c.id, u.username, c.description,
+         c.createdAtComments FROM comments as c 
+         LEFT JOIN user as u ON c.user_id = u.id 
+         WHERE c.posts_id = ? 
+         ORDER BY c.createdAtComments DESC';
         $result=$this->createQuery($sql, [$postId]);
         $comments=[];
         foreach ($result as $row) {
@@ -33,7 +37,16 @@ class CommentManager extends Manager
 
     public function addComment($comment)
     {
-        $sql = 'INSERT INTO comment (post_id, description, pseudo, createdAt) VALUES (?, ?, ?, NOW())';
-        $this->createQuery($sql,[$comment->get('postId'), $comment->get('description'), $comment->get('pseudo')]);
+        //var_dump($comment);
+        $sql = 'INSERT INTO comments (posts_id, description,
+         user_id, createdAtComments) VALUES (?, ?, ?, NOW())';
+        $this->createQuery($sql, [
+            $comment->query->get('postId'), $comment->request->get('description'), $comment->request->get('pseudo')]);
+    }
+
+    public function deleteComment($commentId)
+    {
+        $sql = 'DELETE FROM comments WHERE id=?';
+        $this->createQuery($sql, [$commentId]);
     }
 }

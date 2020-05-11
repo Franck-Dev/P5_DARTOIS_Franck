@@ -23,7 +23,8 @@ class UserManager extends Manager
 
     public function checkUser($userId)
     {
-        $sql = 'SELECT id, username, email, password, create_time, Profils_id,Statut_id,last_date_connect FROM user WHERE user_id = ?';
+        $sql = 'SELECT id, username, email, password,
+         create_time, Profils_id,Statut_id,last_date_connect FROM user WHERE user_id = ?';
         $result= $this->createQuery($sql, [$userId]);
         $user=$result->fetch();
         $result->closeCursor();

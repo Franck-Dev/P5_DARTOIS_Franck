@@ -11,15 +11,22 @@ class PostManager extends Manager
         $post = new Post();
         $post->setId($row['id']);
         $post->setTitle($row['title']);
+        $post->setChapo($row['chapo']);
         $post->setDescription($row['description']);
-        $post->setAuthor($row['author']);
+        $post->setUser($row['username']);
+        $post->setCategory($row['namecate']);
         $post->setCreatedAt($row['createdAt']);
         return $post;
     }
 
     public function getPosts()
     {
-        $sql='SELECT id, title, description, author, createdAt FROM post ORDER BY id DESC';
+        $sql='SELECT p.id, p.title, p.description, 
+        p.chapo, u.username, p.createdAt, c.name as namecate
+        FROM posts as p 
+        LEFT JOIN user as u ON p.user_id = u.id 
+        LEFT JOIN category as c ON p.category_id = c.id
+        ORDER BY id DESC';
         $result= $this->createQuery($sql);
         foreach ($result as $row) {
             $postId=$row['id'];
@@ -31,7 +38,12 @@ class PostManager extends Manager
 
     public function getPost($postId)
     {
-        $sql='SELECT id, title, description, author, createdAt FROM post WHERE id = ?';
+        $sql='SELECT p.id, p.title, p.chapo, p.description,
+         u.username, p.createdAt, c.name as namecate 
+         FROM posts as p
+         LEFT JOIN user as u ON p.user_id = u.id 
+        LEFT JOIN category as c ON p.category_id = c.id 
+        WHERE p.id = ?';
         $result= $this->createQuery($sql, [$postId]);
         $post=$result->fetch();
         $result->closeCursor();
@@ -41,18 +53,24 @@ class PostManager extends Manager
     public function addPost($post)
     {
         //Permet de récupérer les variables $title, $description et $author
-        $sql = 'INSERT INTO post (title, description, author, createdAt) VALUES (?, ?, ?, NOW())';
-        $this->createQuery($sql, [$post->get('title'), $post->get('description'), $post->get('author')]);
+        $sql = 'INSERT INTO posts (title, description, chapo, 
+         user_id, category_id, createdAt) VALUES (?, ?, ?, ?, ?, NOW())';
+        $this->createQuery($sql, [
+            $post->get('title'), $post->get('description'), $post->get('chapo'),
+            $post->get('userId'), $post->get('categoryId')]);
     }
 
-    public function editPost($post,$postId)
+    public function editPost($post, $postId)
     {
         //Permet de mettre à jour l'article
-        $sql = 'UPDATE post SET title=:title, description=:description, author=:author WHERE id=:postId';
+        $sql = 'UPDATE posts SET title=:title, chapo=:chapo, description=:description, 
+        user_id=:user_id, category_id=:category_id  WHERE id=:postId';
         $this->createQuery($sql, [
             'title' => $post->get('title'),
+            'chapo' => $post->get('chapo'),
             'description' => $post->get('description'),
-            'author' => $post->get('author'),
+            'user_id' => $post->get('userId'),
+            'category_id' => $post->get('categoryId'),
             'postId' =>$postId
         ]);
     }
@@ -62,7 +80,7 @@ class PostManager extends Manager
         //Permet de supprimer un article et ses commentaires associés
         $sql = 'DELETE FROM comment WHERE post_id = ?';
         $this->createQuery($sql, [$postId]);
-        $sql = 'DELETE FROM post WHERE id = ?';
+        $sql = 'DELETE FROM posts WHERE id = ?';
         $this->createQuery($sql, [$postId]);
     }
 }

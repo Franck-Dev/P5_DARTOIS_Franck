@@ -12,12 +12,12 @@
                         <h3> {{post.title}} </h3>
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title">Special title treatment</h5>
+                        <h5 class="card-title">{{post.chapo}}</h5>
                         <p class="card-text">{{post.description}}</p>
                         <a href="../public/index.php?route=post&postId={{post.id}}" class="btn btn-primary">En savoir plus</a>
                     </div>
                     <div class="card-footer text">
-                        Créé le : {{post.createdAt}} par {{post.author}}
+                        Créé le : {{post.createdAt}} par {{post.user}}
                     </div>
                 </div>
             </div>

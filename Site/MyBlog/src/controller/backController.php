@@ -11,16 +11,17 @@ class BackController extends Controller
         }
     }
 
-    public function editPost($request,$postId)
+    public function editPost($request, $postId)
     {
         $post=$this->postManager->getPost($postId);
+        $categories=$this->categoryManager->getCategories();
         if ($request->get('submit')) {
-            $this->postManager->editPost($request,$postId);
+            $this->postManager->editPost($request, $postId);
             header('Location: ../public/index.php');
         }
-        //var_dump($post);
         echo $this->twig->render('form_AddPost.html.twig', [
-           'post' => $post
+           'post' => $post,
+           'categories' => $categories
         ]);
     }
     
@@ -30,11 +31,39 @@ class BackController extends Controller
             header('Location: ../public/index.php');
     }
 
+    public function addCategory($category)
+    {
+        if ($category->get('submit')) {
+            $this->categoryManager->addCategory($category);
+            header('Location: ../public/index.php');
+        }
+    }
+
+    public function editCategory($request, $categoryId)
+    {
+        $category=$this->categoryManager->getCategory($categoryId);
+        if ($request->get('submit')) {
+            $this->categoryManager->editCategory($request, $categoryId);
+            header('Location: ../public/index.php');
+        }
+        echo $this->twig->render('form_AddCategory.html.twig', [
+           'category' => $category
+        ]);
+    }
+    
+    public function deleteCategory($categoryId)
+    {
+            $this->categoryManager->deleteCategory($categoryId);
+            header('Location: ../public/index.php');
+    }
+
     public function adminPost()
     {
         $posts=$this->postManager->getPosts();
+        $categories=$this->categoryManager->getCategories();
         echo $this->twig->render('post_Admin.html.twig', [
-            "posts" => $posts
+            "posts" => $posts,
+            "categories" => $categories
           ]);
     }
 }

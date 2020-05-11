@@ -31,6 +31,10 @@ class Router
                     $this->frontController->post($request->query->get('postId'));
                 } elseif ($request->query->get('route') === 'addPost') {
                     $this->backController->addPost($request->request);
+                } elseif ($request->query->get('route') === 'editPost') {
+                    $this->backController->editPost($request,$request->query->get('postId'));
+                } elseif ($request->query->get('route') === 'deletePost') {
+                    $this->backController->deletePost($request->query->get('postId'));
                 } elseif ($request->query->get('route') === 'addComment') {
                     $this->frontController->addComment($request->request);
                 } elseif($request->query->get('route') === 'AdminPost'){
@@ -44,7 +48,7 @@ class Router
             }
         }
         catch (Exception $e) {
-            //var_dump($e);
+            var_dump($e);
         }
     }
 }

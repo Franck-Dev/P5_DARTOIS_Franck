@@ -9,9 +9,25 @@ class BackController extends Controller
             $this->postManager->addPost($post);
             header('Location: ../public/index.php');
         }
-        return $this->twig->render('add_post', [
+    }
+
+    public function editPost($request,$postId)
+    {
+        $post=$this->postManager->getPost($postId);
+        if ($request->get('submit')) {
+            $this->postManager->editPost($request,$postId);
+            header('Location: ../public/index.php');
+        }
+        //var_dump($post);
+        echo $this->twig->render('form_AddPost.html.twig', [
            'post' => $post
         ]);
+    }
+    
+    public function deletePost($postId)
+    {
+            $this->postManager->deletePost($postId);
+            header('Location: ../public/index.php');
     }
 
     public function adminPost()

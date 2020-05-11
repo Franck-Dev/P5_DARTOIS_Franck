@@ -44,4 +44,25 @@ class PostManager extends Manager
         $sql = 'INSERT INTO post (title, description, author, createdAt) VALUES (?, ?, ?, NOW())';
         $this->createQuery($sql, [$post->get('title'), $post->get('description'), $post->get('author')]);
     }
+
+    public function editPost($post,$postId)
+    {
+        //Permet de mettre à jour l'article
+        $sql = 'UPDATE post SET title=:title, description=:description, author=:author WHERE id=:postId';
+        $this->createQuery($sql, [
+            'title' => $post->get('title'),
+            'description' => $post->get('description'),
+            'author' => $post->get('author'),
+            'postId' =>$postId
+        ]);
+    }
+
+    public function deletePost($postId)
+    {
+        //Permet de supprimer un article et ses commentaires associés
+        $sql = 'DELETE FROM comment WHERE post_id = ?';
+        $this->createQuery($sql, [$postId]);
+        $sql = 'DELETE FROM post WHERE id = ?';
+        $this->createQuery($sql, [$postId]);
+    }
 }

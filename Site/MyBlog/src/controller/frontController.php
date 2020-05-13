@@ -29,21 +29,31 @@ class FrontController extends Controller
             $this->commentManager->addComment($comment);
             header('Location: ../public/index.php');
         }
-        //return require '../templates/add_comment.php';
-        return $this->twig->render('add_comment.html.twig', [
-           'comment' => $comment
-        ]);
     }
 
     public function deleteComment($commentId)
     {
-            $this->commentManager->deleteComment($commentId);
-            header('Location: ../public/index.php');
+        $this->commentManager->deleteComment($commentId);
+        header('Location: ../public/index.php');
     }
 
-    public function login($userId)
-    {
-            $this->userManager->checkUser($userId);
+    public function login($user)
+    {  
+        if ($user->request->get('submit')) {
+            $this->userManager->checkUser($user);
             header('Location: ../public/index.php');
+        }
+        else{
+            echo $this->twig->render('login.html.twig');
+        }
+    }
+
+    public function register($user)
+    {
+        if ($user->request->get('submit')) {
+            $this->userManager->register($user);
+            header('Location: ../public/index.php');
+        }
+        echo $this->twig->render('form_AddUser.html.twig');
     }
 }

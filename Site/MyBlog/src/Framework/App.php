@@ -1,25 +1,45 @@
 <?php
 namespace App\src\Framework;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-
-class App
+class Session
 {
-    private $request;
+    private $session;
 
-    public function __construct()
+    public function __construct($session)
     {
-        $this->request = Request::createFromGlobals();
+        $this->session = $session;
     }
 
-    public function checkPath($url)
+    public function set($name, $value)
     {
-        
-        // $request->query->get($url);
-        // // $response= new Response();
-        // // $response=$request->getContent();
-        // //var_dump($request->request);
-        // return $request->query->get($url);
+        $_SESSION[$name] = $value;
     }
+
+    public function get($name)
+    {
+        if(isset($_SESSION[$name])) {
+            return $_SESSION[$name];
+        }
+    }
+
+    public function show($name)
+    {
+        if(isset($_SESSION[$name]))
+        {
+            $key = $this->get($name);
+            $this->remove($name);
+            return $key;
+        }
+    }
+
+    public function remove($name)
+    {
+        unset($_SESSION[$name]);
+    }
+
+    public function stop()
+    {
+        session_destroy();
+    }
+
 }

@@ -26,17 +26,17 @@ class User
     /**
      * @var \DateTime
      */
-    private $createTime;
+    private $createdAt;
 
     /**
-     * @var int
+     * @var string
      */
-    private $profilsId;
+    private $profil;
 
     /**
-     * @var int
+     * @var string
      */
-    private $statutId;
+    private $statut;
 
     /**
      * @var \DateTime
@@ -110,49 +110,49 @@ class User
     /**
      * @return \DateTime
      */
-    public function getcreateTime()
+    public function getCreatedAt()
     {
-        return $this->createTime;
+        return $this->createdAt;
     }
 
     /**
-     * @param \DateTime $createTime
+     * @param \DateTime $createdAt
      */
-    public function setcreateTime($createTime)
+    public function setCreatedAt($createdAt)
     {
-        $this->createTime = $createTime;
+        $this->createdAt = $createdAt;
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getprofilsId()
+    public function getProfil()
     {
-        return $this->profilsId;
+        return $this->profil;
     }
 
     /**
-     * @param int $profilsId
+     * @param string $profil
      */
-    public function setprofilsId($profilsId)
+    public function setProfil($profil)
     {
-        $this->profilsId = $profilsId;
+        $this->profil = $profil;
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getstatutId()
+    public function getStatut()
     {
-        return $this->statutId;
+        return $this->statut;
     }
 
     /**
-     * @param int $statutId
+     * @param int $statut
      */
-    public function setstatutId($statutId)
+    public function setStatut($statut)
     {
-        $this->statutId = $statutId;
+        $this->statut = $statut;
     }
 
     /**

@@ -1,0 +1,67 @@
+{% extends "layout.html.twig" %}
+{% set fruits = ['apple', 'orange', 'citrus'] %}
+
+{% block title %}Admin Commentaires{% endblock %}
+{% block body %}
+<h3 class="text-white">Gestion des commentaires :</h3>
+{% set tbComments = comments %}
+    {% for statut in comments|keys %}
+        {% set var = ['collapse',statut]|join %}
+        <div id="accordion" class="bg-transparent">
+            <div class="card text-center">
+                <div class="card-header bg-primary" id="headingOne">
+                <h5 class="mb-0">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#{{var}}" 
+                    aria-expanded="true" aria-controls="collapseOne">
+                        {% if statut == 0 %}
+                            <h5 class="text-white">Commentaires à valider</h5>
+                        {% else %}
+                            <h5 class="text-white">Commentaires validés</h5>
+                        {% endif %}
+                    </button>
+                </h5>
+                </div>
+                <div id="{{var}}" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="card-body"    style="opacity:0.6">
+                        <div class="table-responsive-md">
+                            <table class="table">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">Post</th>
+                                        <th scope="col">Commentaires</th>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Auteur</th>
+                                        <th scope="col">Statut</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in tbComments[statut] %}
+                                        <tr>
+                                            <th scope="row"><a href="../public/index.php?route=post&postId={{item.id}}">{{item.id}}</a></th>
+                                            <td>{{item.description}}</td>
+                                            <td>{{item.createdAtComments}}</td>
+                                            <td>{{item.user}}</td>
+                                            <td>{% if item.statut ==1 %}<!-- Checked comment's statut-->
+                                                    {% set var = 'checked' %}
+                                                    {% set statut = 'Valide' %}
+                                                {% else %}
+                                                    {% set var = '' %}
+                                                    {% set statut = 'A valider' %}
+                                                {% endif %}
+                                                {% set name = ['SwitchStatut',item.id]|join %}
+                                                <div class="custom-control custom-switch">
+                                                    <input type="checkbox" class="custom-control-input" id="{{name}}" {{var}}>
+                                                    <label class="custom-control-label" for="{{name}}">{{statut}}</label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

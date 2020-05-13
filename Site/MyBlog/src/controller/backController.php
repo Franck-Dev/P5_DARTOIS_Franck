@@ -57,13 +57,29 @@ class BackController extends Controller
             header('Location: ../public/index.php');
     }
 
-    public function adminPost()
+    public function adminPosts()
     {
         $posts=$this->postManager->getPosts();
         $categories=$this->categoryManager->getCategories();
         echo $this->twig->render('post_Admin.html.twig', [
             "posts" => $posts,
             "categories" => $categories
+          ]);
+    }
+
+    public function adminComments()
+    {
+        $comments=$this->commentManager->getCommentsValidate();
+        echo $this->twig->render('comment_Admin.html.twig', [
+            "comments" => $comments
+          ]);
+    }
+
+    public function adminUsers()
+    {
+        $users=$this->userManager->getUsers();
+        echo $this->twig->render('user_Admin.html.twig', [
+            "users" => $users
           ]);
     }
 }

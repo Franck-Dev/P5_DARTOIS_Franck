@@ -24,6 +24,16 @@ class Comment
     private $createdAtComments;
 
     /**
+     * @var int
+     */
+    private $statut;
+
+    /**
+     * @var int
+     */
+    private $postId;
+
+    /**
      * @return int
      */
     public function getId()
@@ -72,6 +82,22 @@ class Comment
     }
 
     /**
+     * @return int
+     */
+    public function getStatut()
+    {
+        return $this->statut;
+    }
+
+    /**
+     * @param int $statut
+     */
+    public function setStatut($statut)
+    {
+        $this->statut = $statut;
+    }
+
+    /**
      * @return \DateTime
      */
     public function getcreatedAtComments()
@@ -85,5 +111,21 @@ class Comment
     public function setcreatedAtComments($createdAtComments)
     {
         $this->createdAtComments = $createdAtComments;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPostId()
+    {
+        return $this->postId;
+    }
+
+    /**
+     * @param int $postId
+     */
+    public function setPostId($postId)
+    {
+        $this->id = $postId;
     }
 }

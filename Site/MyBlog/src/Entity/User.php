@@ -41,7 +41,7 @@ class User
     /**
      * @var \DateTime
      */
-    private $lastDAteConnect;
+    private $lastDateConnect;
 
     /**
      * @return int

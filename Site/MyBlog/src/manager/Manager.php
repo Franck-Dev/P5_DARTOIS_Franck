@@ -41,7 +41,7 @@ abstract class Manager
         } 
         //On renvoie une erreur si la connexion échoue
         catch (Exception $errorConnection) {
-            die('Erreur de connection :'.$errorConnection->getMessage());
+            die($errorConnection->getMessage());
         }
     }
 

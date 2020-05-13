@@ -62,16 +62,16 @@ class CommentManager extends Manager
             c.createdAtComments, c.statut, c.posts_id FROM comments as c 
             LEFT JOIN user as u ON c.user_id = u.id 
             WHERE c.statut = ? ';
-            $result1=$this->createQuery($sql1,[$usr['statut']]);
+            $result1=$this->createQuery($sql1, [$usr['statut']]);
             $comments=[];
-            foreach ($result1 as $data ) {
+            foreach ($result1 as $data) {
                 $commentId=$data['id'];
                 $comments[$commentId]=$this->buildObject($data);
             }
             $result1->closeCursor();
             $commentsUser[$usr['statut']]=$comments;
         }
-       $result->closeCursor();
-       return $commentsUser;
+        $result->closeCursor();
+        return $commentsUser;
     }
 }

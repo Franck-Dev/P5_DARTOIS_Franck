@@ -37,9 +37,9 @@ class UserManager extends Manager
         $sql = 'INSERT INTO user (username, email, password,
          createdAt, Profil, Statut) VALUES (?, ?, ?, NOW(), ?, ?)';
         $this->createQuery($sql, [
-            $user->get('username'), $user->get('email'), 
-            password_hash($user->get('password'), PASSWORD_BCRYPT), 
-            'USER', 'NOT']);
+            $user->get('username'), $user->get('email'),
+             password_hash($user->get('password'), PASSWORD_BCRYPT),
+             'USER', 'NOT']);
     }
 
     public function getUsers()

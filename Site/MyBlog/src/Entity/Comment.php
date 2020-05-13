@@ -126,6 +126,6 @@ class Comment
      */
     public function setPostId($postId)
     {
-        $this->id = $postId;
+        $this->postId = $postId;
     }
 }

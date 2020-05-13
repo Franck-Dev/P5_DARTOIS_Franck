@@ -36,6 +36,7 @@
         <h4>{{comment.user}}</h4>
         <p>{{comment.description}}</p>
         Posté le {{comment.createdAtComments}}
+        {{comment.id}}
         <a href="../Public/index.php?route=deleteComment&commentId={{comment.id}}" class="btn btn-danger" style="border-radius:40px">Supprimer</a>
     {%  endfor %}
 </div>

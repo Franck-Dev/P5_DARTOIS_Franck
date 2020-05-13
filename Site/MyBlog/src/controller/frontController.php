@@ -38,12 +38,11 @@ class FrontController extends Controller
     }
 
     public function login($user)
-    {  
+    {
         if ($user->request->get('submit')) {
             $this->userManager->checkUser($user);
             header('Location: ../public/index.php');
-        }
-        else{
+        } else {
             echo $this->twig->render('login.html.twig');
         }
     }

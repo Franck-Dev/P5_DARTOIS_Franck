@@ -39,7 +39,6 @@ class CommentManager extends Manager
 
     public function addComment($comment)
     {
-        //var_dump($comment);
         $sql = 'INSERT INTO comments (posts_id, description,
          user_id, createdAtComments, statut) VALUES (?, ?, ?, NOW(), 0)';
         $this->createQuery($sql, [
@@ -56,7 +55,7 @@ class CommentManager extends Manager
     {
         $sql='SELECT DISTINCT statut FROM comments';
         $result=$this->createQuery($sql);
-        $commentsUser=[];
+        $commentsUsers=[];
         foreach ($result as $usr) {
             $sql1 = 'SELECT c.id, u.username, c.description,
             c.createdAtComments, c.statut, c.posts_id FROM comments as c 
@@ -69,7 +68,32 @@ class CommentManager extends Manager
                 $comments[$commentId]=$this->buildObject($data);
             }
             $result1->closeCursor();
-            $commentsUser[$usr['statut']]=$comments;
+            $commentsUsers[$usr['statut']]=$comments;
+        }
+       $result->closeCursor();
+       return $commentsUsers;
+    }
+
+    public function getcommentsUser($userId)
+    {
+        $sql='SELECT DISTINCT id FROM posts';
+        $result=$this->createQuery($sql);
+        $commentsUser=[];
+        foreach ($result as $post) {
+            $sql1 = 'SELECT c.id, u.username, c.description,
+            c.createdAtComments, c.statut, p.title, c.posts_id FROM comments as c 
+            LEFT JOIN posts as p ON c.posts_id = p.id 
+            LEFT JOIN user as u ON c.user_id = u.id  
+            WHERE c.posts_id = ? AND c.user_id = ? ';
+            $result1=$this->createQuery($sql1,[$post['id'],$userId]);
+            $comments=[];
+            foreach ($result1 as $data ) {
+                $commentId=$data['id'];
+                $titlePost=$data['title'];
+                $comments[$commentId]=$this->buildObject($data);
+            }
+            $result1->closeCursor();
+            $commentsUser[$titlePost]=$comments;
         }
         $result->closeCursor();
         return $commentsUser;

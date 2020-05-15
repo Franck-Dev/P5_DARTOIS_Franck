@@ -24,9 +24,7 @@ class Router
     public function run()
     {
         $request = Request::createFromGlobals();
-        $response= new Response();
-        session_start();
-
+        $response = new Response();
         try {
             if ($request->query->get('route')) {
                 if ($request->query->get('route') === 'post') {
@@ -35,6 +33,10 @@ class Router
                     $this->frontController->register($request);
                 } elseif ($request->query->get('route') === 'login') {
                     $this->frontController->login($request);
+                } elseif ($request->query->get('route') === 'logout') {
+                    $this->frontController->logout();
+                } elseif ($request->query->get('route') === 'userComments') {
+                    $this->frontController->userComments();
                 } elseif ($request->query->get('route') === 'addComment') {
                     $this->frontController->addComment($request);
                 } elseif ($request->query->get('route') === 'deleteComment') {

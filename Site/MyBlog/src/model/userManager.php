@@ -2,12 +2,12 @@
 
 namespace App\src\model;
 
+use DateTime;
 use App\src\entity\User;
 use App\src\manager\Manager;
 
 class UserManager extends Manager
 {
-
     private function buildObject($row)
     {
         $user = new User();
@@ -23,10 +23,10 @@ class UserManager extends Manager
 
     public function checkUser($user)
     {
-        $email=$user->get('username');
+        $name=$user->get('username');
         $sql = 'SELECT id, username, email, password,
          CreatedAt, Profil, Statut, last_date_connect FROM user WHERE username = ?';
-        $result= $this->createQuery($sql, [$email]);
+        $result= $this->createQuery($sql, [$name]);
         $user=$result->fetch();
         $result->closeCursor();
         return $this->buildObject($user);
@@ -37,11 +37,11 @@ class UserManager extends Manager
         $sql = 'INSERT INTO user (username, email, password,
          createdAt, Profil, Statut) VALUES (?, ?, ?, NOW(), ?, ?)';
         $this->createQuery($sql, [
-            $user->get('username'), $user->get('email'), 
-            password_hash($user->get('password'), PASSWORD_BCRYPT), 
-            'USER', 'NOT']);
+            $user->get('username'), $user->get('email'),
+             password_hash($user->get('password'), PASSWORD_BCRYPT),
+             'USER', 'NOT']);
     }
-
+    
     public function getUsers()
     {
         $sql = 'SELECT * FROM user';
@@ -52,5 +52,24 @@ class UserManager extends Manager
         }
         $result->closeCursor();
         return $user;
+    }
+
+    public function login($user)
+    {
+        $sql = 'SELECT id, password, username, email, statut, profil, last_date_connect FROM user WHERE username = ?';
+        $data = $this->createQuery($sql, [$user->get('username')]);
+        $result = $data->fetch();
+        $isPasswordValid = password_verify($user->get('password'), $result['password']);
+        if ($isPasswordValid === true) 
+        {
+            $sql='UPDATE user SET last_date_connect=NOW() WHERE id=:userId';
+            $this->createQuery($sql, [
+                'userId' => $user->get('id')
+            ]);
+        }
+        return [
+            'result' => $result,
+            'isPasswordValid' => $isPasswordValid
+        ];
     }
 }

@@ -8,6 +8,7 @@ use App\src\model\commentManager;
 use Twig\Loader\FilesystemLoader;
 use App\src\model\categoryManager;
 use Twig\Extension\DebugExtension;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 abstract class Controller
 {
@@ -16,6 +17,7 @@ abstract class Controller
     protected $commentManager;
     protected $userManager;
     protected $twig;
+    protected $session;
 
     public function __construct()
     {
@@ -29,5 +31,7 @@ abstract class Controller
             'cache' => false //'../tmp',
         ]);
         $this->twig->addExtension(new DebugExtension);
+        $this->session=new Session();
+        $this->twig->addGlobal('app', new Session());
     }
 }

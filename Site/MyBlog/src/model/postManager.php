@@ -19,15 +19,27 @@ class PostManager extends Manager
         return $post;
     }
 
-    public function getPosts()
+    public function getPosts($categoryId = null)
     {
-        $sql='SELECT p.id, p.title, p.description, 
-        p.chapo, u.username, p.createdAt, c.name as namecate
-        FROM posts as p 
-        LEFT JOIN user as u ON p.user_id = u.id 
-        LEFT JOIN category as c ON p.category_id = c.id
-        ORDER BY id DESC';
-        $result= $this->createQuery($sql);
+        if ($categoryId) {
+            $sql='SELECT p.id, p.title, p.description, 
+            p.chapo, u.username, p.createdAt, c.name as namecate
+            FROM posts as p 
+            LEFT JOIN user as u ON p.user_id = u.id 
+            LEFT JOIN category as c ON p.category_id = c.id
+            WHERE p.category_id = ?
+            ORDER BY id DESC';
+            $result= $this->createQuery($sql, [$categoryId]);
+        } else {
+            $sql='SELECT p.id, p.title, p.description, 
+            p.chapo, u.username, p.createdAt, c.name as namecate
+            FROM posts as p 
+            LEFT JOIN user as u ON p.user_id = u.id 
+            LEFT JOIN category as c ON p.category_id = c.id
+            ORDER BY id DESC';
+            $result= $this->createQuery($sql);
+        }
+        $post=[];
         foreach ($result as $row) {
             $postId=$row['id'];
             $post[$postId]=$this->buildObject($row);
@@ -82,5 +94,17 @@ class PostManager extends Manager
         $this->createQuery($sql, [$postId]);
         $sql = 'DELETE FROM posts WHERE id = ?';
         $this->createQuery($sql, [$postId]);
+    }
+
+    public function getpostsCount()
+    {
+        $sql='SELECT DISTINCT category_id, COUNT(id) AS nb FROM posts GROUP BY category_id';
+        $result=$this->createQuery($sql);
+        $postNb=[];
+        foreach ($result as $row) {
+            $postNb[$row['category_id']]=$row['nb'];
+        }
+        $result->closeCursor();
+        return $postNb;
     }
 }

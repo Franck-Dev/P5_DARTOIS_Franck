@@ -14,12 +14,18 @@
         <p>{{post.description}}</p>
         <p class="text-right m-0">{{post.user}} Créé le : {{post.createdAt}}</p>
     </div>
-    <divclass="card-footer text-white m-2 bg-transparent" id="comments" >
+    <div class="card-footer text-white m-2 bg-transparent" id="comments" >
         <h3>Commentaires</h3>
-        <button type="button" class="btn btn-primary m-1" data-toggle="modal" data-target="#ModalComment">
-            Nouveau commentaire
-        </button>
-        <!-- Modal -->
+        <!-- Test if the user is connected to comment -->
+        {% if app.get('username') %}
+            <button type="button" class="btn btn-primary m-1" data-toggle="modal" data-target="#ModalComment">
+                Nouveau commentaire
+            </button>
+        {% else %}
+            
+        {% endif %}
+        
+        <!-- Modal for comment form-->
         <div class="modal fade" id="ModalComment" tabindex="-1" role="dialog" aria-labelledby="ModalCommentLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">

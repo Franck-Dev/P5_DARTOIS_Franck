@@ -2,6 +2,10 @@
 
 namespace App\src\controller;
 
+use SebastianBergmann\Type\TypeName;
+use Symfony\Component\Validator\Constraints\Type;
+use Symfony\Component\Validator\Constraints\NotBlank;
+
 
 class FrontController extends Controller
 {
@@ -18,13 +22,17 @@ class FrontController extends Controller
         }
     }
     
-    public function home()
+    public function home($categoryId = null)
     {
         $categories=$this->categoryManager->getCategories();
-        $posts=$this->postManager->getPosts();
+        $posts=$this->postManager->getPosts($categoryId);
+        $commentsCount=$this->commentManager->getcommentsCount();
+        $postsCount=$this->postManager->getpostsCount();
         echo $this->twig->render('home.html.twig', [
             "posts" => $posts,
-            "categories" => $categories
+            "categories" => $categories,
+            "nbposts" => $postsCount,
+            "nbcomments" => $commentsCount
           ]);
     }
 
@@ -32,9 +40,11 @@ class FrontController extends Controller
     {
         $post=$this->postManager->getPost($postId);
         $comments=$this->commentManager->getComments($postId);
+        $commentsCount=$this->commentManager->getcommentsCount($postId);
         echo $this->twig->render('single.html.twig', [
             "post" => $post,
-            "comments" => $comments
+            "comments" => $comments,
+            "count" => $commentsCount
           ]);
     }
 
@@ -48,8 +58,18 @@ class FrontController extends Controller
 
     public function deleteComment($commentId)
     {
-        $this->commentManager->deleteComment($commentId);
-        header('Location: ../public/index.php');
+        $violations = $this->validator->validate($commentId, [
+            new Type('integer'),
+            new NotBlank(),
+        ]);
+        if (0 !== count($violations)) {
+            foreach ($violations as $violation){
+                echo $violation->getMessage();
+            } 
+        } else {
+            $this->commentManager->deleteComment($commentId);
+            header('Location: ../public/index.php');
+        }
     }
 
     public function login($user)
@@ -63,6 +83,10 @@ class FrontController extends Controller
             else{
                 $this->session->getFlashBag()->add('connexion',
                  'Mot de passe ou identifiant incorrect');
+                $message='Mot de passe ou identifiant incorrect';
+                echo $this->twig->render('login.html.twig',[
+                    'message' => $message
+                ]);
             }
         }
         else{
@@ -79,10 +103,19 @@ class FrontController extends Controller
     public function register($user)
     {
         if ($user->request->get('submit')) {
-            $this->userManager->register($user);
-            header('Location: ../public/index.php');
+            //Check in database if user exist
+            $userExist=$this->userManager->checkUser($user->request);
+            if (!$userExist) {
+                echo $this->twig->render('register.html.twig', [
+                    'user' => $user,
+                    'message' => 'Utilisateur deja existant'
+                ]);
+            } else {
+                $this->userManager->register($user);
+                header('Location: ../public/index.php');
+            }            
         }
-        echo $this->twig->render('form_AddUser.html.twig');
+        echo $this->twig->render('register.html.twig');
     }
 
     public function userComments()

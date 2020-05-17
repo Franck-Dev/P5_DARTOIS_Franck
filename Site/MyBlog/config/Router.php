@@ -27,7 +27,9 @@ class Router
         $response = new Response();
         try {
             if ($request->query->get('route')) {
-                if ($request->query->get('route') === 'post') {
+                if ($request->query->get('route') === 'postsCategory') {
+                    $this->frontController->home($request->query->get('categoryId'));
+                } elseif ($request->query->get('route') === 'post') {
                     $this->frontController->post($request->query->get('postId'));
                 } elseif ($request->query->get('route') === 'register') {
                     $this->frontController->register($request);

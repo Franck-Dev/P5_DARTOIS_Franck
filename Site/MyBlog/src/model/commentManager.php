@@ -98,4 +98,27 @@ class CommentManager extends Manager
        $result->closeCursor();
        return $commentsUser;
     }
+
+    public function getcommentsCount($postId = null)
+    {
+        if (!$postId) {
+            $sql='SELECT DISTINCT posts_id, COUNT(id) AS nb FROM comments WHERE statut=1 GROUP BY posts_id';
+            $result=$this->createQuery($sql);
+        } else {
+            $sql='SELECT posts_id, COUNT(id) AS nb FROM comments WHERE posts_id=? AND statut=1';
+            $result=$this->createQuery($sql, [$postId]);
+        }
+        $commentsCount=[];
+        foreach ($result as $row) {
+            if ($postId) {
+                if ($row['posts_id'] == $postId) {
+                    $commentsCount[$postId]=$row['nb'];
+                }
+            } else {
+                $commentsCount[$row['posts_id']]=$row['nb'];
+            }
+        }
+        $result->closeCursor();
+        return $commentsCount;
+    }
 }

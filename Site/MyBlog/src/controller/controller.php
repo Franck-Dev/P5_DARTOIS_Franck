@@ -8,6 +8,7 @@ use App\src\model\commentManager;
 use Twig\Loader\FilesystemLoader;
 use App\src\model\categoryManager;
 use Twig\Extension\DebugExtension;
+use Symfony\Component\Validator\Validation;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 abstract class Controller
@@ -18,6 +19,7 @@ abstract class Controller
     protected $userManager;
     protected $twig;
     protected $session;
+    protected $validator;
 
     public function __construct()
     {
@@ -33,5 +35,6 @@ abstract class Controller
         $this->twig->addExtension(new DebugExtension);
         $this->session=new Session();
         $this->twig->addGlobal('app', new Session());
+        $this->validator = Validation::createValidator();
     }
 }

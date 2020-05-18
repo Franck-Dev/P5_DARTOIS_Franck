@@ -24,19 +24,15 @@
                     <td>{{user.email}}</td>
                     <td>{{user.profil}}</td>
                     <td>{% if user.statut ==1 %}<!-- Checked user's statut-->
-                            {% set var = 'checked' %}
-                            {% set statut = 'Valide' %}
+                            <a href="../public/index.php?route=StatutUser&userId={{user.id}}&Statut=0" 
+                            type="button" class=" btn btn-success">Devalider</a>
                         {% else %}
-                            {% set var = '' %}
-                            {% set statut = 'A valider' %}
+                            <a href="../public/index.php?route=StatutUser&userId={{user.id}}&Statut=1" 
+                            type="button" class=" btn btn-outline-warning">Valider</a>
                         {% endif %}
-                        {% set name = ['SwitchStatut',user.id]|join %}
-                        <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id="{{name}}" {{var}}>
-                            <label class="custom-control-label" for="{{name}}">{{statut}}</label>
-                        </div></td>
+                    </td>
                     <td>{{user.createdAt}}</td>
-                    <td{{user.lastconnect}}td>
+                    <td>{{user.lastDateConnect}}</td>
                 </tr>
             {% endfor %}
         </tbody>

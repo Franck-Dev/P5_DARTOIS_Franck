@@ -5,21 +5,27 @@
 {% block body %}
 <div class="card m-2 bg-transparent border-primary radius-2">
     <div class="card-header text-primary bg-dark border-white">
-        <h2 class="text-center">{{post.title}}</h2>
+        <h2 class="text-center">{{post.title}}</h2><span class="fas fa-comments float-right"> {{nbcomments[post.id]}} Commentaires valides</span>
     </div>
     <div class="card-title text-white bg-secondary m-0">
         <h4>{{post.chapo}}</h4>
     </div>
     <div class="card-body text-white bg-secondary m-0 p-0">
         <p>{{post.description}}</p>
-        <p class="text-right m-0">{{post.user}} Créé le : {{post.createdAt}}</p>
+        <p class="text-right m-0">Créé le : {{post.createdAt}} par {{post.user}}</p>
     </div>
-    <divclass="card-footer text-white m-2 bg-transparent" id="comments" >
+    <div class="card-footer text-white m-2 bg-transparent" id="comments" >
         <h3>Commentaires</h3>
-        <button type="button" class="btn btn-primary m-1" data-toggle="modal" data-target="#ModalComment">
-            Nouveau commentaire
+                <!-- Test if the user is connected to comment -->
+                {% if app.get('username') %}
+                    {% set btnStatut = '' %}
+                {% else %}
+                    {% set btnStatut = 'disabled' %}
+                {% endif %}
+        <button type="button" class="btn btn-primary m-1" data-toggle="modal" data-target="#ModalComment" {{btnStatut}}>
+                Nouveau commentaire
         </button>
-        <!-- Modal -->
+        <!-- Modal for Add comment form-->
         <div class="modal fade" id="ModalComment" tabindex="-1" role="dialog" aria-labelledby="ModalCommentLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -30,26 +36,59 @@
                         </button>
                     </div>
                     <div class="modal-body text-dark">
-                        {% include 'form_AddComment.html.twig' %}
+                        {% include 'form_AddComment.html.twig' with comments %}
                     </div>
                 </div>
             </div>
         </div>
         <ul class="list-group list-group-flush text-secondary">
             {% for comment in comments %}
-                <li class="list-group-item">
+                {% set var = ['ModalEditComment',comment.id]|join %}
+                <!-- Modal for Edit comment form-->
+                <div class="modal fade" id="{{var}}" tabindex="-1" role="dialog" aria-labelledby="{{var}}Label" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header  bg-secondary">
+                                <h5 class="modal-title text-primary" id="Modal{{var}}">Commentaire de l'article : " {{post.title}} "</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body text-dark">
+                                {% include 'form_AddComment.html.twig' %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% if (comment.statut == 0) and (app.get('username') == comment.user) %}
+                    {% set opacityStatut = '0.5' %}
+                    {% set displaylistitem = 'd-block' %}
+                {% elseif (comment.statut == 0) and (app.get('username') != comment.user) %}
+                    {% set displaylistitem = 'd-none' %}
+                {% else %}
+                    {% set opacityStatut = '1' %}
+                    {% set displaylistitem = 'd-block' %}
+                {% endif %}
+                <li class="list-group-item m-1 {{displaylistitem}} rounded-right" style="opacity:{{opacityStatut}}">
                     <div class="row">
-                        <div class="col-4"><h4>{{comment.user}}</h4></div>
-                        <div class="col-8"><p>{{comment.description}}</p></div>
+                        <div class="col-2"><h4>{{comment.user}}</h4></div>
+                        <div class="col-10"><p>{{comment.description}}</p></div>
                         <div class="col-12"><small class="text-muted text-float text-right">
                         Posté le {{comment.createdAtComments}}</small>
                         {% if app.get('username') == comment.user %}
-                            <a href="../Public/index.php?route=deleteComment&commentId={{comment.id}}" 
-                        class="btn btn-danger float-right" style="border-radius:40px">Supprimer</a></div>
+                            <div class="float-right">
+                                
+                                <button type="button" class="btn btn-primary m-1" data-toggle="modal" data-target="#{{var}}">
+                                        Modifier
+                                </button>
+                                <a href="../Public/index.php?route=deleteComment&commentId={{comment.id|raw}}" 
+                                class="btn btn-danger" style="border-radius:40px">Supprimer</a>
+                                {# <a href="../Public/index.php?route=editComment&commentId={{comment.id}}" 
+                                class="btn btn-primary" style="border-radius:40px">Modifier</a> #}
+                            </div>
                         {% else %}
                             
                         {% endif %}
-                        
                     </div>    
                 </li>
             {%  endfor %}

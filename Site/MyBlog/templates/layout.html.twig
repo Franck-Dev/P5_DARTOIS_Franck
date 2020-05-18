@@ -55,8 +55,7 @@
                 </li>
             {% else %}
                 
-            {% endif %}
-            
+            {% endif %}           
         </ul>
         <form class="form-inline d-flex flex-row-reverse">
             {% if app.get('username') %}
@@ -92,7 +91,7 @@
                     </button>
                 </div>
                 <div class="modal-body p-0 bg-secondary">
-                    {% include "form_AddUser.html.twig" %}
+                    {% include "register.html.twig" %}
                 </div>
                 <div class="modal-footer bg-secondary">
                     <div class="row">
@@ -104,10 +103,12 @@
                 </div>
             </div>
         </div>
-    </div>  
+    </div>
+    <div class="conteiner-fluid">
     {% block body %}
 
     {% endblock %}
+</div>    
 </div>
 <footer class="bg-secondary text-white-50 py-4"><!-- Footer page -->
         <div class="container">

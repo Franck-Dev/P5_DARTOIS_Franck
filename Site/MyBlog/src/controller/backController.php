@@ -7,7 +7,7 @@ class BackController extends Controller
     {
         if ($post->get('submit')) {
             $this->postManager->addPost($post);
-            header('Location: ../public/index.php');
+            header('Location: ../public/index.php?route=AdminPosts');
         }
     }
 
@@ -17,7 +17,7 @@ class BackController extends Controller
         $categories=$this->categoryManager->getCategories();
         if ($request->get('submit')) {
             $this->postManager->editPost($request, $postId);
-            header('Location: ../public/index.php');
+            header('Location: ../public/index.php?route=AdminPosts');
         }
         echo $this->twig->render('form_AddPost.html.twig', [
            'post' => $post,
@@ -28,7 +28,7 @@ class BackController extends Controller
     public function deletePost($postId)
     {
             $this->postManager->deletePost($postId);
-            header('Location: ../public/index.php');
+            header('Location: ../public/index.php?route=AdminPosts');
     }
 
     public function addCategory($category)
@@ -75,11 +75,23 @@ class BackController extends Controller
           ]);
     }
 
+    public function statutComment($comment)
+    {
+        $this->commentManager->editComment($comment, $comment->get('commentId'));
+            header('Location: ..//public/index.php?route=AdminComments');
+    }
+
     public function adminUsers()
     {
         $users=$this->userManager->getUsers();
         echo $this->twig->render('user_Admin.html.twig', [
             "users" => $users
           ]);
+    }
+
+    public function statutUser($user)
+    {
+        $this->userManager->editUser($user, $user->get('userId'));
+            header('Location: ..//public/index.php?route=AdminUsers');
     }
 }

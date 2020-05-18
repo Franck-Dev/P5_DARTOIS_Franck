@@ -43,17 +43,12 @@
                                             <td>{{item.createdAtComments}}</td>
                                             <td>{{item.user}}</td>
                                             <td>{% if item.statut ==1 %}<!-- Checked comment's statut-->
-                                                    {% set var = 'checked' %}
-                                                    {% set statut = 'Valide' %}
+                                                    <a href="../public/index.php?route=StatutComment&commentId={{item.id}}&Statut=0" 
+                                                    type="button" class=" btn btn-success">Devalider</a>
                                                 {% else %}
-                                                    {% set var = '' %}
-                                                    {% set statut = 'A valider' %}
+                                                    <a href="../public/index.php?route=StatutComment&commentId={{item.id}}&Statut=1" 
+                                                    type="button" class=" btn btn-outline-warning">Valider</a>
                                                 {% endif %}
-                                                {% set name = ['SwitchStatut',item.id]|join %}
-                                                <div class="custom-control custom-switch">
-                                                    <input type="checkbox" class="custom-control-input" id="{{name}}" {{var}}>
-                                                    <label class="custom-control-label" for="{{name}}">{{statut}}</label>
-                                                </div>
                                             </td>
                                         </tr>
                                     {% endfor %}

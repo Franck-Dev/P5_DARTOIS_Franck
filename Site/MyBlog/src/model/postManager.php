@@ -16,6 +16,7 @@ class PostManager extends Manager
         $post->setUser($row['username']);
         $post->setCategory($row['namecate']);
         $post->setCreatedAt($row['createdAt']);
+        $post->setDerniereMaJ($row['derniereMaJ']);
         return $post;
     }
 
@@ -32,7 +33,8 @@ class PostManager extends Manager
             $result= $this->createQuery($sql, [$categoryId]);
         } else {
             $sql='SELECT p.id, p.title, p.description, 
-            p.chapo, u.username, p.createdAt, c.name as namecate
+            p.chapo, u.username, p.createdAt, c.name as namecate, 
+            p.derniereMaJ
             FROM posts as p 
             LEFT JOIN user as u ON p.user_id = u.id 
             LEFT JOIN category as c ON p.category_id = c.id
@@ -76,21 +78,22 @@ class PostManager extends Manager
     {
         //Permet de mettre à jour l'article
         $sql = 'UPDATE posts SET title=:title, chapo=:chapo, description=:description, 
-        user_id=:user_id, category_id=:category_id  WHERE id=:postId';
+        user_id=:user_id, category_id=:category_id, DerniereMaJ=:modif_date WHERE id=:postId';
         $this->createQuery($sql, [
             'title' => $post->get('title'),
             'chapo' => $post->get('chapo'),
             'description' => $post->get('description'),
             'user_id' => $post->get('userId'),
             'category_id' => $post->get('categoryId'),
-            'postId' =>$postId
+            'postId' =>$postId,
+            'modif_date' => date('Y-m-d H:i:s')
         ]);
     }
 
     public function deletePost($postId)
     {
-        //Permet de supprimer un article et ses commentaires associés
-        $sql = 'DELETE FROM comment WHERE post_id = ?';
+        //Delete post and comments associate
+        $sql = 'DELETE FROM comments WHERE posts_id = ?';
         $this->createQuery($sql, [$postId]);
         $sql = 'DELETE FROM posts WHERE id = ?';
         $this->createQuery($sql, [$postId]);

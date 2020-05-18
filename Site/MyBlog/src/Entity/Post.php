@@ -39,6 +39,11 @@ class Post
     private $createdAt;
 
     /**
+     * @var \DateTime
+     */
+    private $derniereMaJ;
+
+    /**
      * @return int
      */
     public function getId()
@@ -148,5 +153,21 @@ class Post
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDerniereMaJ()
+    {
+        return $this->derniereMaJ;
+    }
+
+    /**
+     * @param \DateTime $derniereMaJ
+     */
+    public function setDerniereMaJ($derniereMaJ)
+    {
+        $this->derniereMaJ = $derniereMaJ;
     }
 }

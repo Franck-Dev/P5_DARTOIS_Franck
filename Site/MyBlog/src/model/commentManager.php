@@ -25,9 +25,9 @@ class CommentManager extends Manager
         $sql = 'SELECT c.id, u.username, c.description,
          c.createdAtComments, c.statut, c.posts_id FROM comments as c 
          LEFT JOIN user as u ON c.user_id = u.id 
-         WHERE c.posts_id = ? AND c.statut = ?
+         WHERE c.posts_id = ? 
          ORDER BY c.createdAtComments DESC';
-        $result=$this->createQuery($sql, [$postId,'1']);
+        $result=$this->createQuery($sql, [$postId]);
         $comments=[];
         foreach ($result as $row) {
             $commentId=$row['id'];
@@ -43,6 +43,27 @@ class CommentManager extends Manager
          user_id, createdAtComments, statut) VALUES (?, ?, ?, NOW(), 0)';
         $this->createQuery($sql, [
             $comment->query->get('postId'), $comment->request->get('description'), $comment->request->get('pseudo')]);
+    }
+
+    public function editComment($comment, $commentId)
+    {
+        //Update the comment after modification for author only
+        if (!$comment->get('description')) {
+            $sql = 'UPDATE comments SET statut=:statut, datemodif=:datemodif  WHERE id=:commentId';
+            $this->createQuery($sql, [
+            'statut' => $comment->get('Statut'),
+            'datemodif' => date("Y-m-d H:i:s"),
+            'commentId' =>$commentId]);
+        } else {
+            $sql = 'UPDATE comments SET description=:description, statut=:statut, 
+            datemodif=:datemodif  WHERE id=:commentId';
+            $this->createQuery($sql, [
+            'description' => $comment->get('description'),
+            'statut' => 0,
+            'datemodif' => date("Y-m-d H:i:s"),
+            'commentId' =>$commentId
+        ]);
+        }
     }
 
     public function deleteComment($commentId)

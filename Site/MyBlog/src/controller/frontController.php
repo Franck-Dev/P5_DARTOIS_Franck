@@ -2,7 +2,6 @@
 
 namespace App\src\controller;
 
-use SebastianBergmann\Type\TypeName;
 use Symfony\Component\Validator\Constraints\Type;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -44,7 +43,7 @@ class FrontController extends Controller
         echo $this->twig->render('single.html.twig', [
             "post" => $post,
             "comments" => $comments,
-            "count" => $commentsCount
+            "nbcomments" => $commentsCount
           ]);
     }
 
@@ -56,10 +55,24 @@ class FrontController extends Controller
         }
     }
 
+    public function editComment($comment, $commentId, $postId)
+    {
+        if ($comment->request->get('submit')) {
+            $this->commentManager->editComment($comment, $commentId);
+            header('Location: ../public/index.php?route=post&postId='. $postId);
+        } else {
+            $comment=$this->commentManager->editComment($comment, $commentId);
+            echo $this->twig->render('single.html.twig',[
+                'message' => $comment
+            ]);
+        }
+
+    }
+
     public function deleteComment($commentId)
     {
+        var_dump($commentId);
         $violations = $this->validator->validate($commentId, [
-            new Type('integer'),
             new NotBlank(),
         ]);
         if (0 !== count($violations)) {

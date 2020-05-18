@@ -51,11 +51,7 @@
         <label class="custom-file-label" for="validatedCustomFile">Télécharger...</label>
     </div>
     <div class="mb-3">
-        <label for="validationText">Auteur</label>
-        <input type="text" class="form-control is-invalid" id="userId" name="userId" placeholder="Identifiant" required value="{{post.user}}">
-        <div class="invalid-feedback">
-            Inscrire votre nom.
-        </div>
+        <input type="text" class="form-control is-invalid" id="userId" name="userId" placeholder="Identifiant" required value="{{app.get('id')}}" hidden>
     </div>
     <input class="{{cls}}" type="submit" value="{{btn}}" id="submit" name="submit">
 </form>

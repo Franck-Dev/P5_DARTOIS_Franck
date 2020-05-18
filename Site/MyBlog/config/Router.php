@@ -41,14 +41,21 @@ class Router
                     $this->frontController->userComments();
                 } elseif ($request->query->get('route') === 'addComment') {
                     $this->frontController->addComment($request);
+                } elseif ($request->query->get('route') === 'editComment') {
+                    $this->frontController->editComment($request, $request->query->get('commentId'),
+                     $request->query->get('postId'));
                 } elseif ($request->query->get('route') === 'deleteComment') {
                     $this->frontController->deleteComment($request->query->get('commentId'));
                 } elseif ($request->query->get('route') === 'AdminPosts') {
                     $this->backController->adminPosts();
                 } elseif ($request->query->get('route') === 'AdminComments') {
                     $this->backController->adminComments();
+                } elseif ($request->query->get('route') === 'StatutComment') {
+                    $this->backController->statutComment($request->query);
                 } elseif ($request->query->get('route') === 'AdminUsers') {
                     $this->backController->adminUsers();
+                } elseif ($request->query->get('route') === 'StatutUser') {
+                    $this->backController->statutUser($request->query);
                 } elseif ($request->query->get('route') === 'addPost') {
                     $this->backController->addPost($request->request);
                 } elseif ($request->query->get('route') === 'editPost') {

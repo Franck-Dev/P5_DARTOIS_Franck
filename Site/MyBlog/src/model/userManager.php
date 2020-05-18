@@ -18,6 +18,7 @@ class UserManager extends Manager
         $user->setCreatedAt($row['CreatedAt']);
         $user->setProfil($row['Profil']);
         $user->setStatut($row['Statut']);
+        $user->setlastDateConnect($row['last_date_connect']);
         return $user;
     }
 
@@ -62,14 +63,34 @@ class UserManager extends Manager
         $isPasswordValid = password_verify($user->get('password'), $result['password']);
         if ($isPasswordValid === true) 
         {
-            $sql='UPDATE user SET last_date_connect=NOW() WHERE id=:userId';
+            $sql='UPDATE user SET last_date_connect=:last_date_connect WHERE id=:userId';
             $this->createQuery($sql, [
-                'userId' => $user->get('id')
+                'userId' => $result['id'], 'last_date_connect' => date('Y-m-d H:i:s')
             ]);
         }
         return [
             'result' => $result,
             'isPasswordValid' => $isPasswordValid
         ];
+    }
+
+    public function editUser($user, $userId)
+    {
+        //Update the user after modification for ADMIN only
+        if (!$user->get('username')) {
+            $sql = 'UPDATE user SET statut=:statut  WHERE id=:userId';
+            $this->createQuery($sql, [
+            'statut' => $user->get('Statut'),
+            'userId' =>$userId]);
+        } else {
+            $sql = 'UPDATE user SET mail=:mail, password=:password, statut=:statut, 
+            WHERE id=:userId';
+            $this->createQuery($sql, [
+            'mail' => $user->get('mail'),
+            'statut' => 0,
+            'password' => password_hash($user->get('password'), PASSWORD_BCRYPT),
+            'userId' =>$userId
+        ]);
+        }
     }
 }

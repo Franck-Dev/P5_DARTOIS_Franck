@@ -2,21 +2,18 @@
 
 namespace App\src\controller;
 
-use Symfony\Component\Validator\Constraints\Type;
 use Symfony\Component\Validator\Constraints\NotBlank;
-
 
 class FrontController extends Controller
 {
     
     private function recupSession($index)
     {
-        foreach($index as $key => $value) {
+        foreach ($index as $key => $value) {
             if (is_int($key) === true) {
-
-            }
-            else {
-                $this->session->set($key,$value);
+                //code
+            } else {
+                $this->session->set($key, $value);
             }
         }
     }
@@ -66,12 +63,10 @@ class FrontController extends Controller
                 'message' => $comment
             ]);
         }
-
     }
 
     public function deleteComment($commentId)
     {
-        var_dump($commentId);
         $violations = $this->validator->validate($commentId, [
             new NotBlank(),
         ]);
@@ -86,14 +81,13 @@ class FrontController extends Controller
     }
 
     public function login($user)
-    {  
+    {
         if ($user->request->get('submit')) {
             $login=$this->userManager->login($user);
             if ($login && $login['isPasswordValid'] == true) {
                 $this->recupSession($login['result']);
                 header('Location: ../public/index.php');
-            }
-            else{
+            } else {
                 $this->session->getFlashBag()->add('connexion',
                  'Mot de passe ou identifiant incorrect');
                 $message='Mot de passe ou identifiant incorrect';
@@ -101,8 +95,7 @@ class FrontController extends Controller
                     'message' => $message
                 ]);
             }
-        }
-        else{
+        } else {
             echo $this->twig->render('login.html.twig');
         }
     }

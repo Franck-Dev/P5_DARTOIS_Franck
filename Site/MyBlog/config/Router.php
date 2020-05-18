@@ -42,8 +42,7 @@ class Router
                 } elseif ($request->query->get('route') === 'addComment') {
                     $this->frontController->addComment($request);
                 } elseif ($request->query->get('route') === 'editComment') {
-                    $this->frontController->editComment($request, $request->query->get('commentId'),
-                     $request->query->get('postId'));
+                    $this->frontController->editComment($request, $request->query->get('commentId'), $request->query->get('postId'));
                 } elseif ($request->query->get('route') === 'deleteComment') {
                     $this->frontController->deleteComment($request->query->get('commentId'));
                 } elseif ($request->query->get('route') === 'AdminPosts') {

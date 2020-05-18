@@ -61,8 +61,7 @@ class CommentManager extends Manager
             'description' => $comment->get('description'),
             'statut' => 0,
             'datemodif' => date("Y-m-d H:i:s"),
-            'commentId' =>$commentId
-        ]);
+            'commentId' =>$commentId]);
         }
     }
 
@@ -82,17 +81,17 @@ class CommentManager extends Manager
             c.createdAtComments, c.statut, c.posts_id FROM comments as c 
             LEFT JOIN user as u ON c.user_id = u.id 
             WHERE c.statut = ? ';
-            $result1=$this->createQuery($sql1,[$usr['statut']]);
+            $result1=$this->createQuery($sql1, [$usr['statut']]);
             $comments=[];
-            foreach ($result1 as $data ) {
+            foreach ($result1 as $data) {
                 $commentId=$data['id'];
                 $comments[$commentId]=$this->buildObject($data);
             }
             $result1->closeCursor();
             $commentsUsers[$usr['statut']]=$comments;
         }
-       $result->closeCursor();
-       return $commentsUsers;
+        $result->closeCursor();
+        return $commentsUsers;
     }
 
     public function getcommentsUser($userId)
@@ -106,9 +105,9 @@ class CommentManager extends Manager
             LEFT JOIN posts as p ON c.posts_id = p.id 
             LEFT JOIN user as u ON c.user_id = u.id  
             WHERE c.posts_id = ? AND c.user_id = ? ';
-            $result1=$this->createQuery($sql1,[$post['id'],$userId]);
+            $result1=$this->createQuery($sql1, [$post['id'], $userId]);
             $comments=[];
-            foreach ($result1 as $data ) {
+            foreach ($result1 as $data) {
                 $commentId=$data['id'];
                 $titlePost=$data['title'];
                 $comments[$commentId]=$this->buildObject($data);
@@ -116,8 +115,8 @@ class CommentManager extends Manager
             $result1->closeCursor();
             $commentsUser[$titlePost]=$comments;
         }
-       $result->closeCursor();
-       return $commentsUser;
+        $result->closeCursor();
+        return $commentsUser;
     }
 
     public function getcommentsCount($postId = null)

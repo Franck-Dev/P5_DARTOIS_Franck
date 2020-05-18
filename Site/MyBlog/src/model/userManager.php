@@ -61,8 +61,7 @@ class UserManager extends Manager
         $data = $this->createQuery($sql, [$user->get('username')]);
         $result = $data->fetch();
         $isPasswordValid = password_verify($user->get('password'), $result['password']);
-        if ($isPasswordValid === true) 
-        {
+        if ($isPasswordValid === true) {
             $sql='UPDATE user SET last_date_connect=:last_date_connect WHERE id=:userId';
             $this->createQuery($sql, [
                 'userId' => $result['id'], 'last_date_connect' => date('Y-m-d H:i:s')
@@ -89,8 +88,7 @@ class UserManager extends Manager
             'mail' => $user->get('mail'),
             'statut' => 0,
             'password' => password_hash($user->get('password'), PASSWORD_BCRYPT),
-            'userId' =>$userId
-        ]);
+            'userId' =>$userId]);
         }
     }
 }

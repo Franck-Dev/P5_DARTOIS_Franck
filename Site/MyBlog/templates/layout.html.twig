@@ -27,7 +27,7 @@
 </head>
 <body>
 <nav class="navbar sticky-top navbar-expand-md navbar navbar-dark bg-dark">
-    <a class="navbar-brand text-primary" href="../public/index.php">
+    <a class="navbar-brand text-primary" href="../public/index.php?route=blog">
         <img src="../public/images/TechnoPropre.png" width="30" height="30" style="border-radius:10px" class="d-inline-block align-top" alt="">
         MyBlog
     </a>
@@ -37,7 +37,7 @@
     <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link text-primary" href="#">Accueil<span class="sr-only">(current)</span></a>
+                <a class="nav-link text-primary" href="../public/index.php">Accueil<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-primary" href="#">Contact</a>
@@ -104,11 +104,13 @@
             </div>
         </div>
     </div>
-    <div class="conteiner-fluid">
+    {% block header %}
+
+    {% endblock %}
     {% block body %}
 
     {% endblock %}
-</div>    
+  
 </div>
 <footer class="bg-secondary text-white-50 py-4"><!-- Footer page -->
         <div class="container">

@@ -24,7 +24,8 @@ class PostManager extends Manager
     {
         if ($categoryId) {
             $sql='SELECT p.id, p.title, p.description, 
-            p.chapo, u.username, p.createdAt, c.name as namecate
+            p.chapo, u.username, p.createdAt, c.name as namecate, 
+            p.derniereMaJ 
             FROM posts as p 
             LEFT JOIN user as u ON p.user_id = u.id 
             LEFT JOIN category as c ON p.category_id = c.id
@@ -53,7 +54,8 @@ class PostManager extends Manager
     public function getPost($postId)
     {
         $sql='SELECT p.id, p.title, p.chapo, p.description,
-         u.username, p.createdAt, c.name as namecate 
+         u.username, p.createdAt, c.name as namecate, 
+         p.derniereMaJ
          FROM posts as p
          LEFT JOIN user as u ON p.user_id = u.id 
         LEFT JOIN category as c ON p.category_id = c.id 

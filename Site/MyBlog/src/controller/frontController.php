@@ -6,7 +6,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 class FrontController extends Controller
 {
-    
+
     private function recupSession($index)
     {
         foreach ($index as $key => $value) {
@@ -17,38 +17,52 @@ class FrontController extends Controller
             }
         }
     }
-    
+
     public function home($categoryId = null)
     {
-        $categories=$this->categoryManager->getCategories();
-        $posts=$this->postManager->getPosts($categoryId);
-        $commentsCount=$this->commentManager->getcommentsCount();
-        $postsCount=$this->postManager->getpostsCount();
-        echo $this->twig->render('home.html.twig', [
-            "posts" => $posts,
-            "categories" => $categories,
-            "nbposts" => $postsCount,
-            "nbcomments" => $commentsCount
-          ]);
+        $posts = $this->postManager->getPosts($categoryId);
+        $commentsCount = $this->commentManager->getcommentsCount();
+        $postsCount = $this->postManager->getpostsCount();
+        if ($categoryId!=1) {
+            $categories = $this->categoryManager->getCategories();
+            if (!$categoryId) {
+                $categoryName='Toutes';
+            } else {
+                $categoryName=$categories[$categoryId]->getName();
+            }
+            echo $this->twig->render('blog.html.twig', [
+                "posts" => $posts,
+                "categories" => $categories,
+                "nbposts" => $postsCount,
+                "categoryName" => $categoryName,
+                "nbcomments" => $commentsCount
+            ]);
+        } else {
+            echo $this->twig->render('home.html.twig', [
+                "posts" => $posts,
+                "nbposts" => $postsCount,
+                "nbcomments" => $commentsCount
+            ]);
+        }
     }
 
     public function post($postId)
     {
-        $post=$this->postManager->getPost($postId);
-        $comments=$this->commentManager->getComments($postId);
-        $commentsCount=$this->commentManager->getcommentsCount($postId);
+        $post = $this->postManager->getPost($postId);
+        $comments = $this->commentManager->getComments($postId);
+        $commentsCount = $this->commentManager->getcommentsCount($postId);
         echo $this->twig->render('single.html.twig', [
             "post" => $post,
             "comments" => $comments,
             "nbcomments" => $commentsCount
-          ]);
+        ]);
     }
 
-    public function addComment($comment)
+    public function addComment($comment, $postId)
     {
         if ($comment->request->get('submit')) {
             $this->commentManager->addComment($comment);
-            header('Location: ../public/index.php');
+            header('Location: ../public/index.php?route=post&postId=' . $postId);
         }
     }
 
@@ -56,9 +70,9 @@ class FrontController extends Controller
     {
         if ($comment->request->get('submit')) {
             $this->commentManager->editComment($comment, $commentId);
-            header('Location: ../public/index.php?route=post&postId='. $postId);
+            header('Location: ../public/index.php?route=post&postId=' . $postId);
         } else {
-            $comment=$this->commentManager->editComment($comment, $commentId);
+            $comment = $this->commentManager->editComment($comment, $commentId);
             echo $this->twig->render('single.html.twig', [
                 'message' => $comment
             ]);
@@ -83,13 +97,13 @@ class FrontController extends Controller
     public function login($user)
     {
         if ($user->request->get('submit')) {
-            $login=$this->userManager->login($user);
+            $login = $this->userManager->login($user);
             if ($login && $login['isPasswordValid'] == true) {
                 $this->recupSession($login['result']);
                 header('Location: ../public/index.php');
             } else {
                 $this->session->getFlashBag()->add('connexion', 'Mot de passe ou identifiant incorrect');
-                $message='Mot de passe ou identifiant incorrect';
+                $message = 'Mot de passe ou identifiant incorrect';
                 echo $this->twig->render('login.html.twig', [
                     'message' => $message
                 ]);
@@ -109,7 +123,7 @@ class FrontController extends Controller
     {
         if ($user->request->get('submit')) {
             //Check in database if user exist
-            $userExist=$this->userManager->checkUser($user->request);
+            $userExist = $this->userManager->checkUser($user->request);
             if (!$userExist) {
                 echo $this->twig->render('register.html.twig', [
                     'user' => $user,
@@ -125,7 +139,7 @@ class FrontController extends Controller
 
     public function userComments()
     {
-        $commentsUser=$this->commentManager->getcommentsUser($this->session->get('id'));
+        $commentsUser = $this->commentManager->getcommentsUser($this->session->get('id'));
         echo $this->twig->render('comments_User.html.twig', [
             'commentsUser' => $commentsUser
         ]);

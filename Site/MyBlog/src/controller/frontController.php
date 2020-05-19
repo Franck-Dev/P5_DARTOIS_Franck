@@ -3,6 +3,7 @@
 namespace App\src\controller;
 
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Swift_Message;
 
 class FrontController extends Controller
 {
@@ -142,6 +143,28 @@ class FrontController extends Controller
         $commentsUser = $this->commentManager->getcommentsUser($this->session->get('id'));
         echo $this->twig->render('comments_User.html.twig', [
             'commentsUser' => $commentsUser
+        ]);
+    }
+
+    public function sendMail($mail)
+    {
+        // Create a message
+        $message = (new Swift_Message('Demande de renseignement'))
+        ->setFrom(['franck.pyren@orange.fr' => 'Franck'])
+        ->setTo([($mail->request->get('email')) => ($mail->request->get('name')), 'franck.pyren@orange.fr'])
+        ->setBody($mail->request->get('message'));
+        // Send the message
+        $result = $this->mailer->send($message);
+        if ($result === 1) {
+            $message='Le message n\'a pu être envoyé, l\'adresse de destination été érronée';
+        } else {
+            $message='Le message a bien été envoyé';
+        }
+        
+        // Callback home with response send mail
+        echo $this->twig->render('home.html.twig', [
+            "message" => $message,
+            "statutmessage" => $result
         ]);
     }
 }

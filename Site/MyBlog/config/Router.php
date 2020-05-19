@@ -47,6 +47,8 @@ class Router
                     $this->frontController->deleteComment($request->query->get('commentId'));
                 } elseif ($request->query->get('route') === 'blog') {
                     $this->frontController->home();
+                } elseif ($request->query->get('route') === 'sendMail') {
+                    $this->frontController->sendMail($request);
                 } elseif ($request->query->get('route') === 'AdminPosts') {
                     $this->backController->adminPosts();
                 } elseif ($request->query->get('route') === 'AdminComments') {
@@ -77,8 +79,7 @@ class Router
             } else {
                 $this->frontController->home($categoryId='1');
             }
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             var_dump($e);
         }
     }

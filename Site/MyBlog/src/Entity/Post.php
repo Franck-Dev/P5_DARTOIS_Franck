@@ -44,6 +44,11 @@ class Post
     private $derniereMaJ;
 
     /**
+     * @var string
+     */
+    private $imageune;
+
+    /**
      * @return int
      */
     public function getId()
@@ -137,6 +142,22 @@ class Post
     public function setCategory($category)
     {
         $this->category = $category;
+    }
+
+    /**
+     * @return string
+     */
+    public function getImageUne()
+    {
+        return $this->imageune;
+    }
+
+    /**
+     * @param string $imageune
+     */
+    public function setImageUne($imageune)
+    {
+        $this->imageune = $imageune;
     }
 
     /**

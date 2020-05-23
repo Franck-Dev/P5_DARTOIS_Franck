@@ -12,11 +12,13 @@ class FrontController extends Controller
     {
         foreach ($index as $key => $value) {
             if (is_int($key) === true) {
-                //code
+                //I don't take integrekeys
             } else {
                 $this->session->set($key, $value);
             }
         }
+        $countComments=$this->commentManager->getCountComments($index['id']);
+        $this->session->set('countComments',$countComments);
     }
 
     public function home($categoryId = null)

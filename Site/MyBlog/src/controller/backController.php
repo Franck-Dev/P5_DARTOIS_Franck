@@ -6,7 +6,19 @@ class BackController extends Controller
     public function addPost($post)
     {
         if ($post->get('submit')) {
-            $this->postManager->addPost($post);
+            if ($post->files->get('image')) {
+                $path='../public/Images';
+                $name=$post->files->get('image')->getClientOriginalName();
+                $extValide=array('jpg','png','jpeg','gif','ico');
+                $extFile=$post->files->get('image')->getClientOriginalExtension();
+                if (in_array($extFile,$extValide)) 
+                {
+                    $post->files->get('image')->move($path, $name);
+                    $this->postManager->addPost($post->request, $name);
+                } else {
+                    $this->session->getFlashBag()->add('ErUploadFiles','Le format du fichier a importer est inconnu');
+                }
+            }
             header('Location: ../public/index.php?route=AdminPosts');
         }
     }
@@ -78,7 +90,7 @@ class BackController extends Controller
     public function statutComment($comment)
     {
         $this->commentManager->editComment($comment, $comment->get('commentId'));
-            header('Location: ..//public/index.php?route=AdminComments');
+            header('Location: ../public/index.php?route=AdminComments');
     }
 
     public function adminUsers()
@@ -92,6 +104,6 @@ class BackController extends Controller
     public function statutUser($user)
     {
         $this->userManager->editUser($user, $user->get('userId'));
-            header('Location: ..//public/index.php?route=AdminUsers');
+            header('Location: ../public/index.php?route=AdminUsers');
     }
 }

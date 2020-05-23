@@ -57,7 +57,8 @@ class UserManager extends Manager
 
     public function login($user)
     {
-        $sql = 'SELECT id, password, username, email, statut, profil, last_date_connect FROM user WHERE username = ?';
+        $sql = 'SELECT id, password, username, email, statut, profil, createdAt, last_date_connect 
+        FROM user WHERE username = ?';
         $data = $this->createQuery($sql, [$user->get('username')]);
         $result = $data->fetch();
         $isPasswordValid = password_verify($user->get('password'), $result['password']);

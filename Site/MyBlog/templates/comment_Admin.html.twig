@@ -1,7 +1,7 @@
-{% extends "layout.html.twig" %}
+{% extends "layouts.html.twig" %}
 
 {% block title %}Admin Commentaires{% endblock %}
-{% block body %}
+{% block contents %}
 <h3 class="text-white">Gestion des commentaires :</h3>
 {% set tbComments = comments %}
     {% for statut in comments|keys %}

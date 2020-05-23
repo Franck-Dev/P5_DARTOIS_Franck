@@ -1,13 +1,15 @@
-{% extends 'layout.html.twig' %}
+{% extends 'layouts.html.twig' %}
 
-{% block title %}Administration des articles{% endblock %}
-{% block stylesheet %}{% endblock %}
-{% block body %}
+{% block title %} Administration des articles {% endblock %}
+{% block contents %}
+    {# <pre>
+        {{ dump(app.getBag('flashes')) }}
+    </pre> #}
     <h3 class="text-white">Gestion des articles du blog :</h3>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalPost">
+        <button type="button" class="btn btn-primary m-1" data-toggle="modal" data-target="#ModalPost">
             Nouvel article
         </button>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalCate">
+        <button type="button" class="btn btn-primary m-1" data-toggle="modal" data-target="#ModalCate">
             Nouvelle catégorie
         </button>
         <!-- Modal Post-->

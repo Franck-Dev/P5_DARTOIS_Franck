@@ -1,9 +1,8 @@
-{% extends 'layout.html.twig' %}
+{% extends 'layouts.html.twig' %}
 
 {% block title %}Accueil{% endblock %}
-{% block stylesheet %}{% endblock %}
-{% block body %}
-    <h2 class="text-center text-white">Articles de la catégorie : {{categoryName}}</h2>
+{% block contents %}
+    <h2 class="text-center text-primary">Articles de la catégorie : {{categoryName}}</h2>
     <div class="row w-100 m-0">
         <aside class="col-md-2">
             <div class="mt-5 h-100" id=""><!-- List menu at Left -->
@@ -27,7 +26,7 @@
                     <div class="card text-primary bg-secondary m-2">
                         <div class="row no-gutters">
                             <div class="col-auto">
-                                <img src="//placehold.it/200" class="img-fluid" alt="">
+                                <img src="Images/{{post.imageune}}" style="max-width:250px;max-height:250px;" class="img-fluid" alt="">
                             </div>
                             <div class="col">
                                 <div class="card-block">

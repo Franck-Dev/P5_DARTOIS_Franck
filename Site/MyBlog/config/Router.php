@@ -60,7 +60,7 @@ class Router
                 } elseif ($request->query->get('route') === 'StatutUser') {
                     $this->backController->statutUser($request->query);
                 } elseif ($request->query->get('route') === 'addPost') {
-                    $this->backController->addPost($request->request);
+                    $this->backController->addPost($request);
                 } elseif ($request->query->get('route') === 'editPost') {
                     $this->backController->editPost($request, $request->query->get('postId'));
                 } elseif ($request->query->get('route') === 'deletePost') {

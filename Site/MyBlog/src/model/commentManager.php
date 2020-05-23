@@ -94,11 +94,14 @@ class CommentManager extends Manager
         return $commentsUsers;
     }
 
+    //Check comments by users with the posts's filter
     public function getcommentsUser($userId)
     {
+        //Call-back between posts-id alone
         $sql='SELECT DISTINCT id FROM posts';
         $result=$this->createQuery($sql);
         $commentsUser=[];
+        //In chaque posts, list of comments by user and posts-id
         foreach ($result as $post) {
             $sql1 = 'SELECT c.id, u.username, c.description,
             c.createdAtComments, c.statut, p.title, c.posts_id FROM comments as c 
@@ -113,15 +116,17 @@ class CommentManager extends Manager
                 $comments[$commentId]=$this->buildObject($data);
             }
             $result1->closeCursor();
-            $commentsUser[$titlePost]=$comments;
+            if ($comments) {
+                $commentsUser[$titlePost]=$comments;
+            }  
         }
         $result->closeCursor();
         return $commentsUser;
     }
-
+    //Found the numbers of comments by postId
     public function getcommentsCount($postId = null)
     {
-        if (!$postId) {
+        if (!$postId) {//If doesn't have got a postId, will find all comments by postId
             $sql='SELECT DISTINCT posts_id, COUNT(id) AS nb FROM comments WHERE statut=1 GROUP BY posts_id';
             $result=$this->createQuery($sql);
         } else {
@@ -140,5 +145,16 @@ class CommentManager extends Manager
         }
         $result->closeCursor();
         return $commentsCount;
+    }
+
+    public function getCountComments($userId)
+    {
+        $sql='SELECT COUNT(id) AS nb FROM comments WHERE user_id=?';
+        $result=$this->createQuery($sql, [$userId]);
+        foreach ($result as $row) {
+            $countComments=$row['nb'];
+        }
+        $result->closeCursor();
+        return $countComments;
     }
 }

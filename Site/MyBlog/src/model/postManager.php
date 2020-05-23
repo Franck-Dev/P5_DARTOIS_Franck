@@ -17,6 +17,7 @@ class PostManager extends Manager
         $post->setCategory($row['namecate']);
         $post->setCreatedAt($row['createdAt']);
         $post->setDerniereMaJ($row['derniereMaJ']);
+        $post->setImageUne($row['imageune']);
         return $post;
     }
 
@@ -25,7 +26,7 @@ class PostManager extends Manager
         if ($categoryId) {
             $sql='SELECT p.id, p.title, p.description, 
             p.chapo, u.username, p.createdAt, c.name as namecate, 
-            p.derniereMaJ 
+            p.derniereMaJ, p.imageune  
             FROM posts as p 
             LEFT JOIN user as u ON p.user_id = u.id 
             LEFT JOIN category as c ON p.category_id = c.id
@@ -35,7 +36,7 @@ class PostManager extends Manager
         } else {
             $sql='SELECT p.id, p.title, p.description, 
             p.chapo, u.username, p.createdAt, c.name as namecate, 
-            p.derniereMaJ
+            p.derniereMaJ, p.imageune
             FROM posts as p 
             LEFT JOIN user as u ON p.user_id = u.id 
             LEFT JOIN category as c ON p.category_id = c.id
@@ -55,7 +56,7 @@ class PostManager extends Manager
     {
         $sql='SELECT p.id, p.title, p.chapo, p.description,
          u.username, p.createdAt, c.name as namecate, 
-         p.derniereMaJ
+         p.derniereMaJ, p.imageune
          FROM posts as p
          LEFT JOIN user as u ON p.user_id = u.id 
         LEFT JOIN category as c ON p.category_id = c.id 
@@ -66,14 +67,14 @@ class PostManager extends Manager
         return $this->buildObject($post);
     }
 
-    public function addPost($post)
+    public function addPost($post, $fileName)
     {
         //Permet de récupérer les variables $title, $description et $author
         $sql = 'INSERT INTO posts (title, description, chapo, 
-         user_id, category_id, createdAt) VALUES (?, ?, ?, ?, ?, NOW())';
+         user_id, category_id, imageune, createdAt) VALUES (?, ?, ?, ?, ?, ?, NOW())';
         $this->createQuery($sql, [
             $post->get('title'), $post->get('description'), $post->get('chapo'),
-            $post->get('userId'), $post->get('categoryId')]);
+            $post->get('userId'), $post->get('categoryId'), $fileName]);
     }
 
     public function editPost($post, $postId)

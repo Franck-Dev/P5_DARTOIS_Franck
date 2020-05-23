@@ -1,11 +1,12 @@
-{% extends 'layout.html.twig' %}
+{% extends 'layouts.html.twig' %}
 
 {% block title %}{{post.title}}{% endblock %}
 {% block stylesheet %}{% endblock %}
-{% block body %}
+{% block contents %}
 <div class="card m-2 bg-transparent border-primary radius-2">
     <div class="card-header text-primary bg-dark border-white">
-        <h2 class="text-center">{{post.title}}</h2><span class="fas fa-comments float-right"> {{nbcomments[post.id]}} Commentaires valides</span>
+        <h2 class="text-center">{{post.title}}</h2>
+        <div class="text-inline float-right"><span class="fas fa-comments"></span> {{nbcomments[post.id]}} Commentaires valides</div>
     </div>
     <div class="card-title text-white bg-secondary m-0">
         <h4>{{post.chapo}}</h4>

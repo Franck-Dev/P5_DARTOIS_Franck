@@ -1,15 +1,23 @@
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
 {% if post %}
     {% set path = ['../public/index.php?route=editPost&postId=',post.Id]|join %}
     {% set btn = 'Modifier' %}
     {% set cls = 'btn btn-danger' %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 {% else %}
     {% set path = '../public/index.php?route=addPost' %}
     {% set btn = 'Enregistrer' %}
     {% set cls = 'btn btn-primary' %}
 {% endif %}
-<form class="was-validated" method="post" action="{{path}}">
+    <!-- Message for error of file's import -->
+    {# {% if message %}
+        <div class="alert alert-danger" role="alert">
+            {{message}}
+        </div>
+    {% endif %} #}
+    {# <pre>
+        {{ dump(app.flashes('ErUploadFiles')) }}
+    </pre> #}
+<form class="was-validated" method="post" action="{{path}}" enctype="multipart/form-data">
     <div class="mb-3">
         <label for="validationText">Titre</label>
         <input type="text" class="form-control is-invalid" id="title" name="title" placeholder="Titre de l'article" required value="{{post.title}}">
@@ -47,8 +55,9 @@
         </div>
     </div>
     <div class="custom-file">
-        <input type="file" class="custom-file-input" id="fileUpload">
-        <label class="custom-file-label" for="validatedCustomFile">Télécharger...</label>
+        <input type="file" class="custom-file-input" id="inputGroupFile01"
+        aria-describedby="inputGroupFileAddon01" name="image">
+        <label class="custom-file-label" for="inputGroupFile01" name="images">Télécharger...</label>
     </div>
     <div class="mb-3">
         <input type="text" class="form-control is-invalid" id="userId" name="userId" placeholder="Identifiant" required value="{{app.get('id')}}" hidden>

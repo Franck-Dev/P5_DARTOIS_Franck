@@ -18,7 +18,7 @@ class FrontController extends Controller
             }
         }
         $countComments=$this->commentManager->getCountComments($index['id']);
-        $this->session->set('countComments',$countComments);
+        $this->session->set('countComments', $countComments);
     }
 
     public function home($categoryId = null)

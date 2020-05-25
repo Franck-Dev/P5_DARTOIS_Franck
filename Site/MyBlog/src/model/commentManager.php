@@ -118,7 +118,7 @@ class CommentManager extends Manager
             $result1->closeCursor();
             if ($comments) {
                 $commentsUser[$titlePost]=$comments;
-            }  
+            }
         }
         $result->closeCursor();
         return $commentsUser;

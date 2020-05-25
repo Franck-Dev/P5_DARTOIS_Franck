@@ -9,14 +9,13 @@ class BackController extends Controller
             if ($post->files->get('image')) {
                 $path='../public/Images';
                 $name=$post->files->get('image')->getClientOriginalName();
-                $extValide=array('jpg','png','jpeg','gif','ico');
+                $extValide=['jpg','png','jpeg','gif','ico'];
                 $extFile=$post->files->get('image')->getClientOriginalExtension();
-                if (in_array($extFile,$extValide)) 
-                {
+                if (in_array($extFile, $extValide)) {
                     $post->files->get('image')->move($path, $name);
                     $this->postManager->addPost($post->request, $name);
                 } else {
-                    $this->session->getFlashBag()->add('ErUploadFiles','Le format du fichier a importer est inconnu');
+                    $this->session->getFlashBag()->add('ErUploadFiles', 'Le format du fichier a importer est inconnu');
                 }
             }
             header('Location: ../public/index.php?route=AdminPosts');

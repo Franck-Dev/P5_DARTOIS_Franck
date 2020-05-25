@@ -38,8 +38,7 @@ abstract class Manager
             $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             //On renvoie la connexion
             return $this->connection;
-        } 
-        //On renvoie une erreur si la connexion échoue
+        } //On renvoie une erreur si la connexion échoue
         catch (Exception $errorConnection) {
             die($errorConnection->getMessage());
         }

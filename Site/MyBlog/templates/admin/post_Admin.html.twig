@@ -23,7 +23,7 @@
                         </button>
                     </div>
                     <div class="modal-body text-dark">
-                        {% include 'form_AddPost.html.twig' with categories %}
+                        {% include './forms/form_AddPost.html.twig' with categories %}
                     </div>
                 </div>
             </div>
@@ -40,7 +40,7 @@
                     </div>
                     <div class="modal-body text-dark">
                         {% set vars = {'btn': 'Enregistrer'} %}
-                        {% include 'form_AddCategory.html.twig' with vars %}
+                        {% include './forms/form_AddCategory.html.twig' with vars %}
                     </div>
                 </div>
             </div>

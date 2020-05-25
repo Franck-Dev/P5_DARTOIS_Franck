@@ -1,13 +1,22 @@
 <?php
-
+/**
+ * @package Model
+ */
 namespace App\src\model;
 
 use App\src\entity\Comment;
-use App\src\manager\Manager;
+use App\src\Framework\Manager;
 
+/**
+ * This file manage SQL requests from comments's database
+ *
+ * @author Franck D <franck.pyren@gmail.com>
+ */
 class CommentManager extends Manager
 {
-
+    /**
+    * Return object hydrated
+    */
     private function buildObject($row)
     {
         $comment = new Comment();
@@ -20,6 +29,9 @@ class CommentManager extends Manager
         return $comment;
     }
 
+    /**
+    * Return list of comments
+    */
     public function getComments($postId)
     {
         $sql = 'SELECT c.id, u.username, c.description,
@@ -37,6 +49,9 @@ class CommentManager extends Manager
         return $comments;
     }
 
+    /**
+    * Add new comment in database by comment's datas sent
+    */
     public function addComment($comment)
     {
         $sql = 'INSERT INTO comments (posts_id, description,
@@ -45,6 +60,9 @@ class CommentManager extends Manager
             $comment->query->get('postId'), $comment->request->get('description'), $comment->request->get('pseudo')]);
     }
 
+    /**
+    * Update the comment by commentId and datas associated
+    */
     public function editComment($comment, $commentId)
     {
         //Update the comment after modification for author only
@@ -65,12 +83,18 @@ class CommentManager extends Manager
         }
     }
 
+    /**
+    * Delete the comment by commentId
+    */
     public function deleteComment($commentId)
     {
         $sql = 'DELETE FROM comments WHERE id=?';
         $this->createQuery($sql, [$commentId]);
     }
 
+    /**
+    * Return list of comments by statut validated or not
+    */
     public function getCommentsValidate()
     {
         $sql='SELECT DISTINCT statut FROM comments';
@@ -94,7 +118,9 @@ class CommentManager extends Manager
         return $commentsUsers;
     }
 
-    //Check comments by users with the posts's filter
+    /**
+    *Return comments by users with the posts's filter
+    */
     public function getcommentsUser($userId)
     {
         //Call-back between posts-id alone
@@ -123,7 +149,10 @@ class CommentManager extends Manager
         $result->closeCursor();
         return $commentsUser;
     }
-    //Found the numbers of comments by postId
+
+    /**
+    *Return the numbers of comments by postId
+    */
     public function getcommentsCount($postId = null)
     {
         if (!$postId) {//If doesn't have got a postId, will find all comments by postId
@@ -147,6 +176,9 @@ class CommentManager extends Manager
         return $commentsCount;
     }
 
+    /**
+    *Return the numbers of comments by userId
+    */
     public function getCountComments($userId)
     {
         $sql='SELECT COUNT(id) AS nb FROM comments WHERE user_id=?';

@@ -1,13 +1,23 @@
 <?php
-
+/**
+ * @package Model
+ */
 namespace App\src\model;
 
 use DateTime;
 use App\src\entity\User;
-use App\src\manager\Manager;
+use App\src\Framework\Manager;
 
+/**
+ * This file manage SQL requests from user's database
+ *
+ * @author Franck D <franck.pyren@gmail.com>
+ */
 class UserManager extends Manager
 {
+    /**
+    * Return object hydrated
+    */
     private function buildObject($row)
     {
         $user = new User();
@@ -22,6 +32,9 @@ class UserManager extends Manager
         return $user;
     }
 
+    /**
+    * Return data's user by username
+    */
     public function checkUser($user)
     {
         $name=$user->get('username');
@@ -33,6 +46,9 @@ class UserManager extends Manager
         return $this->buildObject($user);
     }
 
+    /**
+    * Add new user in database by user's datas sent
+    */
     public function register($user)
     {
         $sql = 'INSERT INTO user (username, email, password,
@@ -43,6 +59,9 @@ class UserManager extends Manager
              'USER', 'NOT']);
     }
     
+    /**
+    * Return the list of users
+    */
     public function getUsers()
     {
         $sql = 'SELECT * FROM user';
@@ -55,6 +74,9 @@ class UserManager extends Manager
         return $user;
     }
 
+    /**
+    * Return if try of connect's user is validate or not
+    */
     public function login($user)
     {
         $sql = 'SELECT id, password, username, email, statut, profil, createdAt, last_date_connect 
@@ -74,6 +96,9 @@ class UserManager extends Manager
         ];
     }
 
+    /**
+    * Sent datas of profile's user by username
+    */
     public function editUser($user, $userId)
     {
         //Update the user after modification for ADMIN only

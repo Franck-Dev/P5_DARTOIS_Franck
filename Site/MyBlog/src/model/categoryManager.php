@@ -1,11 +1,22 @@
 <?php
+/**
+ * @package Model
+ */
 namespace App\src\model;
 
 use App\src\entity\Category;
-use App\src\manager\Manager;
+use App\src\Framework\Manager;
 
+/**
+ * This file manage SQL requests from category's database
+ *
+ * @author Franck D <franck.pyren@gmail.com>
+ */
 class CategoryManager extends Manager
 {
+    /**
+    * Return object hydrated
+    */
     private function buildObject($row)
     {
         $category = new Category();
@@ -15,6 +26,9 @@ class CategoryManager extends Manager
         return $category;
     }
 
+    /**
+    * Return list of categories
+    */
     public function getCategories()
     {
         $sql='SELECT id, name, description FROM category ORDER BY id DESC';
@@ -26,7 +40,10 @@ class CategoryManager extends Manager
         $result->closeCursor();
         return $category;
     }
-
+    
+    /**
+    * Return the category by categoryId
+    */
     public function getCategory($categoryId)
     {
         $sql='SELECT id, name, description FROM category WHERE id = ?';
@@ -36,6 +53,9 @@ class CategoryManager extends Manager
         return $this->buildObject($category);
     }
 
+    /**
+    * Add new category in database by catagory's datas sent
+    */
     public function addCategory($category)
     {
         //Permet de insérer la nouvelle catégorie dans la table
@@ -45,6 +65,9 @@ class CategoryManager extends Manager
             $category->get('name'), $category->get('description')]);
     }
 
+    /**
+    * Update the category by categoryId and datas associated
+    */
     public function editCategory($category, $categoryId)
     {
         //Permet de mettre à jour la catégorie
@@ -56,6 +79,9 @@ class CategoryManager extends Manager
         ]);
     }
 
+    /**
+    * Delete category in database by categoryId
+    */
     public function deleteCategory($categoryId)
     {
         //Permet de supprimer la catégorie, les article et ses commentaires associés( a faire)

@@ -1,5 +1,8 @@
 <?php
-namespace App\src\controller;
+/**
+ * @package Framework
+ */
+namespace App\src\Framework;
 
 use Twig\Environment;
 use App\src\model\postManager;
@@ -13,6 +16,12 @@ use Twig\Extension\DebugExtension;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\HttpFoundation\Session\Session;
 
+/**
+ * This file can regroup parameters usually use
+ * for the others controller in this App:
+ *
+ * @author Franck D <franck.pyren@gmail.com>
+ */
 abstract class Controller
 {
     protected $categoryManager;
@@ -24,6 +33,11 @@ abstract class Controller
     protected $validator;
     protected $mail;
 
+    /**
+     * This file can regroup parameters usually use
+     * for the others controller in this App:
+     *
+     */
     public function __construct()
     {
         $this->categoryManager=new categoryManager;

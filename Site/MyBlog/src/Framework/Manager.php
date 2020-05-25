@@ -1,34 +1,44 @@
 <?php
-namespace App\src\manager;
+/**
+ * @package Framework
+ */
+namespace App\src\Framework;
 
 use PDO;
 use Exception;
 
+/**
+ * This file manage
+ *
+ * @author Franck D <franck.pyren@gmail.com>
+ */
 abstract class Manager
 {
-/**
-* Server address for administration base
-*/
     const  DB_HOST = 'mysql:host=localhost;dbname=MyBlog;charset=utf8';
-
-/**
-* Name of user administration database
-*/
     const  DB_USER = 'root';
-
-/**
-* Password
-*/
     const  DB_PASS = 'root';
-
-/**
-* Connection datas
-*/
     private $connection;
 
+/**
+     * Manage the connection of database entry files and this.
+     *
+     * The file creating the connection with database by methods:
+     *
+     *   * getConnect,
+     *   * createQuery,
+     *   * checkConnect.
+     *
+     * Parameters helping at the connection to create.
+     *
+     * @param string      DB_HOST     Server address for administration base
+     * @param string      DB_USER     Name of user administration database
+     * @param string|null DB_PASS     Password
+     * @param string      $connection Connection datas
+     *
+     */
 
 /**
-* Méthode qui va nous permettre de gérer l'accès à la base
+* Methods use for creating database's access
 */
     public function getConnect()
     {
@@ -45,7 +55,7 @@ abstract class Manager
     }
 
 /**
-* Permet de créer les requetes
+* Use for creating request before executing for database
 */
     protected function createQuery($sql, $parameters = null)
     {
@@ -59,7 +69,7 @@ abstract class Manager
     }
 
 /**
-* Vérifie si une connexion existe ou pas
+* Check-up if the connection was etablish before a new connection
 */
     private function checkConnect()
     {

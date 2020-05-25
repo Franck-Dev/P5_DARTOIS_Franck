@@ -1,11 +1,22 @@
 <?php
+/**
+ * @package Model
+ */
 namespace App\src\model;
 
 use App\src\entity\Post;
-use App\src\manager\Manager;
+use App\src\Framework\Manager;
 
+/**
+ * This file manage SQL requests from posts's database
+ *
+ * @author Franck D <franck.pyren@gmail.com>
+ */
 class PostManager extends Manager
 {
+    /**
+    * Return object hydrated
+    */
     private function buildObject($row)
     {
         $post = new Post();
@@ -21,6 +32,9 @@ class PostManager extends Manager
         return $post;
     }
 
+    /**
+    * Return list posts by category or not
+    */
     public function getPosts($categoryId = null)
     {
         if ($categoryId) {
@@ -52,6 +66,9 @@ class PostManager extends Manager
         return $post;
     }
 
+    /**
+    * Return post by postId for the single template
+    */
     public function getPost($postId)
     {
         $sql='SELECT p.id, p.title, p.chapo, p.description,
@@ -67,6 +84,9 @@ class PostManager extends Manager
         return $this->buildObject($post);
     }
 
+    /**
+    * Add new post in database by post's datas sent
+    */
     public function addPost($post, $fileName)
     {
         //Permet de récupérer les variables $title, $description et $author
@@ -77,6 +97,9 @@ class PostManager extends Manager
             $post->get('userId'), $post->get('categoryId'), $fileName]);
     }
 
+    /**
+    * Update post in database by post's datas sent
+    */
     public function editPost($post, $postId)
     {
         //Permet de mettre à jour l'article
@@ -93,6 +116,9 @@ class PostManager extends Manager
         ]);
     }
 
+    /**
+    * Delete post by postId
+    */
     public function deletePost($postId)
     {
         //Delete post and comments associate
@@ -102,6 +128,9 @@ class PostManager extends Manager
         $this->createQuery($sql, [$postId]);
     }
 
+    /**
+    * Number of post by category
+    */
     public function getpostsCount()
     {
         $sql='SELECT DISTINCT category_id, COUNT(id) AS nb FROM posts GROUP BY category_id';

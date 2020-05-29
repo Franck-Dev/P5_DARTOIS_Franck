@@ -20,8 +20,8 @@
     <body id="page-top">
         <!-- Navigation-->
         <nav class="navbar sticky-top navbar-expand-md navbar navbar-dark bg-dark" id="mainNav">
-            <a class="navbar-brand text-primary" href="../public/index.php">
-                <img src="../public/images/TechnoPropre.png" width="30" height="30" style="border-radius:10px" class="d-inline-block align-top" alt="">
+            <a class="navbar-brand text-primary" href="../index.php">
+                <img src="../images/TechnoPropre.png" width="30" height="30" style="border-radius:10px" class="d-inline-block align-top" alt="">
                 Pyr'Teck
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,19 +30,19 @@
             <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link dropdown-toggle text-primary" href="../public/index.php" role="button" 
+                        <a class="nav-link dropdown-toggle text-primary" href="../index.php" role="button" 
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Accueil<span class="sr-only">(current)</span></a>
                         <div class="dropdown-menu text-primary" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="../public/index.php#about">Présentation</a>
-                            <a class="dropdown-item" href="../public/index.php#mostabout">A propos</a>
-                            <a class="dropdown-item" href="../public/index.php#projects">Mes Réalisations</a>
+                            <a class="dropdown-item" href="../index.php#about">Présentation</a>
+                            <a class="dropdown-item" href="../index.php#mostabout">A propos</a>
+                            <a class="dropdown-item" href="../index.php#projects">Mes Réalisations</a>
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-primary" href="../public/index.php#signup">Contact</a>
+                        <a class="nav-link text-primary" href="../index.php#signup">Contact</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-primary" href="../public/index.php?route=blog">MyBlog</a>
+                        <a class="nav-link text-primary" href="../index.php?route=blog">MyBlog</a>
                     </li>
                     {% if app.get('profil') == 'ADMIN' %}
                         <li class="nav-item dropdown">
@@ -51,9 +51,9 @@
                             Admin
                             </a>
                             <div class="dropdown-menu text-primary" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="../public/index.php?route=AdminPosts">Articles</a>
-                                <a class="dropdown-item" href="../public/index.php?route=AdminComments">Commentaires</a>
-                                <a class="dropdown-item" href="../public/index.php?route=AdminUsers">Utilisateurs</a>
+                                <a class="dropdown-item" href="../index.php?route=AdminPosts">Articles</a>
+                                <a class="dropdown-item" href="../index.php?route=AdminComments">Commentaires</a>
+                                <a class="dropdown-item" href="../index.php?route=AdminUsers">Utilisateurs</a>
                             </div>
                         </li>
                     {% else %}
@@ -72,12 +72,12 @@
                                     <span class="fas fa-user"></span>
                                     Mon Profil
                                 </button>
-                                <a class="dropdown-item" href="../public/index.php?route=userComments">Mes Commentaires</a>
-                                <a class="dropdown-item" href="../public/index.php?route=logout">Logout</a>
+                                <a class="dropdown-item" href="../index.php?route=userComments">Mes Commentaires</a>
+                                <a class="dropdown-item" href="../index.php?route=logout">Logout</a>
                             </div>
                         </div>
                     {% else %}
-                        <a class=" btn btn-outline-primary" href="../public/index.php?route=login">Login</a>
+                        <a class=" btn btn-outline-primary" href="../index.php?route=login">Login</a>
                     {% endif %}
                 </form>
             </div>

@@ -4,9 +4,10 @@
  */
 namespace App\src\controller;
 
-use App\src\Framework\Controller;
-use Symfony\Component\Validator\Constraints\NotBlank;
 use Swift_Message;
+use App\src\Framework\Controller;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
  * This file manage methods are using for blog and homepage
@@ -33,6 +34,7 @@ class FrontController extends Controller
 
     /**
     * Sent lists of posts, comments and category in homepage
+    * @Route("/", name="home")
     */
     public function home($categoryId = null)
     {
@@ -64,6 +66,7 @@ class FrontController extends Controller
 
     /**
     * Sent data's postId to single template for visualization
+    * @Route("/postId/{id}", name="article")
     */
     public function post($postId)
     {
@@ -84,7 +87,7 @@ class FrontController extends Controller
     {
         if ($comment->request->get('submit')) {
             $this->commentManager->addComment($comment);
-            header('Location: ../public/index.php?route=post&postId=' . $postId);
+            header('Location: ../index.php?route=post&postId=' . $postId);
         }
     }
 
@@ -95,7 +98,7 @@ class FrontController extends Controller
     {
         if ($comment->request->get('submit')) {
             $this->commentManager->editComment($comment, $commentId);
-            header('Location: ../public/index.php?route=post&postId=' . $postId);
+            header('Location: ../index.php?route=post&postId=' . $postId);
         } else {
             $comment = $this->commentManager->editComment($comment, $commentId);
             echo $this->twig->render('single.html.twig', [
@@ -118,7 +121,7 @@ class FrontController extends Controller
             }
         } else {
             $this->commentManager->deleteComment($commentId);
-            header('Location: ../public/index.php');
+            header('Location: ../index.php');
         }
     }
 
@@ -131,7 +134,7 @@ class FrontController extends Controller
             $login = $this->userManager->login($user);
             if ($login && $login['isPasswordValid'] == true) {
                 $this->recupSession($login['result']);
-                header('Location: ../public/index.php');
+                header('Location: ../index.php');
             } else {
                 $this->session->getFlashBag()->add('connexion', 'Mot de passe ou identifiant incorrect');
                 $message = 'Mot de passe ou identifiant incorrect';
@@ -150,7 +153,7 @@ class FrontController extends Controller
     public function logout()
     {
         $this->session->clear();
-        header('Location: ../public/index.php');
+        header('Location: ../index.php');
     }
 
     /**
@@ -168,7 +171,7 @@ class FrontController extends Controller
                 ]);
             } else {
                 $this->userManager->register($user);
-                header('Location: ../public/index.php');
+                header('Location: ../index.php');
             }
         }
         echo $this->twig->render('register.html.twig');

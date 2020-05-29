@@ -25,6 +25,8 @@ class Router
     {
         $request = Request::createFromGlobals();
         $response = new Response();
+        $uri=$request->getRequestUri();
+        //var_dump($uri);
         try {
             if ($request->query->get('route')) {
                 if ($request->query->get('route') === 'postsCategory') {

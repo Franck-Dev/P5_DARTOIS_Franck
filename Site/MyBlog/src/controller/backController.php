@@ -31,7 +31,7 @@ class BackController extends Controller
                     $this->session->getFlashBag()->add('ErUploadFiles', 'Le format du fichier a importer est inconnu');
                 }
             }
-            header('Location: ../public/index.php?route=AdminPosts');
+            header('Location: ../index.php?route=AdminPosts');
         }
     }
 
@@ -44,7 +44,7 @@ class BackController extends Controller
         $categories=$this->categoryManager->getCategories();
         if ($request->get('submit')) {
             $this->postManager->editPost($request, $postId);
-            header('Location: ../public/index.php?route=AdminPosts');
+            header('Location: ../index.php?route=AdminPosts');
         }
         echo $this->twig->render('forms/form_AddPost.html.twig', [
            'post' => $post,
@@ -58,7 +58,7 @@ class BackController extends Controller
     public function deletePost($postId)
     {
             $this->postManager->deletePost($postId);
-            header('Location: ../public/index.php?route=AdminPosts');
+            header('Location: ../index.php?route=AdminPosts');
     }
 
     /**
@@ -68,7 +68,7 @@ class BackController extends Controller
     {
         if ($category->get('submit')) {
             $this->categoryManager->addCategory($category);
-            header('Location: ../public/index.php');
+            header('Location: ../index.php');
         }
     }
 
@@ -80,7 +80,7 @@ class BackController extends Controller
         $category=$this->categoryManager->getCategory($categoryId);
         if ($request->get('submit')) {
             $this->categoryManager->editCategory($request, $categoryId);
-            header('Location: ../public/index.php');
+            header('Location: ../index.php');
         }
         echo $this->twig->render('forms/form_AddCategory.html.twig', [
            'category' => $category
@@ -93,7 +93,7 @@ class BackController extends Controller
     public function deleteCategory($categoryId)
     {
             $this->categoryManager->deleteCategory($categoryId);
-            header('Location: ../public/index.php');
+            header('Location: ../index.php');
     }
 
     /**
@@ -126,7 +126,7 @@ class BackController extends Controller
     public function statutComment($comment)
     {
         $this->commentManager->editComment($comment, $comment->get('commentId'));
-            header('Location: ../public/index.php?route=AdminComments');
+            header('Location: ../index.php?route=AdminComments');
     }
 
     /**
@@ -146,6 +146,6 @@ class BackController extends Controller
     public function statutUser($user)
     {
         $this->userManager->editUser($user, $user->get('userId'));
-            header('Location: ../public/index.php?route=AdminUsers');
+            header('Location: ../index.php?route=AdminUsers');
     }
 }

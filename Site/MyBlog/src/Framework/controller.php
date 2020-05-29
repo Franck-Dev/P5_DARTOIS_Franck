@@ -57,8 +57,8 @@ abstract class Controller
         // Add extension SwiftMailer with yours parameters
         $this->mail = new Swift_SmtpTransport();
         $transport = (new Swift_SmtpTransport('smtp.orange.fr', 25))
-        ->setUsername('franck.pyren')
-        ->setPassword('Tristan2008');
+        ->setUsername('')
+        ->setPassword('');
         $this->mailer = new Swift_Mailer($transport);
     }
 }

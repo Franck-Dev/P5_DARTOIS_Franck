@@ -1,10 +1,10 @@
 {% if post %}
-    {% set path = ['../public/index.php?route=editPost&postId=',post.Id]|join %}
+    {% set path = ['../index.php?route=editPost&postId=',post.Id]|join %}
     {% set btn = 'Modifier' %}
     {% set cls = 'btn btn-danger' %}
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 {% else %}
-    {% set path = '../public/index.php?route=addPost' %}
+    {% set path = '../index.php?route=addPost' %}
     {% set btn = 'Enregistrer' %}
     {% set cls = 'btn btn-primary' %}
 {% endif %}

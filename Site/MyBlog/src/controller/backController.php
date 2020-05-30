@@ -25,7 +25,12 @@ class BackController extends Controller
                 $extValide=['jpg','png','jpeg','gif','ico'];
                 $extFile=$post->files->get('image')->getClientOriginalExtension();
                 if (in_array($extFile, $extValide)) {
+                    //The picture was remove in folder images
                     $post->files->get('image')->move($path, $name);
+                    //This image will be resize for equal dimensions themself
+                    $image_path=$path . '/' . $name;
+                    $this->resize_img($image_path,'',1233,633,0,'auto');
+                    //Save in database
                     $this->postManager->addPost($post->request, $name);
                 } else {
                     $this->session->getFlashBag()->add('ErUploadFiles', 'Le format du fichier a importer est inconnu');

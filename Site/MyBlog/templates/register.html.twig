@@ -1,13 +1,15 @@
-{# <head>
-	<title>Login Page</title>
-	<!--Bootsrap 4 CDN-->
+<head>
+	<title>Register Page</title>
+
+	{# <!--Bootsrap 4 CDN-->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
     <!--Fontawesome CDN-->
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous"> #}
 
 	<!--Custom styles-->
-	<link rel="stylesheet" type="text/css" href="css/style.css">
-</head> #}
+	<link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
 
 <!--If user connected, templating modification-->
 {% block contents %}
@@ -15,14 +17,14 @@
 	{% set btn = 'Modifier' %}
 	{% set cls = 'btn btn-danger float-right' %}
 	{% set title = 'Données du profil' %}
-	{% set route = '../public/index.php?route=profile&UserId=' %}
+	{% set route = 'profile/' %}
 	{% set date = ['Inscrit depuis le :', app.get('createdAt')]|join %}
 	{% set nameform = 'formLogUser' %}
 {% else %}
 	{% set btn = 'Enregistrer' %}
 	{% set cls = 'btn btn-primary float-right' %}
 	{% set title = 'Inscription' %}
-	{% set route = '../public/index.php?route=register' %}
+	{% set route = 'register' %}
 	{% set nameform = 'formLogRegister' %}
 {% endif %}
 <div class="container p-0">
@@ -67,7 +69,7 @@
 						<!-- Delete the button for profile template -->
 						{% if app.get('username') %}
 						{% else %}
-							<a href="../Public/index.php" type="button" class="btn btn-danger">Annuler</a>
+							<a href="/PyrTeck" type="button" class="btn btn-danger">Annuler</a>
 						{% endif %}
 					</div>
 				</form>

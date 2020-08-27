@@ -28,7 +28,7 @@
             <div class="container">
                 <!-- Featured Project Row-->
                 <div class="row align-items-center no-gutters mb-4 mb-lg-5">
-                    <div class="col-xl-8 col-lg-6"><img class="img-fluid mb-3 mb-lg-0" src="Images/bg-masthead.jpg" alt="" /></div>
+                    <div class="col-xl-8 col-lg-6"><img class="img-fluid mb-3 mb-lg-0" src="/Images/bg-masthead.jpg" alt="" /></div>
                     <div class="col-xl-4 col-lg-6">
                         <div class="featured-text text-center text-lg-left">
                             <h4>Un peu plus sur moi...Franck DARTOIS</h4>
@@ -71,7 +71,7 @@
                         {% else %}
                             <div class="carousel-item">
                         {% endif %}
-                            <img class="d-block w-100" src="Images/{{post.imageune}}" alt="{{post.id}} slide">
+                            <img class="d-block w-100" src="/Images/{{post.imageune}}" alt="{{post.id}} slide">
                             <div class="carousel-caption d-none d-md-block text-primary">
                                 <h5>{{post.title}}</h5>
                                 <p>{{post.chapo}}</p>
@@ -109,7 +109,7 @@
                                     </button>
                                 </div> 
                             {% endif %}
-                            <form name="sentMessage" id="contactForm" class="was-validated" method="post" action="../public/index.php?route=sendMail" novalidate>
+                            <form name="sentMessage" id="contactForm" class="was-validated" method="post" action="PyrTeck?route=sendMail" novalidate>
                                 <div class="control-group">
                                     <div class="form-group floating-label-form-group controls">
                                     <label>Name</label>

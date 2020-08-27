@@ -4,19 +4,22 @@
  */
 namespace App\src\controller;
 
+use App\src\Framework\Controller;
+
 /**
  * This file manage methods for return error template
  *
  * @author Franck D <franck.pyren@gmail.com>
  */
-class ErrorController
+class ErrorController extends Controller
 {
     /**
     * Return the template when the path router doesn't found
     */
     public function errorNotFound()
     {
-        require '../templates/error/error_404.php';
+        echo $this->twig->render('error/error_404.html.twig');
+        //require '../templates/error/error_404.php';
     }
 
     /**

@@ -104,7 +104,7 @@ class BackController extends Controller
     /**
     * Send the list of posts by one or all category for the adminPost template
     */
-    public function adminPosts()
+    public function Posts()
     {
         $posts=$this->postManager->getPosts();
         $categories=$this->categoryManager->getCategories();
@@ -117,7 +117,7 @@ class BackController extends Controller
     /**
     * Send the list of comments validated for the adminComment template
     */
-    public function adminComments()
+    public function Comments()
     {
         $comments=$this->commentManager->getCommentsValidate();
         echo $this->twig->render('admin/comment_Admin.html.twig', [
@@ -137,7 +137,7 @@ class BackController extends Controller
     /**
     * Send the list of users for the adminUser template
     */
-    public function adminUsers()
+    public function Users()
     {
         $users=$this->userManager->getUsers();
         echo $this->twig->render('admin/user_Admin.html.twig', [

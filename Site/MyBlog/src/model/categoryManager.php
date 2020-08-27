@@ -59,7 +59,6 @@ class CategoryManager extends Manager
     public function addCategory($category)
     {
         //Permet de insérer la nouvelle catégorie dans la table
-        var_dump($category);
         $sql = 'INSERT INTO category (name, description) VALUES (?, ?)';
         $this->createQuery($sql, [
             $category->get('name'), $category->get('description')]);

@@ -36,8 +36,9 @@ class FrontController extends Controller
     * Sent lists of posts, comments and category in homepage
     * @Route("/", name="home")
     */
-    public function home($categoryId = null)
+    public function Blog($categoryId = null)
     {
+        //var_dump($categoryId);
         $posts = $this->postManager->getPosts($categoryId);
         $commentsCount = $this->commentManager->getcommentsCount();
         $postsCount = $this->postManager->getpostsCount();
@@ -69,7 +70,7 @@ class FrontController extends Controller
     * @Route("/postId/{id}", name="article")
     */
     public function post($postId)
-    {
+    {   var_dump($postId);
         $post = $this->postManager->getPost($postId);
         $comments = $this->commentManager->getComments($postId);
         $commentsCount = $this->commentManager->getcommentsCount($postId);
@@ -134,7 +135,7 @@ class FrontController extends Controller
             $login = $this->userManager->login($user);
             if ($login && $login['isPasswordValid'] == true) {
                 $this->recupSession($login['result']);
-                header('Location: ../index.php');
+                header('Location: /PyrTeck');
             } else {
                 $this->session->getFlashBag()->add('connexion', 'Mot de passe ou identifiant incorrect');
                 $message = 'Mot de passe ou identifiant incorrect';
@@ -153,7 +154,7 @@ class FrontController extends Controller
     public function logout()
     {
         $this->session->clear();
-        header('Location: ../index.php');
+        header('Location: /PyrTeck');
     }
 
     /**

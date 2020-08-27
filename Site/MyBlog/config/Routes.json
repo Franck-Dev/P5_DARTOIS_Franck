@@ -1,0 +1,66 @@
+{
+    "PyrTeck": [
+        {
+          "name": "PyrTeck",
+          "controller": "frontController",
+          "action": "Blog",
+          "params": ["1"]
+        }
+      ],
+    "PyrTeck/connexion/login": [
+      {
+        "name": "PyrTeck/connexion/login",
+        "controller": "frontController",
+        "action": "login",
+        "params": ["$request"]
+      }
+    ],
+    "PyrTeck/connexion/logout": [
+        {
+          "name": "PyrTeck/connexion/logout",
+          "controller": "frontController",
+          "action": "logout",
+          "params": ["$request"]
+        }
+      ],
+      "PyrTeck/connexion/register": [
+        {
+          "name": "PyrTeck/connexion/register",
+          "controller": "frontController",
+          "action": "register",
+          "params": ["$request"]
+        }
+      ],
+    "PyrTeck/Blog": [
+        {
+          "name": "PyrTeck/Blog",
+          "controller": "frontController",
+          "action": "Blog",
+          "params": []
+        }
+      ],
+      "PyrTeck/Blog/:id": [
+        {
+          "name": "PyrTeck/Blog/:categoryid",
+          "controller": "frontController",
+          "action": "Blog",
+          "params": ["id"]
+        }
+      ],
+      "PyrTeck/Blog/post/addComment": [
+        {
+          "name": "PyrTeck/Blog/post/addComment/:postid",
+          "controller": "frontController",
+          "action": "addComment",
+          "params": ["$request", "id"]
+        }
+      ],
+    "PyrTeck/Blog/post": [
+        {
+          "name": "PyrTeck/Blog/post/:id",
+          "controller": "frontController",
+          "action": "post",
+          "params": ["id"]
+        }
+      ]
+  }

@@ -52,12 +52,12 @@ class CommentManager extends Manager
     /**
     * Add new comment in database by comment's datas sent
     */
-    public function addComment($comment)
+    public function addComment($comment, $postId)
     {
         $sql = 'INSERT INTO comments (posts_id, description,
          user_id, createdAtComments, statut) VALUES (?, ?, ?, NOW(), 0)';
         $this->createQuery($sql, [
-            $comment->query->get('postId'), $comment->request->get('description'), $comment->request->get('pseudo')]);
+            $postId, $comment->request->get('description'), $comment->request->get('pseudo')]);
     }
 
     /**

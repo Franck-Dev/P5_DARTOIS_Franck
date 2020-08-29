@@ -33,13 +33,18 @@ Class Route
         if (empty($name['params'])) {
             $params[$i] = '';
         }
+        $rg = count($name['params']);
         foreach ($name['params'] as $att) {
             switch ($att) {
                 case '$request':
                     $params[$i] = $request;
                 break;
                 case 'id':
-                    $params[$i] = end($para);
+                    if ($i === $rg-1) {
+                        $params[$i] = end($para);
+                    } else {
+                        $params[$i] = $para[count($para)-2];
+                    }
                 break;
             }
             ++$i;
@@ -54,7 +59,7 @@ Class Route
         $tr = $this->getRoutes();
         foreach ($tr as $route) {
             $d = explode('/', trim($route[0]['name'], "/"));
-            if (count($url) == count($d) && stristr($uri, $route[0]['action']) ) {
+            if (count($url) == count($d) && strstr($uri, $route[0]['action']) ) {
                 $this->module = $this->getModule($route[0]);
                 $this->action = $this->getAction($route[0]);
                 $this->params = $this->getParams($route[0], $url, $request);

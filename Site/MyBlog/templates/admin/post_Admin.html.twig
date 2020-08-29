@@ -2,9 +2,6 @@
 
 {% block title %} Administration des articles {% endblock %}
 {% block contents %}
-    {# <pre>
-        {{ dump(app.getBag('flashes')) }}
-    </pre> #}
     <h3 class="text-white">Gestion des articles du blog :</h3>
         <button type="button" class="btn btn-primary m-1" data-toggle="modal" data-target="#ModalPost">
             Nouvel article
@@ -72,8 +69,8 @@
                             <td>{{post.createdAt}}</td>
                             <td>{{post.derniereMaJ}}</td>
                             <td>{{post.user}}</td>
-                            <td><a href="../index.php?route=editPost&postId={{post.id}}" class="btn btn-primary" style="border-radius:40px">Modifier</a>
-                            <a href="../index.php?route=deletePost&postId={{post.id}}" class="btn btn-danger" style="border-radius:40px">Supprimer</a></td>
+                            <td><a href="/PyrTeck/Admin/editPost/{{post.id}}" class="btn btn-primary" style="border-radius:40px">Modifier</a>
+                            <a href="/PyrTeck/Admin/deletePost/{{post.id}}" class="btn btn-danger" style="border-radius:40px">Supprimer</a></td>
                         </tr>
                     {% endfor %}
                 </tbody>

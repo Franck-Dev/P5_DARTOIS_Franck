@@ -54,11 +54,15 @@ abstract class Controller
         $this->twig->addGlobal('app', new Session());
         $this->validator = Validation::createValidator();
 
+        /* Array datas for config mail parameters */
+        $file_json = file_get_contents('../config/Config.json');
+        $parameters = json_decode($file_json, true);
+
         // Add extension SwiftMailer with yours parameters
         $this->mail = new Swift_SmtpTransport();
-        $transport = (new Swift_SmtpTransport('smtp.orange.fr', 25))
-        ->setUsername('franck.pyren')
-        ->setPassword('Tristan2008');
+        $transport = (new Swift_SmtpTransport($parameters['mail'][0]['domain'], $parameters['mail'][0]['port']))
+        ->setUsername($parameters['mail'][0]['username'])
+        ->setPassword($parameters['mail'][0]['password']);
         $this->mailer = new Swift_Mailer($transport);
     }
 

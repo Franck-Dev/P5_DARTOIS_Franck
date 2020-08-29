@@ -23,6 +23,14 @@
           "params": ["$request"]
         }
       ],
+    "PyrTeck/usercomments": [
+      {
+        "name": "PyrTeck/usercomments",
+        "controller": "frontController",
+        "action": "userComments",
+        "params": []
+      }
+    ],
       "PyrTeck/connexion/register": [
         {
           "name": "PyrTeck/connexion/register",
@@ -39,28 +47,108 @@
           "params": []
         }
       ],
-      "PyrTeck/Blog/:id": [
-        {
-          "name": "PyrTeck/Blog/:categoryid",
-          "controller": "frontController",
-          "action": "Blog",
-          "params": ["id"]
-        }
-      ],
-      "PyrTeck/Blog/post/addComment": [
-        {
-          "name": "PyrTeck/Blog/post/addComment/:postid",
-          "controller": "frontController",
-          "action": "addComment",
-          "params": ["$request", "id"]
-        }
-      ],
+    "PyrTeck/Blog/:id": [
+      {
+        "name": "PyrTeck/Blog/:categoryid",
+        "controller": "frontController",
+        "action": "Blog",
+        "params": ["id"]
+      }
+    ],
+    "PyrTeck/Blog/post/addComment": [
+      {
+        "name": "PyrTeck/Blog/post/addComment/:postid",
+        "controller": "frontController",
+        "action": "addComment",
+        "params": ["$request", "id"]
+      }
+    ],
+    "PyrTeck/Blog/post/editComment/:id/:id": [
+      {
+        "name": "PyrTeck/Blog/post/editComment/:commentid/:postid",
+        "controller": "frontController",
+        "action": "editComment",
+        "params": ["$request", "id", "id"]
+      }
+    ],
+    "PyrTeck/Blog/post/deleteComment/:id/:id": [
+      {
+        "name": "PyrTeck/Blog/post/deleteComment/:commentid/:postid",
+        "controller": "frontController",
+        "action": "deleteComment",
+        "params": ["id", "id"]
+      }
+    ],
     "PyrTeck/Blog/post": [
-        {
-          "name": "PyrTeck/Blog/post/:id",
-          "controller": "frontController",
-          "action": "post",
-          "params": ["id"]
-        }
-      ]
+      {
+        "name": "PyrTeck/Blog/post/:id",
+        "controller": "frontController",
+        "action": "post",
+        "params": ["id"]
+      }
+    ],
+    "PyrTeck/sendMail": [
+      {
+        "name": "PyrTeck/sendMail",
+        "controller": "frontController",
+        "action": "sendMail",
+        "params": ["$request"]
+      }
+    ],
+    "PyrTeck/Admin/Posts": [
+      {
+        "name": "PyrTeck/Admin/Posts",
+        "controller": "backController",
+        "action": "Posts",
+        "params": []
+      }
+    ],
+    "PyrTeck/Admin/Comments": [
+      {
+        "name": "PyrTeck/Admin/Comments",
+        "controller": "backController",
+        "action": "Comments",
+        "params": []
+      }
+    ],
+    "PyrTeck/Admin/Users": [
+      {
+        "name": "PyrTeck/Admin/Users",
+        "controller": "backController",
+        "action": "Users",
+        "params": []
+      }
+    ],
+    "PyrTeck/admin/addPost": [
+      {
+        "name": "PyrTeck/Admin/addPost",
+        "controller": "backController",
+        "action": "addPost",
+        "params": ["$request"]
+      }
+    ],
+    "PyrTeck/Admin/editPost/:id": [
+      {
+        "name": "PyrTeck/Admin/editPost/:id",
+        "controller": "backController",
+        "action": "editPost",
+        "params": ["$request", "id"]
+      }
+    ],
+    "PyrTeck/Admin/deletePost/:id": [
+      {
+        "name": "PyrTeck/Admin/deletePost/:id",
+        "controller": "backController",
+        "action": "deletePost",
+        "params": ["id"]
+      }
+    ],
+    "PyrTeck/Admin/addCategory": [
+      {
+        "name": "PyrTeck/Admin/addCategory",
+        "controller": "backController",
+        "action": "addCategory",
+        "params": ["$request"]
+      }
+    ]
   }

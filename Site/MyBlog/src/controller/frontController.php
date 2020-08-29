@@ -70,7 +70,7 @@ class FrontController extends Controller
     * @Route("/postId/{id}", name="article")
     */
     public function post($postId)
-    {   var_dump($postId);
+    {   
         $post = $this->postManager->getPost($postId);
         $comments = $this->commentManager->getComments($postId);
         $commentsCount = $this->commentManager->getcommentsCount($postId);
@@ -87,8 +87,8 @@ class FrontController extends Controller
     public function addComment($comment, $postId)
     {
         if ($comment->request->get('submit')) {
-            $this->commentManager->addComment($comment);
-            header('Location: ../index.php?route=post&postId=' . $postId);
+            $this->commentManager->addComment($comment, $postId);
+            header('Location: /PyrTeck/Blog/post/' . $postId);
         }
     }
 
@@ -99,7 +99,7 @@ class FrontController extends Controller
     {
         if ($comment->request->get('submit')) {
             $this->commentManager->editComment($comment, $commentId);
-            header('Location: ../index.php?route=post&postId=' . $postId);
+            header('Location: /PyrTeck/Blog/post/' . $postId);
         } else {
             $comment = $this->commentManager->editComment($comment, $commentId);
             echo $this->twig->render('single.html.twig', [
@@ -111,7 +111,7 @@ class FrontController extends Controller
     /**
     * Sent commentId for delete comment
     */
-    public function deleteComment($commentId)
+    public function deleteComment($commentId, $postId)
     {
         $violations = $this->validator->validate($commentId, [
             new NotBlank(),
@@ -122,7 +122,7 @@ class FrontController extends Controller
             }
         } else {
             $this->commentManager->deleteComment($commentId);
-            header('Location: ../index.php');
+            header('Location: /PyrTeck/Blog/post/' . $postId);
         }
     }
 
@@ -196,13 +196,13 @@ class FrontController extends Controller
     {
         // Create a message
         $message = (new Swift_Message('Demande de renseignement'))
-        ->setFrom(['franck.pyren@orange.fr' => 'Franck'])
-        ->setTo([($mail->request->get('email')) => ($mail->request->get('name')), 'franck.pyren@orange.fr'])
+        ->setFrom([($mail->request->get('email')) => ($mail->request->get('name'))])
+        ->setTo([ 'franck.pyren@orange.fr', ($mail->request->get('email')) => ($mail->request->get('name'))])
         ->setBody($mail->request->get('message'));
         // Send the message
         $result = $this->mailer->send($message);
         if ($result === 1) {
-            $message='Le message n\'a pu être envoyé, l\'adresse de destination été érronée';
+            $message='Le message n\'a pu être envoyé, l\'adresse mail est érronée';
         } else {
             $message='Le message a bien été envoyé';
         }

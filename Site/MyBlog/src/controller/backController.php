@@ -17,7 +17,7 @@ class BackController extends Controller
     * Send the datas of form towards postManager for a new post
     */
     public function addPost($post)
-    {
+    {   
         if ($post->get('submit')) {
             if ($post->files->get('image')) {
                 $path='../public/Images';
@@ -36,7 +36,7 @@ class BackController extends Controller
                     $this->session->getFlashBag()->add('ErUploadFiles', 'Le format du fichier a importer est inconnu');
                 }
             }
-            header('Location: ../index.php?route=AdminPosts');
+            header('Location: /PyrTeck/Admin/Posts');
         }
     }
 
@@ -49,7 +49,7 @@ class BackController extends Controller
         $categories=$this->categoryManager->getCategories();
         if ($request->get('submit')) {
             $this->postManager->editPost($request, $postId);
-            header('Location: ../index.php?route=AdminPosts');
+            header('Location: /PyrTeck/Admin/Posts');
         }
         echo $this->twig->render('forms/form_AddPost.html.twig', [
            'post' => $post,
@@ -63,7 +63,7 @@ class BackController extends Controller
     public function deletePost($postId)
     {
             $this->postManager->deletePost($postId);
-            header('Location: ../index.php?route=AdminPosts');
+            header('Location: /PyrTeck/Admin/Posts');
     }
 
     /**
@@ -73,7 +73,7 @@ class BackController extends Controller
     {
         if ($category->get('submit')) {
             $this->categoryManager->addCategory($category);
-            header('Location: ../index.php');
+            header('Location: /PyrTeck/Blog');
         }
     }
 
@@ -85,7 +85,7 @@ class BackController extends Controller
         $category=$this->categoryManager->getCategory($categoryId);
         if ($request->get('submit')) {
             $this->categoryManager->editCategory($request, $categoryId);
-            header('Location: ../index.php');
+            header('Location: /PyrTeck/Blog');
         }
         echo $this->twig->render('forms/form_AddCategory.html.twig', [
            'category' => $category
@@ -98,7 +98,7 @@ class BackController extends Controller
     public function deleteCategory($categoryId)
     {
             $this->categoryManager->deleteCategory($categoryId);
-            header('Location: ../index.php');
+            header('Location: /PyrTeck/Blog');
     }
 
     /**

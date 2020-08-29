@@ -83,10 +83,8 @@
                                 <button type="button" class="btn btn-primary m-1" data-toggle="modal" data-target="#{{var}}">
                                         Modifier
                                 </button>
-                                <a href="PyrTeck?route=deleteComment&commentId={{comment.id|raw}}" 
+                                <a href="/PyrTeck/Blog/post/deleteComment/{{comment.id|raw}}/{{post.id|raw}}" 
                                 class="btn btn-danger" style="border-radius:40px">Supprimer</a>
-                                {# <a href="../Public/index.php?route=editComment&commentId={{comment.id}}" 
-                                class="btn btn-primary" style="border-radius:40px">Modifier</a> #}
                             </div>
                         {% else %}
                             

@@ -34,7 +34,7 @@ class Router
         $controller = $this->$controllerName;
         $action = $route->action;
         $params = $route->params;
-        //var_dump($wayOK);
+        //var_dump($route);
         try {
             if (method_exists($controller, $action) && $params != null) {
                 //var_dump($params);

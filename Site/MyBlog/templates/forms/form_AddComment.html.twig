@@ -1,12 +1,12 @@
 {% if comment %}
-    {% set path = ['PyrTeck?route=editComment&commentId=',comment.Id,'&postId=',comment.postId]|join %}
+    {% set path = ['/PyrTeck/Blog/post/editComment/',comment.Id,'/',comment.postId]|join %}
     {% set btn = 'Modifier' %}
     {% set cls = 'btn btn-danger' %}
     {% set textDescription = ['description',comment.id]|join %}
     {% set inputSpeudo = ['pseudo',comment.id]|join %}
     {% set btnsubmit = ['submit',comment.id]|join %}
 {% else %}
-    {% set path = ['PyrTeck?route=addComment&postId=',post.id]|join %}
+    {% set path = ['/PyrTeck/Blog/post/addComment/',post.id]|join %}
     {% set btn = 'Enregistrer' %}
     {% set cls = 'btn btn-primary' %}
     {% set btn = 'Enregistrer' %}

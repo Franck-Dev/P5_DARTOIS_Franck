@@ -171,8 +171,17 @@ class FrontController extends Controller
                     'message' => 'Utilisateur deja existant'
                 ]);
             } else {
-                $this->userManager->register($user);
-                header('Location: ../index.php');
+                foreach ($this->parameters['admin'] as $status) {
+                    if ($status['name'] == $user->request->get('username')) {
+                        $statut = 'ADMIN';
+                    break;
+                    } else {
+                        var_dump($user->request->get('username'));
+                        $statut = 'USER';
+                    }
+                }
+                $this->userManager->register($user, $statut);
+                header('Location: /PyrTeck');
             }
         }
         echo $this->twig->render('register.html.twig');

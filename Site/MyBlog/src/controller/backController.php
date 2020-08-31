@@ -97,8 +97,19 @@ class BackController extends Controller
     */
     public function deleteCategory($categoryId)
     {
-            $this->categoryManager->deleteCategory($categoryId);
-            header('Location: /PyrTeck/Blog');
+        $this->categoryManager->deleteCategory($categoryId);
+        header('Location: /PyrTeck/Blog');
+    }
+
+    /**
+    * Send the list of posts by one or all category for the adminPost template
+    */
+    public function Categories()
+    {
+        $categories=$this->categoryManager->getCategories();
+        echo $this->twig->render('admin/category_Admin.html.twig', [
+            "categories" => $categories
+          ]);
     }
 
     /**

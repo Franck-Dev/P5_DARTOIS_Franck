@@ -95,6 +95,14 @@
         "params": ["$request"]
       }
     ],
+    "PyrTeck/Admin/Categories": [
+      {
+        "name": "PyrTeck/Admin/Categories",
+        "controller": "backController",
+        "action": "Categories",
+        "params": []
+      }
+    ],
     "PyrTeck/Admin/Posts": [
       {
         "name": "PyrTeck/Admin/Posts",
@@ -149,6 +157,22 @@
         "controller": "backController",
         "action": "addCategory",
         "params": ["$request"]
+      }
+    ],
+    "PyrTeck/Admin/deleteCategory/:id": [
+      {
+        "name": "PyrTeck/Admin/deleteCategory/:id",
+        "controller": "backController",
+        "action": "deleteCategory",
+        "params": ["id"]
+      }
+    ],
+    "PyrTeck/Admin/editCategory/:id": [
+      {
+        "name": "PyrTeck/Admin/editCategory/:id",
+        "controller": "backController",
+        "action": "editCategory",
+        "params": ["$request", "id"]
       }
     ]
   }

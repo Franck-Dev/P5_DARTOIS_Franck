@@ -1,10 +1,10 @@
 {
     "mail": [
         {
-          "username": "franck.pyren",
-          "domain": "smtp.orange.fr",
-          "port": "25",
-          "password": "Trist@n0812"
+          "username": "",
+          "domain": "",
+          "port": "",
+          "password": ""
         }
       ],
     "admin": [
@@ -13,7 +13,7 @@
         "control": "all"
       },
       {
-        "name": "speudo",
+        "name": "Pseudo",
         "control": "CRUD"
       }
     ]

@@ -84,7 +84,7 @@ class CategoryManager extends Manager
     public function deleteCategory($categoryId)
     {
         //Permet de supprimer la catégorie, les article et ses commentaires associés( a faire)
-        $sql = 'DELETE FROM post WHERE category_id = ?';
+        $sql = 'DELETE FROM posts WHERE category_id = ?';
         $this->createQuery($sql, [$categoryId]);
         $sql = 'DELETE FROM category WHERE id = ?';
         $this->createQuery($sql, [$categoryId]);

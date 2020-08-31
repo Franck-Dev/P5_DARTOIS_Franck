@@ -49,14 +49,14 @@ class UserManager extends Manager
     /**
     * Add new user in database by user's datas sent
     */
-    public function register($user)
+    public function register($user, $statut)
     {
         $sql = 'INSERT INTO user (username, email, password,
          createdAt, Profil, Statut) VALUES (?, ?, ?, NOW(), ?, ?)';
         $this->createQuery($sql, [
             $user->get('username'), $user->get('email'),
              password_hash($user->get('password'), PASSWORD_BCRYPT),
-             'USER', 'NOT']);
+             $statut, 'NOT']);
     }
     
     /**

@@ -32,6 +32,7 @@ abstract class Controller
     protected $session;
     protected $validator;
     protected $mail;
+    protected $parameters;
 
     /**
      * This file can regroup parameters usually use
@@ -57,7 +58,7 @@ abstract class Controller
         /* Array datas for config mail parameters */
         $file_json = file_get_contents('../config/Config.json');
         $parameters = json_decode($file_json, true);
-
+        $this->parameters = $parameters;
         // Add extension SwiftMailer with yours parameters
         $this->mail = new Swift_SmtpTransport();
         $transport = (new Swift_SmtpTransport($parameters['mail'][0]['domain'], $parameters['mail'][0]['port']))
@@ -87,10 +88,9 @@ abstract class Controller
         // Récupération de l'extension de l'image
         $tab_ext = explode('.', $image_path);
         $extension  = strtolower($tab_ext[count($tab_ext)-1]);
-        var_dump($tab_ext);
+        
         // Récupération des informations de l'image
         $image_data = getimagesize($image_path);
-        var_dump($image_data);
      
         // Test si l'extension est autorisée
         if (in_array($extension,$extensions) && in_array($image_data['mime'],$mimes)):

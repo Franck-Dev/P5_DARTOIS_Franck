@@ -1,0 +1,51 @@
+{% extends 'layouts.html.twig' %}
+
+{% block title %} Administration des catégories {% endblock %}
+{% block contents %}
+    <h3 class="text-white">Gestion des catégories du blog :</h3>
+        <!-- Modal Category -->
+        <div class="modal fade" id="ModalCate" tabindex="-1" role="dialog" aria-labelledby="ModalCateLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header  bg-secondary">
+                        <h5 class="modal-title text-primary" id="ModalCateLabel">Création Nouvelle Categorie :</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body text-dark">
+                        {% set vars = {'btn': 'Enregistrer'} %}
+                        {% include './forms/form_AddCategory.html.twig' with vars %}
+                    </div>
+                </div>
+            </div>
+        </div><!-- End Modal Category -->
+        <!-- Post's Table -->
+        <div class="table-responsive-md">
+            <table class="table">
+                  <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Titre</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Date de création</th>
+                        <th scope="col">Date modification</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="text-white">
+                    {% for category in categories %}
+                        <tr>
+                            <th scope="row">{{category.id}}</th>
+                            <td>{{category.name}}</td>
+                            <td>{{category.description}}</td>
+                            <td>{{category.createdAt}}</td>
+                            <td>{{category.derniereMaJ}}</td>
+                            <td><a href="/PyrTeck/Admin/editCategory/{{category.id}}" class="btn btn-primary" style="border-radius:40px">Modifier</a>
+                            <a href="/PyrTeck/Admin/deleteCategory/{{category.id}}" class="btn btn-danger" style="border-radius:40px">Supprimer</a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div><!-- End Post's Table -->
+{% endblock %}

@@ -1,0 +1,26 @@
+{% if cate %}
+    {% set path = ['/PyrTeck/Admin/editCategory/',cate.Id]|join %}
+    {% set btn = 'Modifier' %}
+    {% set cls = 'btn btn-danger' %}
+{% else %}
+    {% set path = '/PyrTeck/Admin/addCategory/' %}
+    {% set btn = 'Enregistrer' %}
+    {% set cls = 'btn btn-primary' %}
+{% endif %}
+<form class="was-validated" method="post" action="{{path}}">
+    <div class="mb-3">
+        <label for="validationText">Titre</label>
+        <input type="text" class="form-control is-invalid" id="name" name="name" placeholder="Titre de la catégorie" required value="">
+        <div class="invalid-feedback">
+            Vous devez écrire le non de la catégorie.
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="validationTextarea">Description</label>
+        <textarea class="form-control" id="description" name="description" placeholder="Ecrire votre article içi"></textarea>
+        <div class="invalid-feedback">
+            Vous devez écrire un descriptif qui permettra de mieux choisir la catégorie.
+        </div>
+    </div>
+    <input class="{{cls}}" type="submit" value="{{btn}}" id="submit" name="submit">
+</form>

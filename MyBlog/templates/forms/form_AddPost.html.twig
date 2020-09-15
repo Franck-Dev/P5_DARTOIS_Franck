@@ -1,0 +1,57 @@
+{% if post %}
+    {% set path = ['/PyrTeck/Admin/editPost/',post.Id]|join %}
+    {% set btn = 'Modifier' %}
+    {% set cls = 'btn btn-danger' %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+{% else %}
+    {% set path = '/PyrTeck/Admin/addPost' %}
+    {% set btn = 'Enregistrer' %}
+    {% set cls = 'btn btn-primary' %}
+{% endif %}
+<form class="was-validated" method="post" action="{{path}}" enctype="multipart/form-data">
+    <div class="mb-3">
+        <label for="validationText">Titre</label>
+        <input type="text" class="form-control is-invalid" id="title" name="title" placeholder="Titre de l'article" required value="{{post.title}}">
+        <div class="invalid-feedback">
+            Vous devez écrire un titre à l'article.
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="validationTextarea">Extrait</label>
+        <textarea class="form-control is-invalid" id="chapo" name="chapo" placeholder="Synthèse de l'article">{{post.chapo}}</textarea>
+        <div class="invalid-feedback">
+            Vous devez écrire une Synthèse qui donne envie de lire l'article.
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="validationTextarea">Contenu</label>
+        <textarea class="form-control is-invalid" id="description" name="description" placeholder="Ecrire votre article içi" required>{{post.description}}</textarea>
+        <div class="invalid-feedback">
+            Vous devez écrire un descriptif de l'article.
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="validationTextarea">Choix catégorie</label>
+        <select class="custom-select" id="categoryId" name="categoryId" required>
+        {% for category in categories %}
+            {% if post.category == category.name %}
+                <option selected="selected" value="{{category.id}}">{{category.name}}</option>
+            {% else %}
+                <option value="{{category.id}}">{{category.name}}</option>
+            {% endif %}
+        {% endfor %}
+        </select>
+        <div class="invalid-feedback">
+            veuillez sélectionner une catégorie
+        </div>
+    </div>
+    <div class="custom-file">
+        <input type="file" class="custom-file-input" id="inputGroupFile01"
+        aria-describedby="inputGroupFileAddon01" name="image">
+        <label class="custom-file-label" for="inputGroupFile01" name="images">Télécharger...</label>
+    </div>
+    <div class="mb-3">
+        <input type="text" class="form-control is-invalid" id="userId" name="userId" placeholder="Identifiant" required value="{{app.get('id')}}" hidden>
+    </div>
+    <input class="{{cls}}" type="submit" value="{{btn}}" id="submit" name="submit">
+</form>

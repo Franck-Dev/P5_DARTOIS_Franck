@@ -1,0 +1,41 @@
+{% extends "layouts.html.twig" %}
+{% block title %}Admin Utilisateurs{% endblock %}
+{% block contents %}
+<h3 class="text-white">Gestion des utilisateurs :</h3>
+    <!-- User's Table -->
+<div class="table-responsive-md">
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Nom</th>
+                <th scope="col">email</th>
+                <th scope="col">Profil</th>
+                <th scope="col">Statut</th>
+                <th scope="col">Date de création</th>
+                <th scope="col">Dernière connection</th>
+            </tr>
+        </thead>
+        <tbody class="text-white">
+            {% for user in users %}
+                <tr>
+                    <th scope="row">{{user.id}}</th>
+                    <td>{{user.username}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.profil}}</td>
+                    <td>{% if user.statut ==1 %}<!-- Checked user's statut-->
+                            <a href="../public/index.php?route=StatutUser&userId={{user.id}}&Statut=0" 
+                            type="button" class=" btn btn-success">Devalider</a>
+                        {% else %}
+                            <a href="../public/index.php?route=StatutUser&userId={{user.id}}&Statut=1" 
+                            type="button" class=" btn btn-outline-warning">Valider</a>
+                        {% endif %}
+                    </td>
+                    <td>{{user.createdAt}}</td>
+                    <td>{{user.lastDateConnect}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div><!-- End User's Table -->
+{% endblock %}

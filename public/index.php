@@ -2,7 +2,7 @@
 
 require '../vendor/autoload.php';
 
-use App\src\Framework\Router;
+use \App\config\Router;
 
 $router = new Router();
 $router->run();

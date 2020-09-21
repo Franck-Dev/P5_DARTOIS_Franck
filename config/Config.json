@@ -1,10 +1,19 @@
 {
+    "nameWebsite":  "PyrTeck",
+    "base": [
+        {
+          "HOST": "localhost",
+          "DBNAME": "'mysql:host=localhost;dbname=MyBlog;charset=utf8'",
+          "USER": "root",
+          "PASSWORD": ""
+        }
+    ],
     "mail": [
         {
-          "username": "franck.pyren",
+          "username": "",
           "domain": "smtp.orange.fr",
           "port": "25",
-          "password": "Trist@n0812"
+          "password": ""
         }
       ],
     "admin": [

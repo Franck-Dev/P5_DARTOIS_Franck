@@ -38,15 +38,15 @@
                                 <tbody class="text-white">
                                     {% for item in tbComments[statut] %}
                                         <tr>
-                                            <th scope="row"><a href="../public/index.php?route=post&postId={{item.postId}}">{{item.postId}}</a></th>
+                                            <th scope="row"><a href="/PyrTeck/Blog/post/{{item.postId}}">{{item.postId}}</a></th>
                                             <td>{{item.description}}</td>
                                             <td>{{item.createdAtComments}}</td>
                                             <td>{{item.user}}</td>
                                             <td>{% if item.statut ==1 %}<!-- Checked comment's statut-->
-                                                    <a href="../public/index.php?route=StatutComment&commentId={{item.id}}&Statut=0" 
+                                                    <a href="/PyrTeck/StatutComment/comment/{{item.id}}/Statut=0" 
                                                     type="button" class=" btn btn-success">Devalider</a>
                                                 {% else %}
-                                                    <a href="../public/index.php?route=StatutComment&commentId={{item.id}}&Statut=1" 
+                                                    <a href="/PyrTeck/StatutComment/comment/{{item.id}}/Statut=1" 
                                                     type="button" class=" btn btn-outline-warning">Valider</a>
                                                 {% endif %}
                                             </td>

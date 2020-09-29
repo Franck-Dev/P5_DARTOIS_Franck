@@ -8,7 +8,7 @@ use PDO;
 use Exception;
 
 /**
- * This file manage
+ * This file manage database relations and connect
  *
  * @author Franck D <franck.pyren@gmail.com>
  */
@@ -56,6 +56,9 @@ abstract class Manager
 
 /**
 * Use for creating request before executing for database
+* @param string $sql [request syntax for push batabase]
+* @param array $parameters [Specifications for request result]
+* @return array $result
 */
     protected function createQuery($sql, $parameters = null)
     {

@@ -14,10 +14,13 @@ use App\src\Framework\Manager;
  * @author Franck D <franck.pyren@gmail.com>
  */
 class UserManager extends Manager
-{
+{    
     /**
-    * Return object hydrated
-    */
+     * Return object hydrated
+     *
+     * @param  mixed $row [Result of database request]
+     * @return void
+     */
     private function buildObject($row)
     {
         $user = new User();
@@ -31,10 +34,13 @@ class UserManager extends Manager
         $user->setlastDateConnect($row['last_date_connect']);
         return $user;
     }
-
+    
     /**
-    * Return data's user by username
-    */
+     * Return data's user by username
+     *
+     * @param  array $user [Datas user]
+     * @return void
+     */
     public function checkUser($user)
     {
         $name=$user->get('username');
@@ -45,10 +51,14 @@ class UserManager extends Manager
         $result->closeCursor();
         return $this->buildObject($user);
     }
-
+    
     /**
-    * Add new user in database by user's datas sent
-    */
+     * Add new user in database by user's datas sent
+     *
+     * @param  array $user [Datas user]
+     * @param  int $statut [Statut user]
+     * @return void
+     */
     public function register($user, $statut)
     {
         $sql = 'INSERT INTO user (username, email, password,
@@ -60,8 +70,10 @@ class UserManager extends Manager
     }
     
     /**
-    * Return the list of users
-    */
+     * Return the list of users
+     *
+     * @return array $user [List of differents users]
+     */
     public function getUsers()
     {
         $sql = 'SELECT * FROM user';
@@ -73,10 +85,13 @@ class UserManager extends Manager
         $result->closeCursor();
         return $user;
     }
-
+    
     /**
-    * Return if try of connect's user is validate or not
-    */
+     * Return if try of connect's user is validate or not
+     *
+     * @param  array $user [Datas user]
+     * @return void
+     */
     public function login($user)
     {
         $sql = 'SELECT id, password, username, email, statut, profil, createdAt, last_date_connect 
@@ -95,10 +110,14 @@ class UserManager extends Manager
             'isPasswordValid' => $isPasswordValid
         ];
     }
-
+    
     /**
-    * Sent datas of profile's user by username
-    */
+     * Sent datas of profile's user by username
+     *
+     * @param  array $user [Datas user]
+     * @param  index $userId [User index]
+     * @return void
+     */
     public function editUser($user, $userId)
     {
         //Update the user after modification for ADMIN only

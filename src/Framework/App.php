@@ -12,8 +12,6 @@ abstract class App
     private $name;
 
     public function __construct(){
-        //$this->name = $name;
-        // Initialisation requete & reponse
         $this->request = Request::createFromGlobals();
         $this->response = new Response();
     }

@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package Framework
+ */
 namespace App\src\Framework;
 
 use Exception;
@@ -9,6 +11,11 @@ use App\src\controller\errorController;
 use App\src\controller\frontController;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * This file oriented client by the url given:
+ *
+ * @author Franck D <franck.pyren@gmail.com>
+ */
 class Router
 {
     private $frontController;
@@ -20,7 +27,12 @@ class Router
         $this->frontController = new frontController();
         $this->errorController = new errorController();
         $this->backController = new backController();
-    }
+    }    
+    /**
+     * Accessing to good method in good controller with params by route
+     *
+     * @return void
+     */
     public function run()
     {
         $request = Request::createFromGlobals();

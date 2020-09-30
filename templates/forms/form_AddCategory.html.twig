@@ -1,23 +1,28 @@
-{% if cate %}
-    {% set path = ['/PyrTeck/Admin/editCategory/',cate.Id]|join %}
+{% if category %}
+    {% set path = ['/PyrTeck/Admin/editCategory/',category.Id]|join %}
+    {% set valueTitle = category.name %}
+    {% set valueDescription = category.description %}
     {% set btn = 'Modifier' %}
     {% set cls = 'btn btn-danger' %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 {% else %}
     {% set path = '/PyrTeck/Admin/addCategory/' %}
+    {% set valueTitle = '' %}
+    {% set valueDescription = '' %}
     {% set btn = 'Enregistrer' %}
     {% set cls = 'btn btn-primary' %}
 {% endif %}
 <form class="was-validated" method="post" action="{{path}}">
     <div class="mb-3">
         <label for="validationText">Titre</label>
-        <input type="text" class="form-control is-invalid" id="name" name="name" placeholder="Titre de la catégorie" required value="">
+        <input type="text" class="form-control is-invalid" id="name" name="name" placeholder="Titre de la catégorie" required value={{valueTitle}}>
         <div class="invalid-feedback">
             Vous devez écrire le non de la catégorie.
         </div>
     </div>
     <div class="mb-3">
         <label for="validationTextarea">Description</label>
-        <textarea class="form-control" id="description" name="description" placeholder="Ecrire votre article içi"></textarea>
+        <textarea class="form-control" id="description" name="description" placeholder="Ecrire votre article içi">{{category.description}}</textarea>
         <div class="invalid-feedback">
             Vous devez écrire un descriptif qui permettra de mieux choisir la catégorie.
         </div>

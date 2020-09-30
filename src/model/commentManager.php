@@ -13,10 +13,13 @@ use App\src\Framework\Manager;
  * @author Franck D <franck.pyren@gmail.com>
  */
 class CommentManager extends Manager
-{
+{    
     /**
-    * Return object hydrated
-    */
+     * Return object hydrated
+     *
+     * @param  array $row [Result of database request]
+     * @return void
+     */
     private function buildObject($row)
     {
         $comment = new Comment();
@@ -28,10 +31,13 @@ class CommentManager extends Manager
         $comment->setPostId($row['posts_id']);
         return $comment;
     }
-
+    
     /**
-    * Return list of comments
-    */
+     * Return list of comments by post
+     *
+     * @param  int $postId [Post index]
+     * @return void
+     */
     public function getComments($postId)
     {
         $sql = 'SELECT c.id, u.username, c.description,
@@ -48,10 +54,14 @@ class CommentManager extends Manager
         $result->closeCursor();
         return $comments;
     }
-
+    
     /**
-    * Add new comment in database by comment's datas sent
-    */
+     * Add new comment in database by comment's datas sent
+     *
+     * @param  array $comment [Comment datas]
+     * @param  int $postId
+     * @return void
+     */
     public function addComment($comment, $postId)
     {
         $sql = 'INSERT INTO comments (posts_id, description,
@@ -59,10 +69,14 @@ class CommentManager extends Manager
         $this->createQuery($sql, [
             $postId, $comment->request->get('description'), $comment->request->get('pseudo')]);
     }
-
+    
     /**
-    * Update the comment by commentId and datas associated
-    */
+     * Update the comment by commentId and datas associated
+     *
+     * @param  array $comment [Comment datas]
+     * @param  int $commentId [Comment index]
+     * @return void
+     */
     public function editComment($comment, $commentId)
     {
         //Update the comment after modification for author only
@@ -82,19 +96,24 @@ class CommentManager extends Manager
             'commentId' =>$commentId]);
         }
     }
-
+    
     /**
-    * Delete the comment by commentId
-    */
+     * Delete the comment by commentId
+     *
+     * @param  int $commentId [Comment index]
+     * @return void
+     */
     public function deleteComment($commentId)
     {
         $sql = 'DELETE FROM comments WHERE id=?';
         $this->createQuery($sql, [$commentId]);
     }
-
+    
     /**
-    * Return list of comments by statut validated or not
-    */
+     * Return list of comments by statut validated or not
+     *
+     * @return void
+     */
     public function getCommentsValidate()
     {
         $sql='SELECT DISTINCT statut FROM comments';
@@ -117,10 +136,13 @@ class CommentManager extends Manager
         $result->closeCursor();
         return $commentsUsers;
     }
-
+    
     /**
-    *Return comments by users with the posts's filter
-    */
+     * Return comments by users with the posts's filter
+     *
+     * @param  int $userId [User index]
+     * @return void
+     */
     public function getcommentsUser($userId)
     {
         //Call-back between posts-id alone
@@ -149,10 +171,13 @@ class CommentManager extends Manager
         $result->closeCursor();
         return $commentsUser;
     }
-
+    
     /**
-    *Return the numbers of comments by postId
-    */
+     * Return the numbers of comments by postId
+     *
+     * @param  int|null $postId [Post index]
+     * @return void
+     */
     public function getcommentsCount($postId = null)
     {
         if (!$postId) {//If doesn't have got a postId, will find all comments by postId
@@ -175,10 +200,13 @@ class CommentManager extends Manager
         $result->closeCursor();
         return $commentsCount;
     }
-
+    
     /**
-    *Return the numbers of comments by userId
-    */
+     * Return the numbers of comments by userId
+     *
+     * @param  int $userId [User index]
+     * @return void
+     */
     public function getCountComments($userId)
     {
         $sql='SELECT COUNT(id) AS nb FROM comments WHERE user_id=?';
@@ -188,5 +216,20 @@ class CommentManager extends Manager
         }
         $result->closeCursor();
         return $countComments;
+    }
+
+    /**
+     * Update the Statut's comment after validation or not by admin
+     *
+     * @param  int $commentId
+     * @param  int $statut
+     * @return void
+     */
+    public function updateStatut($commentId, $statut)
+    {
+        $sql = 'UPDATE comments SET statut=:statut  WHERE id=:commentId';
+            $this->createQuery($sql, [
+            'statut' => $statut,
+            'commentId' =>$commentId]);
     }
 }

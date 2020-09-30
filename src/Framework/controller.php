@@ -35,8 +35,7 @@ abstract class Controller
     protected $parameters;
 
     /**
-     * This file can regroup parameters usually use
-     * for the others controller in this App:
+     * This file can charging differents object using in this App
      *
      */
     public function __construct()
@@ -69,11 +68,18 @@ abstract class Controller
 
     /**
      * This function will be to use for resize a pictures in controllers:
+     * @param string $image_path [path of source image]
+     * @param string $image_dest [path of destination image]
+     * @param int $width [With Dimension of destination image]
+     * @param int $height [Height Dimension of destination image]
+     * @param int $qualite [Qualite for request result]
+     * @param string|null $type []
+     * @return string 
      *
      */
-    public function resize_img($image_path,$image_dest,$width,$height,$qualite,$type){
+    public function resize_img($image_path, $image_dest, $width, $height, $qualite, $type){
 
-        // Vérification que le fichier existe
+        // Check existing files
         if(!file_exists($image_path)):
             return 'wrong_path';
         endif;
@@ -81,32 +87,32 @@ abstract class Controller
         if($image_dest == ""):
             $image_dest = $image_path;
         endif;
-        // Extensions et mimes autorisés
+        // Extensions rules
         $extensions = array('jpg','jpeg','png','gif');
         $mimes = array('image/jpeg','image/gif','image/png');
       
-        // Récupération de l'extension de l'image
+        // Found the extension file of image
         $tab_ext = explode('.', $image_path);
         $extension  = strtolower($tab_ext[count($tab_ext)-1]);
         
-        // Récupération des informations de l'image
+        // Found the informations for image
         $image_data = getimagesize($image_path);
      
-        // Test si l'extension est autorisée
+        // Extension's test to validate
         if (in_array($extension,$extensions) && in_array($image_data['mime'],$mimes)):
           
-            // On stocke les dimensions dans des variables
+            // Chech origin's dimensions
             $img_width = $image_data[0];
             $img_height = $image_data[1];
 
-            //On initie les nouvelles dimensions
+            //Replace a new dimensions
             $new_height = $height;
             $new_width =$width;
 
-            // Création de la ressource pour la nouvelle image
+            // Create the new image ressource
             $dest = imagecreatetruecolor($new_width, $new_height);
         
-            // En fonction de l'extension on prépare l'iamge
+            // Prepare extension 
             switch($extension){
                 case 'jpg':
                 case 'jpeg':
@@ -122,10 +128,10 @@ abstract class Controller
                 break;
             }
         
-            // Création de l'image redimentionnée
+            // Create the new image
             if(imagecopyresampled($dest, $src, 0, 0, 0, 0, $new_width, $new_height, $img_width, $img_height)):
         
-                // On remplace l'image en fonction de l'extension
+                // Replace image switch extension
                 switch($extension){
                 case 'jpg':
                 case 'jpeg':

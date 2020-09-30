@@ -127,7 +127,7 @@
         "params": []
       }
     ],
-    "PyrTeck/admin/addPost": [
+    "PyrTeck/Admin/addPost": [
       {
         "name": "PyrTeck/Admin/addPost",
         "controller": "backController",
@@ -173,6 +173,22 @@
         "controller": "backController",
         "action": "editCategory",
         "params": ["$request", "id"]
+      }
+    ],
+    "/PyrTeck/Admin/updateStatutUser/:id/:statut": [
+      {
+        "name": "PyrTeck/Admin/updateStatutUser/:id/:statut",
+        "controller": "backController",
+        "action": "updateStatutUser",
+        "params": ["id", "statut"]
+      }
+    ],
+    "/PyrTeck/Admin/updateStatutComment/:id/:statut": [
+      {
+        "name": "PyrTeck/Admin/updateStatutComment/:id/:statut",
+        "controller": "backController",
+        "action": "updateStatutComment",
+        "params": ["id", "statut"]
       }
     ]
   }

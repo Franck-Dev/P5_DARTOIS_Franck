@@ -11,10 +11,12 @@ Renommer le dossier "PyrTeck"
 
 Mettre à jour les librairies avec Composer
 
-Dans un invité de commande faire un "Composer instal" à la racine du dossier
+Dans un invité de commande faire un "Composer install" à la racine du dossier
 
 Créer la table "MyBlog" dans MySQL
 
 Importer le fichier du dossier SQL
 
-Démarrer sur son localhost
+Modifier le fichier Config.json avec vos données personnelles
+
+Démarrer sur son localhost avec: \localhost\PyrTeck

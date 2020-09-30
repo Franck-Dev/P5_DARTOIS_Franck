@@ -1,7 +1,14 @@
 <?php
-
+/**
+ * @package Framework
+ */
 namespace App\src\Framework;
 
+/**
+ * This file found differents routes by the name route:
+ *
+ * @author Franck D <franck.pyren@gmail.com>
+ */
 Class Route
 {
     private $name;
@@ -9,27 +16,57 @@ Class Route
     public $action;
     public $params=[];
 
+    /**
+     * This function will be to use for resize a pictures in controllers:
+     * @param string $image_path [path of source image]
+     * @param string $image_dest [path of destination image]
+     * @param int $width [With Dimension of destination image]
+     * @param int $height [Height Dimension of destination image]
+     * @param int $qualite [Qualite for request result]
+     * @param string|null $type []
+     * @return string 
+     *
+     */
     public function __construct($name)
     {
         $this->name = $name[0];
     }
 
+    /**
+     * This function check the good controller by name route:
+     * @param array $name [name of route]
+     * @return string $controllerName [Name of controller by the name route]
+     *
+     */
     private function getModule($name)
     {
         $controllerName = $name['controller'];
         return $controllerName;
     }
 
+    /**
+     * This function check the good method in the controller by name route:
+     * @param array $name [name of route]
+     * @return string $action [Name of method by the name route]
+     *
+     */
     private function getAction($name)
     {
         $action = $name['action'];
         return $action;
     }
-
+    
+    /**
+     * This method check the params by the name route
+     *
+     * @param  array $name [Name route]
+     * @param  string $para [Url of the route]
+     * @param  mixed $request [object instancié]
+     * @return array[] $params [All  params by name route]
+     */
     private function getParams($name, $para, $request)
     {
         $i=0;
-        //var_dump($name);
         if (empty($name['params'])) {
             $params[$i] = '';
         }
@@ -46,16 +83,25 @@ Class Route
                         $params[$i] = $para[count($para)-2];
                     }
                 break;
+                case 'statut':
+                    $params[$i] = end($para);
+                break;
             }
             ++$i;
         }
         return $params;
     }
-
+    
+    /**
+     * Get differents datas by url route
+     *
+     * @param  string $uri [Url route]
+     * @param  mixed $request
+     * @return void
+     */
     public function matchRoutes($uri, $request)
     {
         $url = explode('/', trim($uri, "/"));
-        //var_dump($url);
         $tr = $this->getRoutes();
         foreach ($tr as $route) {
             $d = explode('/', trim($route[0]['name'], "/"));
@@ -79,7 +125,12 @@ Class Route
         }
         return false;
     }
-
+    
+    /**
+     * Check differents routes in the config file
+     *
+     * @return array $routes [Differents routes with somes parameters themselves]
+     */
     private function getRoutes()
     {
         $file_json = file_get_contents('../config/Routes.json');

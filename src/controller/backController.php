@@ -12,10 +12,13 @@ use App\src\Framework\Controller;
  * @author Franck D <franck.pyren@gmail.com>
  */
 class BackController extends Controller
-{
+{    
     /**
-    * Send the datas of form towards postManager for a new post
-    */
+     * Send the datas of form towards postManager for a new post
+     *
+     * @param  array $post [new post with datas]
+     * @return void
+     */
     public function addPost($post)
     {   
         if ($post->get('submit')) {
@@ -39,10 +42,14 @@ class BackController extends Controller
             header('Location: /PyrTeck/Admin/Posts');
         }
     }
-
+    
     /**
-    * Send the modifications of form towards postManager for a old post
-    */
+     * Send the modifications of form towards postManager for a old post
+     *
+     * @param  mixed $request [datas of post]
+     * @param  int $postId [index of post in the database]
+     * @return void
+     */
     public function editPost($request, $postId)
     {
         $post=$this->postManager->getPost($postId);
@@ -56,19 +63,25 @@ class BackController extends Controller
            'categories' => $categories
         ]);
     }
-    
+        
     /**
-    * Send the postId towards postManagerfor deleting post in database
-    */
+     * Send the postId towards postManagerfor deleting post in database
+     *
+     * @param  int $postId [index of post in the database]
+     * @return void
+     */
     public function deletePost($postId)
     {
             $this->postManager->deletePost($postId);
             header('Location: /PyrTeck/Admin/Posts');
     }
-
+        
     /**
-    * Send the datas of form towards categoryManager for a new category
-    */
+     * Send the datas of form towards categoryManager for a new category
+     *
+     * @param  array $category [Datas of category]
+     * @return void
+     */
     public function addCategory($category)
     {
         if ($category->get('submit')) {
@@ -76,10 +89,14 @@ class BackController extends Controller
             header('Location: /PyrTeck/Blog');
         }
     }
-
+    
     /**
-    * Send the modifications of form towards categoryManager for a old category
-    */
+     * Send the modifications of form towards categoryManager for a old category
+     *
+     * @param  mixed $request [Datas category]
+     * @param  int $categoryId [index of category in the database]
+     * @return void
+     */
     public function editCategory($request, $categoryId)
     {
         $category=$this->categoryManager->getCategory($categoryId);
@@ -91,19 +108,24 @@ class BackController extends Controller
            'category' => $category
         ]);
     }
-
+    
     /**
-    * Send the categoryId towards categoryManagerfor deleting category in database
-    */
+     * Send the categoryId towards categoryManagerfor deleting category in database
+     *
+     * @param  int $categoryId [index of category in the database]
+     * @return void
+     */
     public function deleteCategory($categoryId)
     {
         $this->categoryManager->deleteCategory($categoryId);
         header('Location: /PyrTeck/Blog');
     }
-
+    
     /**
-    * Send the list of posts by one or all category for the adminPost template
-    */
+     * Send the list of posts by one or all category for the adminPost template
+     *
+     * @return void
+     */
     public function Categories()
     {
         $categories=$this->categoryManager->getCategories();
@@ -111,10 +133,12 @@ class BackController extends Controller
             "categories" => $categories
           ]);
     }
-
+    
     /**
-    * Send the list of posts by one or all category for the adminPost template
-    */
+     * Send the list of posts by one or all category for the adminPost template
+     *
+     * @return void
+     */
     public function Posts()
     {
         $posts=$this->postManager->getPosts();
@@ -124,10 +148,12 @@ class BackController extends Controller
             "categories" => $categories
           ]);
     }
-
+    
     /**
-    * Send the list of comments validated for the adminComment template
-    */
+     * Send the list of comments validated for the adminComment template
+     *
+     * @return void
+     */
     public function Comments()
     {
         $comments=$this->commentManager->getCommentsValidate();
@@ -135,19 +161,24 @@ class BackController extends Controller
             "comments" => $comments
           ]);
     }
-
+    
     /**
-    * Send the statut of comment at commentManager
-    */
+     * Send the statut of comment at commentManager
+     *
+     * @param  array $comment [Datas comment]
+     * @return void
+     */
     public function statutComment($comment)
     {
         $this->commentManager->editComment($comment, $comment->get('commentId'));
-            header('Location: ../index.php?route=AdminComments');
+            header('Location: /PyrTeck/Admin/AdminComments');
     }
-
+    
     /**
-    * Send the list of users for the adminUser template
-    */
+     * Send the list of users for the adminUser template
+     *
+     * @return void
+     */
     public function Users()
     {
         $users=$this->userManager->getUsers();
@@ -155,13 +186,52 @@ class BackController extends Controller
             "users" => $users
           ]);
     }
-
+    
     /**
-    * Send the statut of user at userManager
-    */
+     * Send the modification of data's user at userManager
+     *
+     * @param  array $user [Datas user]
+     * @return void
+     */
     public function statutUser($user)
     {
         $this->userManager->editUser($user, $user->get('userId'));
-            header('Location: ../index.php?route=AdminUsers');
+            header('Location: /PyrTeck/Admin/AdminUsers');
+    }
+    
+    /**
+     * Validate or devalidate the user's statut for admin only
+     *
+     * @param  int $userId
+     * @param  string $statut
+     * @return void
+     */
+    public function updateStatutUser($userId, $statut)
+    {
+        if ($statut === "True") {
+            $stat = 1;
+        } else {
+            $stat = 0;
+        }
+        $this->userManager->updateStatut($userId, $stat);
+            header('Location: /PyrTeck/Admin/AdminUsers');
+    }
+    
+    /**
+     * Validate or devalidate the comment's statut for admin only
+     *
+     * @param  int $commentId
+     * @param  string $stat
+     * @return void
+     */
+    public function updateStatutComment($commentId, $statut)
+    {
+        if ($statut === "True") {
+            $stat = 1;
+        } else {
+            $stat = 0;
+        }
+        $this->commentManager->updateStatut($commentId, $stat);
+            header('Location: /PyrTeck/Admin/AdminComments');
     }
 }

@@ -15,10 +15,13 @@ use Symfony\Component\Validator\Constraints\NotBlank;
  * @author Franck D <franck.pyren@gmail.com>
  */
 class FrontController extends Controller
-{
+{    
     /**
-    * Sent datas in SESSION object
-    */
+     * Sent datas in SESSION object
+     *
+     * @param  int $index [Datas of user index]
+     * @return void
+     */
     private function recupSession($index)
     {
         foreach ($index as $key => $value) {
@@ -31,14 +34,15 @@ class FrontController extends Controller
         $countComments=$this->commentManager->getCountComments($index['id']);
         $this->session->set('countComments', $countComments);
     }
-
+    
     /**
-    * Sent lists of posts, comments and category in homepage
-    * @Route("/", name="home")
-    */
+     * Sent lists of posts, comments and category in homepage
+     *
+     * @param  int|null $categoryId [Choice of catogory for look a list post by herself]
+     * @return void
+     */
     public function Blog($categoryId = null)
     {
-        //var_dump($categoryId);
         $posts = $this->postManager->getPosts($categoryId);
         $commentsCount = $this->commentManager->getcommentsCount();
         $postsCount = $this->postManager->getpostsCount();
@@ -64,11 +68,13 @@ class FrontController extends Controller
             ]);
         }
     }
-
+    
     /**
-    * Sent data's postId to single template for visualization
-    * @Route("/postId/{id}", name="article")
-    */
+     * Sent data's postId to single template for visualization
+     *
+     * @param  int $postId [Index of post]
+     * @return void
+     */
     public function post($postId)
     {   
         $post = $this->postManager->getPost($postId);
@@ -80,10 +86,14 @@ class FrontController extends Controller
             "nbcomments" => $commentsCount
         ]);
     }
-
+    
     /**
-    * Sent datas for add a new comment
-    */
+     * Sent datas for add a new comment
+     *
+     * @param  array $comment [Datas of comment]
+     * @param  int $postId [Post Index]
+     * @return void
+     */
     public function addComment($comment, $postId)
     {
         if ($comment->request->get('submit')) {
@@ -91,10 +101,15 @@ class FrontController extends Controller
             header('Location: /PyrTeck/Blog/post/' . $postId);
         }
     }
-
+    
     /**
-    * Sent datas for update a old commentby commentId
-    */
+     * Sent datas for update a old commentby commentId
+     *
+     * @param  array $comment [Datas comment]
+     * @param  int $commentId [Index Comment]
+     * @param  int $postId [Index of post for the comment]
+     * @return void
+     */
     public function editComment($comment, $commentId, $postId)
     {
         if ($comment->request->get('submit')) {
@@ -107,10 +122,14 @@ class FrontController extends Controller
             ]);
         }
     }
-
+    
     /**
-    * Sent commentId for delete comment
-    */
+     * Sent commentId for delete comment
+     *
+     * @param  int $commentId [Index of comment]
+     * @param  int $postId [Index of post]
+     * @return void
+     */
     public function deleteComment($commentId, $postId)
     {
         $violations = $this->validator->validate($commentId, [
@@ -125,10 +144,13 @@ class FrontController extends Controller
             header('Location: /PyrTeck/Blog/post/' . $postId);
         }
     }
-
+    
     /**
-    * Sent data for identify user
-    */
+     * Sent data for identify user
+     *
+     * @param  array $user [DAtas of user]
+     * @return void
+     */
     public function login($user)
     {
         if ($user->request->get('submit')) {
@@ -147,19 +169,24 @@ class FrontController extends Controller
             echo $this->twig->render('login.html.twig');
         }
     }
-
+    
     /**
-    * Sent for stop session user
-    */
+     * Sent for stop session user
+     *
+     * @return void
+     */
     public function logout()
     {
         $this->session->clear();
         header('Location: /PyrTeck');
     }
-
+    
     /**
-    * Sent datas for add a new user
-    */
+     * Sent datas for add a new user
+     *
+     * @param  array $user [Datas of user]
+     * @return void
+     */
     public function register($user)
     {
         if ($user->request->get('submit')) {
@@ -176,7 +203,6 @@ class FrontController extends Controller
                         $statut = 'ADMIN';
                     break;
                     } else {
-                        var_dump($user->request->get('username'));
                         $statut = 'USER';
                     }
                 }
@@ -186,10 +212,12 @@ class FrontController extends Controller
         }
         echo $this->twig->render('register.html.twig');
     }
-
+    
     /**
-    * Sent datas to show the list comments of user connected
-    */
+     * Sent datas for add a new user
+     *
+     * @return void
+     */
     public function userComments()
     {
         $commentsUser = $this->commentManager->getcommentsUser($this->session->get('id'));
@@ -197,10 +225,13 @@ class FrontController extends Controller
             'commentsUser' => $commentsUser
         ]);
     }
-
+    
     /**
-    * Sent mail with datas contact
-    */
+     * Sent mail with datas contact
+     *
+     * @param  array $mail [Datas mail]
+     * @return void
+     */
     public function sendMail($mail)
     {
         // Create a message

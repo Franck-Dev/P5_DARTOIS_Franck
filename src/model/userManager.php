@@ -14,10 +14,13 @@ use App\src\Framework\Manager;
  * @author Franck D <franck.pyren@gmail.com>
  */
 class UserManager extends Manager
-{
+{    
     /**
-    * Return object hydrated
-    */
+     * Return object hydrated
+     *
+     * @param  mixed $row [Result of database request]
+     * @return void
+     */
     private function buildObject($row)
     {
         $user = new User();
@@ -31,10 +34,13 @@ class UserManager extends Manager
         $user->setlastDateConnect($row['last_date_connect']);
         return $user;
     }
-
+    
     /**
-    * Return data's user by username
-    */
+     * Return data's user by username
+     *
+     * @param  array $user [Datas user]
+     * @return void
+     */
     public function checkUser($user)
     {
         $name=$user->get('username');
@@ -45,23 +51,29 @@ class UserManager extends Manager
         $result->closeCursor();
         return $this->buildObject($user);
     }
-
+    
     /**
-    * Add new user in database by user's datas sent
-    */
+     * Add new user in database by user's datas sent
+     *
+     * @param  array $user [Datas user]
+     * @param  int $statut [Statut user]
+     * @return void
+     */
     public function register($user, $statut)
     {
         $sql = 'INSERT INTO user (username, email, password,
-         createdAt, Profil, Statut) VALUES (?, ?, ?, NOW(), ?, ?)';
+         createdAt, Profil, Statut, last_date_connect) VALUES (?, ?, ?, NOW(), ?, ?, NOW())';
         $this->createQuery($sql, [
             $user->get('username'), $user->get('email'),
              password_hash($user->get('password'), PASSWORD_BCRYPT),
-             $statut, 'NOT']);
+             $statut, '1']);
     }
     
     /**
-    * Return the list of users
-    */
+     * Return the list of users
+     *
+     * @return array $user [List of differents users]
+     */
     public function getUsers()
     {
         $sql = 'SELECT * FROM user';
@@ -73,10 +85,13 @@ class UserManager extends Manager
         $result->closeCursor();
         return $user;
     }
-
+    
     /**
-    * Return if try of connect's user is validate or not
-    */
+     * Return if try of connect's user is validate or not
+     *
+     * @param  array $user [Datas user]
+     * @return void
+     */
     public function login($user)
     {
         $sql = 'SELECT id, password, username, email, statut, profil, createdAt, last_date_connect 
@@ -95,18 +110,18 @@ class UserManager extends Manager
             'isPasswordValid' => $isPasswordValid
         ];
     }
-
+    
     /**
-    * Sent datas of profile's user by username
-    */
+     * Sent datas of profile's user by username
+     *
+     * @param  array $user [Datas user]
+     * @param  index $userId [User index]
+     * @return void
+     */
     public function editUser($user, $userId)
     {
         //Update the user after modification for ADMIN only
         if (!$user->get('username')) {
-            $sql = 'UPDATE user SET statut=:statut  WHERE id=:userId';
-            $this->createQuery($sql, [
-            'statut' => $user->get('Statut'),
-            'userId' =>$userId]);
         } else {
             $sql = 'UPDATE user SET mail=:mail, password=:password, statut=:statut, 
             WHERE id=:userId';
@@ -116,5 +131,21 @@ class UserManager extends Manager
             'password' => password_hash($user->get('password'), PASSWORD_BCRYPT),
             'userId' =>$userId]);
         }
+    }
+    
+    /**
+     * Update the Statut's user after validation or not by admin
+     *
+     * @param  int $userId
+     * @param  int $statut
+     * @return void
+     */
+    public function updateStatut($userId, $statut)
+    {
+        var_dump($statut);
+        $sql = 'UPDATE user SET statut=:statut  WHERE id=:userId';
+            $this->createQuery($sql, [
+            'statut' => $statut,
+            'userId' =>$userId]);
     }
 }

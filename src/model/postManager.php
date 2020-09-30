@@ -13,10 +13,13 @@ use App\src\Framework\Manager;
  * @author Franck D <franck.pyren@gmail.com>
  */
 class PostManager extends Manager
-{
+{    
     /**
-    * Return object hydrated
-    */
+     * Return object hydrated
+     *
+     * @param  aray $row [Result of database request]
+     * @return void
+     */
     private function buildObject($row)
     {
         $post = new Post();
@@ -31,10 +34,13 @@ class PostManager extends Manager
         $post->setImageUne($row['imageune']);
         return $post;
     }
-
+    
     /**
-    * Return list posts by category or not
-    */
+     * Return list posts by category or not
+     *
+     * @param  int $categoryId [Category index]
+     * @return void
+     */
     public function getPosts($categoryId = null)
     {
         if ($categoryId) {
@@ -65,10 +71,13 @@ class PostManager extends Manager
         $result->closeCursor();
         return $post;
     }
-
+    
     /**
-    * Return post by postId for the single template
-    */
+     * Return post by postId for the single template
+     *
+     * @param  int $postId [Post index]
+     * @return void
+     */
     public function getPost($postId)
     {
         $sql='SELECT p.id, p.title, p.chapo, p.description,
@@ -83,10 +92,14 @@ class PostManager extends Manager
         $result->closeCursor();
         return $this->buildObject($post);
     }
-
+    
     /**
-    * Add new post in database by post's datas sent
-    */
+     * Add new post in database by post's datas sent
+     *
+     * @param  array $post [Datas post]
+     * @param  string $fileName [Name image file with your extension]
+     * @return void
+     */
     public function addPost($post, $fileName)
     {
         //Permet de récupérer les variables $title, $description et $author
@@ -96,10 +109,14 @@ class PostManager extends Manager
             $post->get('title'), $post->get('description'), $post->get('chapo'),
             $post->get('userId'), $post->get('categoryId'), $fileName]);
     }
-
+    
     /**
-    * Update post in database by post's datas sent
-    */
+     * Update post in database by post's datas sent
+     *
+     * @param  array $post [Datas post]
+     * @param  int $postId [Post index]
+     * @return void
+     */
     public function editPost($post, $postId)
     {
         //Permet de mettre à jour l'article
@@ -115,10 +132,13 @@ class PostManager extends Manager
             'modif_date' => date('Y-m-d H:i:s')
         ]);
     }
-
+    
     /**
-    * Delete post by postId
-    */
+     * Delete post by postId
+     *
+     * @param  int $postId [Post index]
+     * @return void
+     */
     public function deletePost($postId)
     {
         //Delete post and comments associate
@@ -127,10 +147,12 @@ class PostManager extends Manager
         $sql = 'DELETE FROM posts WHERE id = ?';
         $this->createQuery($sql, [$postId]);
     }
-
+    
     /**
-    * Number of post by category
-    */
+     * Number of post by category
+     *
+     * @return void
+     */
     public function getpostsCount()
     {
         $sql='SELECT DISTINCT category_id, COUNT(id) AS nb FROM posts GROUP BY category_id';

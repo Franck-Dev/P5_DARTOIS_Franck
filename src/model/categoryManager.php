@@ -13,10 +13,13 @@ use App\src\Framework\Manager;
  * @author Franck D <franck.pyren@gmail.com>
  */
 class CategoryManager extends Manager
-{
+{    
     /**
-    * Return object hydrated
-    */
+     * Return object hydrated
+     *
+     * @param  array $row [Result of database request]
+     * @return void
+     */
     private function buildObject($row)
     {
         $category = new Category();
@@ -25,10 +28,12 @@ class CategoryManager extends Manager
         $category->setDescription($row['description']);
         return $category;
     }
-
+        
     /**
-    * Return list of categories
-    */
+     * Return list of categories
+     *
+     * @return void
+     */
     public function getCategories()
     {
         $sql='SELECT id, name, description FROM category ORDER BY id DESC';
@@ -40,10 +45,13 @@ class CategoryManager extends Manager
         $result->closeCursor();
         return $category;
     }
-    
+        
     /**
-    * Return the category by categoryId
-    */
+     * Return list of categories
+     *
+     * @param  int $categoryId [Category index]
+     * @return void
+     */
     public function getCategory($categoryId)
     {
         $sql='SELECT id, name, description FROM category WHERE id = ?';
@@ -52,10 +60,13 @@ class CategoryManager extends Manager
         $result->closeCursor();
         return $this->buildObject($category);
     }
-
+    
     /**
-    * Add new category in database by catagory's datas sent
-    */
+     * Add new category in database by catagory's datas sent
+     *
+     * @param  array $category [Datas category for integration in database]
+     * @return void
+     */
     public function addCategory($category)
     {
         //Permet de insérer la nouvelle catégorie dans la table
@@ -63,10 +74,14 @@ class CategoryManager extends Manager
         $this->createQuery($sql, [
             $category->get('name'), $category->get('description')]);
     }
-
+    
     /**
-    * Update the category by categoryId and datas associated
-    */
+     * Update the category by categoryId and datas associated
+     *
+     * @param  array $category [Datas category]
+     * @param  int $categoryId [Category index]
+     * @return void
+     */
     public function editCategory($category, $categoryId)
     {
         //Permet de mettre à jour la catégorie
@@ -77,13 +92,16 @@ class CategoryManager extends Manager
             'categoryId' =>$categoryId
         ]);
     }
-
+    
     /**
-    * Delete category in database by categoryId
-    */
+     * Delete category in database by categoryId
+     *
+     * @param  int $categoryId [Category index]
+     * @return void
+     */
     public function deleteCategory($categoryId)
     {
-        //Permet de supprimer la catégorie, les article et ses commentaires associés( a faire)
+        //Permet de supprimer la catégorie, les article et ses commentaires associés
         $sql = 'DELETE FROM posts WHERE category_id = ?';
         $this->createQuery($sql, [$categoryId]);
         $sql = 'DELETE FROM category WHERE id = ?';

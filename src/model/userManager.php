@@ -62,11 +62,11 @@ class UserManager extends Manager
     public function register($user, $statut)
     {
         $sql = 'INSERT INTO user (username, email, password,
-         createdAt, Profil, Statut) VALUES (?, ?, ?, NOW(), ?, ?)';
+         createdAt, Profil, Statut, last_date_connect) VALUES (?, ?, ?, NOW(), ?, ?, NOW())';
         $this->createQuery($sql, [
             $user->get('username'), $user->get('email'),
              password_hash($user->get('password'), PASSWORD_BCRYPT),
-             $statut, 'NOT']);
+             $statut, '1']);
     }
     
     /**
@@ -122,10 +122,6 @@ class UserManager extends Manager
     {
         //Update the user after modification for ADMIN only
         if (!$user->get('username')) {
-            $sql = 'UPDATE user SET statut=:statut  WHERE id=:userId';
-            $this->createQuery($sql, [
-            'statut' => $user->get('Statut'),
-            'userId' =>$userId]);
         } else {
             $sql = 'UPDATE user SET mail=:mail, password=:password, statut=:statut, 
             WHERE id=:userId';
@@ -135,5 +131,21 @@ class UserManager extends Manager
             'password' => password_hash($user->get('password'), PASSWORD_BCRYPT),
             'userId' =>$userId]);
         }
+    }
+    
+    /**
+     * Update the Statut's user after validation or not by admin
+     *
+     * @param  int $userId
+     * @param  int $statut
+     * @return void
+     */
+    public function updateStatut($userId, $statut)
+    {
+        var_dump($statut);
+        $sql = 'UPDATE user SET statut=:statut  WHERE id=:userId';
+            $this->createQuery($sql, [
+            'statut' => $statut,
+            'userId' =>$userId]);
     }
 }

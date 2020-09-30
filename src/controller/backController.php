@@ -188,7 +188,7 @@ class BackController extends Controller
     }
     
     /**
-     * Send the statut of user at userManager
+     * Send the modification of data's user at userManager
      *
      * @param  array $user [Datas user]
      * @return void
@@ -197,5 +197,41 @@ class BackController extends Controller
     {
         $this->userManager->editUser($user, $user->get('userId'));
             header('Location: /PyrTeck/Admin/AdminUsers');
+    }
+    
+    /**
+     * Validate or devalidate the user's statut for admin only
+     *
+     * @param  int $userId
+     * @param  string $statut
+     * @return void
+     */
+    public function updateStatutUser($userId, $statut)
+    {
+        if ($statut === "True") {
+            $stat = 1;
+        } else {
+            $stat = 0;
+        }
+        $this->userManager->updateStatut($userId, $stat);
+            header('Location: /PyrTeck/Admin/AdminUsers');
+    }
+    
+    /**
+     * Validate or devalidate the comment's statut for admin only
+     *
+     * @param  int $commentId
+     * @param  string $stat
+     * @return void
+     */
+    public function updateStatutComment($commentId, $statut)
+    {
+        if ($statut === "True") {
+            $stat = 1;
+        } else {
+            $stat = 0;
+        }
+        $this->commentManager->updateStatut($commentId, $stat);
+            header('Location: /PyrTeck/Admin/AdminComments');
     }
 }

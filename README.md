@@ -17,4 +17,6 @@ Créer la table "MyBlog" dans MySQL
 
 Importer le fichier du dossier SQL
 
+Modifier le fichier Config.json avec vos données personnelles
+
 Démarrer sur son localhost avec: \localhost\PyrTeck

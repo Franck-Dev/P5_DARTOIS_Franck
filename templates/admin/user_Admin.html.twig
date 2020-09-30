@@ -24,10 +24,10 @@
                     <td>{{user.email}}</td>
                     <td>{{user.profil}}</td>
                     <td>{% if user.statut ==1 %}<!-- Checked user's statut-->
-                            <a href="/PyrTeck/StatutUser/user/{{user.id}}/Statut=0" 
+                            <a href="/PyrTeck/Admin/updateStatutUser/{{user.id}}/False" 
                             type="button" class=" btn btn-success">Devalider</a>
                         {% else %}
-                            <a href="/PyrTeck/StatutUser/user/{{user.id}}/Statut=1" 
+                            <a href="/PyrTeck/Admin/updateStatutUser/{{user.id}}/True" 
                             type="button" class=" btn btn-outline-warning">Valider</a>
                         {% endif %}
                     </td>

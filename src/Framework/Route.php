@@ -83,6 +83,9 @@ Class Route
                         $params[$i] = $para[count($para)-2];
                     }
                 break;
+                case 'statut':
+                    $params[$i] = end($para);
+                break;
             }
             ++$i;
         }

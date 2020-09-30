@@ -217,4 +217,19 @@ class CommentManager extends Manager
         $result->closeCursor();
         return $countComments;
     }
+
+    /**
+     * Update the Statut's comment after validation or not by admin
+     *
+     * @param  int $commentId
+     * @param  int $statut
+     * @return void
+     */
+    public function updateStatut($commentId, $statut)
+    {
+        $sql = 'UPDATE comments SET statut=:statut  WHERE id=:commentId';
+            $this->createQuery($sql, [
+            'statut' => $statut,
+            'commentId' =>$commentId]);
+    }
 }

@@ -203,7 +203,6 @@ class FrontController extends Controller
                         $statut = 'ADMIN';
                     break;
                     } else {
-                        var_dump($user->request->get('username'));
                         $statut = 'USER';
                     }
                 }

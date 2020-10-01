@@ -9,9 +9,10 @@ abstract class App
     /** @var Request $request */
     private $request;
     private $response;
-    private $name;
+    //private $name;
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->request = Request::createFromGlobals();
         $this->response = new Response();
     }

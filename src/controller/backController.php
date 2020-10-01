@@ -12,7 +12,7 @@ use App\src\Framework\Controller;
  * @author Franck D <franck.pyren@gmail.com>
  */
 class BackController extends Controller
-{    
+{
     /**
      * Send the datas of form towards postManager for a new post
      *
@@ -20,7 +20,7 @@ class BackController extends Controller
      * @return void
      */
     public function addPost($post)
-    {   
+    {
         if ($post->get('submit')) {
             if ($post->files->get('image')) {
                 $path='../public/Images';
@@ -32,7 +32,7 @@ class BackController extends Controller
                     $post->files->get('image')->move($path, $name);
                     //This image will be resize for equal dimensions themself
                     $image_path=$path . '/' . $name;
-                    $this->resize_img($image_path,'',1233,633,0,'auto');
+                    $this->resize_img($image_path, '', 1233, 633, 0, 'auto');
                     //Save in database
                     $this->postManager->addPost($post->request, $name);
                 } else {

@@ -9,7 +9,7 @@ namespace App\src\Framework;
  *
  * @author Franck D <franck.pyren@gmail.com>
  */
-Class Route
+class Route
 {
     private $name;
     public $module;
@@ -24,7 +24,7 @@ Class Route
      * @param int $height [Height Dimension of destination image]
      * @param int $qualite [Qualite for request result]
      * @param string|null $type []
-     * @return string 
+     * @return string
      *
      */
     public function __construct($name)
@@ -75,17 +75,17 @@ Class Route
             switch ($att) {
                 case '$request':
                     $params[$i] = $request;
-                break;
+                    break;
                 case 'id':
                     if ($i === $rg-1) {
                         $params[$i] = end($para);
                     } else {
                         $params[$i] = $para[count($para)-2];
                     }
-                break;
+                    break;
                 case 'statut':
                     $params[$i] = end($para);
-                break;
+                    break;
             }
             ++$i;
         }
@@ -105,18 +105,18 @@ Class Route
         $tr = $this->getRoutes();
         foreach ($tr as $route) {
             $d = explode('/', trim($route[0]['name'], "/"));
-            if (count($url) == count($d) && strstr($uri, $route[0]['action']) ) {
+            if (count($url) == count($d) && strstr($uri, $route[0]['action'])) {
                 $this->module = $this->getModule($route[0]);
                 $this->action = $this->getAction($route[0]);
                 $this->params = $this->getParams($route[0], $url, $request);
                 return true;
-            break;                
+                break;
             } elseif (count($url) == 1 && $url[0] == 'PyrTeck') {
                 $this->module = $this->getModule($route[0]);
                 $this->action = $this->getAction($route[0]);
                 $this->params = ['1'];
                 return true;
-            break;
+                break;
             } else {
                 $this->module = 'errorController';
                 $this->action = 'errorNotFound';

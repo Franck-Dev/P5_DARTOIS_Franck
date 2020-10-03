@@ -23,6 +23,14 @@
           "params": ["$request"]
         }
       ],
+      "PyrTeck/connexion/profile": [
+        {
+          "name": "PyrTeck/connexion/profile",
+          "controller": "frontController",
+          "action": "profile",
+          "params": ["$request"]
+        }
+      ],
     "PyrTeck/usercomments": [
       {
         "name": "PyrTeck/usercomments",
@@ -189,6 +197,14 @@
         "controller": "backController",
         "action": "updateStatutComment",
         "params": ["id", "statut"]
+      }
+    ],
+    "/PyrTeck/Files/:id": [
+      {
+        "name": "PyrTeck/Files/:id",
+        "controller": "frontController",
+        "action": "readFile",
+        "params": ["id"]
       }
     ]
   }

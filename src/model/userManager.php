@@ -90,7 +90,7 @@ class UserManager extends Manager
      * Return if try of connect's user is validate or not
      *
      * @param  array $user [Datas user]
-     * @return void
+     * @return array
      */
     public function login($user)
     {
@@ -98,6 +98,11 @@ class UserManager extends Manager
         FROM user WHERE username = ?';
         $data = $this->createQuery($sql, [$user->get('username')]);
         $result = $data->fetch();
+        if ($result['statut'] === '1') {
+            $isUserAvtive = true;
+        } else {
+            $isUserAvtive = false;
+        }
         $isPasswordValid = password_verify($user->get('password'), $result['password']);
         if ($isPasswordValid === true) {
             $sql='UPDATE user SET last_date_connect=:last_date_connect WHERE id=:userId';
@@ -107,6 +112,7 @@ class UserManager extends Manager
         }
         return [
             'result' => $result,
+            'isUserActive' => $isUserAvtive,
             'isPasswordValid' => $isPasswordValid
         ];
     }
@@ -123,11 +129,10 @@ class UserManager extends Manager
         //Update the user after modification for ADMIN only
         if (!$user->get('username')) {
         } else {
-            $sql = 'UPDATE user SET mail=:mail, password=:password, statut=:statut, 
+            $sql = 'UPDATE user SET email=:email, password=:password 
             WHERE id=:userId';
             $this->createQuery($sql, [
-            'mail' => $user->get('mail'),
-            'statut' => 0,
+            'email' => $user->get('email'),
             'password' => password_hash($user->get('password'), PASSWORD_BCRYPT),
             'userId' =>$userId]);
         }
@@ -142,7 +147,6 @@ class UserManager extends Manager
      */
     public function updateStatut($userId, $statut)
     {
-        var_dump($statut);
         $sql = 'UPDATE user SET statut=:statut  WHERE id=:userId';
             $this->createQuery($sql, [
             'statut' => $statut,

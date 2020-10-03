@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
  * @author Franck D <franck.pyren@gmail.com>
  */
 class FrontController extends Controller
-{    
+{
     /**
      * Sent datas in SESSION object
      *
@@ -76,7 +76,7 @@ class FrontController extends Controller
      * @return void
      */
     public function post($postId)
-    {   
+    {
         $post = $this->postManager->getPost($postId);
         $comments = $this->commentManager->getComments($postId);
         $commentsCount = $this->commentManager->getcommentsCount($postId);
@@ -155,9 +155,15 @@ class FrontController extends Controller
     {
         if ($user->request->get('submit')) {
             $login = $this->userManager->login($user);
-            if ($login && $login['isPasswordValid'] == true) {
+            if ($login && $login['isPasswordValid'] == true && $login['isUserActive'] == true) {
                 $this->recupSession($login['result']);
                 header('Location: /PyrTeck');
+            } elseif ($login['isUserActive']  == false) {
+                $this->session->getFlashBag()->add('connexion', 'Compte désactivé');
+                $message = "Votre compte est désactivé, Contactez l'administrateur";
+                echo $this->twig->render('login.html.twig', [
+                    'message' => $message
+                ]);
             } else {
                 $this->session->getFlashBag()->add('connexion', 'Mot de passe ou identifiant incorrect');
                 $message = 'Mot de passe ou identifiant incorrect';
@@ -201,7 +207,7 @@ class FrontController extends Controller
                 foreach ($this->parameters['admin'] as $status) {
                     if ($status['name'] == $user->request->get('username')) {
                         $statut = 'ADMIN';
-                    break;
+                        break;
                     } else {
                         $statut = 'USER';
                     }
@@ -211,6 +217,19 @@ class FrontController extends Controller
             }
         }
         echo $this->twig->render('register.html.twig');
+    }
+    
+    /**
+     * Update data was modified by user
+     *
+     * @param  int $userId
+     * @return void
+     */
+    public function profile($user)
+    {
+        $userId = $this->userManager->checkUser($user)->getId();
+        $this->userManager->editUser($user, $userId);
+        header('Location: /PyrTeck');
     }
     
     /**
@@ -252,5 +271,17 @@ class FrontController extends Controller
             "message" => $message,
             "statutmessage" => $result
         ]);
+    }
+    
+    /**
+     * Read the differents files in the same folder
+     *
+     * @param  string $file
+     * @return void
+     */
+    public function readFile($file)
+    {
+        header("Content-type: application/pdf"); 
+        readfile("Files/".$file);
     }
 }

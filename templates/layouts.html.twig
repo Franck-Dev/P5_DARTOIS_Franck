@@ -95,7 +95,9 @@
                             </button>
                         </div>
                         <div class="modal-body p-0 bg-secondary">
-                            {% include "register.html.twig" %}
+                            {% if app.get('username') %}
+                                {% include "register.html.twig" %}
+                            {% endif %}
                         </div>
                         <div class="modal-footer bg-secondary">
                             <div class="row">

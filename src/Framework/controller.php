@@ -74,17 +74,17 @@ abstract class Controller
      * @param int $height [Height Dimension of destination image]
      * @param int $qualite [Qualite for request result]
      * @param string|null $type []
-     * @return string 
+     * @return string
      *
      */
-    public function resize_img($image_path, $image_dest, $width, $height, $qualite, $type){
-
+    public function resize_img($image_path, $image_dest, $width, $height, $qualite, $type)
+    {
         // Check existing files
-        if(!file_exists($image_path)):
+        if (!file_exists($image_path)) :
             return 'wrong_path';
         endif;
       
-        if($image_dest == ""):
+        if ($image_dest == "") :
             $image_dest = $image_path;
         endif;
         // Extensions rules
@@ -99,7 +99,7 @@ abstract class Controller
         $image_data = getimagesize($image_path);
      
         // Extension's test to validate
-        if (in_array($extension,$extensions) && in_array($image_data['mime'],$mimes)):
+        if (in_array($extension, $extensions) && in_array($image_data['mime'], $mimes)) :
           
             // Chech origin's dimensions
             $img_width = $image_data[0];
@@ -112,48 +112,42 @@ abstract class Controller
             // Create the new image ressource
             $dest = imagecreatetruecolor($new_width, $new_height);
         
-            // Prepare extension 
-            switch($extension){
+            // Prepare extension
+            switch ($extension) {
                 case 'jpg':
                 case 'jpeg':
-                $src = imagecreatefromjpeg($image_path); // Pour les jpg et jpeg
-                break;
+                    $src = imagecreatefromjpeg($image_path); // Pour les jpg et jpeg
+                    break;
         
                 case 'png':
-                $src = imagecreatefrompng($image_path); // Pour les png
-                break;
+                    $src = imagecreatefrompng($image_path); // Pour les png
+                    break;
         
                 case 'gif':
-                $src = imagecreatefromgif($image_path); // Pour les gif
-                break;
+                    $src = imagecreatefromgif($image_path); // Pour les gif
+                    break;
             }
-        
             // Create the new image
-            if(imagecopyresampled($dest, $src, 0, 0, 0, 0, $new_width, $new_height, $img_width, $img_height)):
+            if (imagecopyresampled($dest, $src, 0, 0, 0, 0, $new_width, $new_height, $img_width, $img_height)):
         
                 // Replace image switch extension
-                switch($extension){
-                case 'jpg':
-                case 'jpeg':
-                    imagejpeg($dest , $image_dest, $qualite); // Pour les jpg et jpeg
-                break;
-        
-                case 'png':
-                    imagepng($dest , $image_dest, $qualite); // Pour les png
-                break;
-        
-                case 'gif':
-                    imagegif($dest , $image_dest, $qualite); // Pour les gif
-                break;
+                switch ($extension) {
+                    case 'jpg':
+                    case 'jpeg':
+                        imagejpeg($dest , $image_dest, $qualite); // Pour les jpg et jpeg
+                        break;
+                    case 'png':
+                        imagepng($dest , $image_dest, $qualite); // Pour les png
+                        break;
+                    case 'gif':
+                        imagegif($dest , $image_dest, $qualite); // Pour les gif
+                        break;
                 }
-        
                 return 'success';
-                
-            else:
+            else :
                 return 'resize_error';
             endif;
-        
-        else:
+        else :
             return 'no_img';
         endif;
     }

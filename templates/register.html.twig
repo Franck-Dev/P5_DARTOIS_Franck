@@ -9,16 +9,16 @@
 	{% set btn = 'Modifier' %}
 	{% set cls = 'btn btn-danger float-right' %}
 	{% set title = 'Données du profil' %}
-	{% set route = 'profile' %}
+	{% set route = '/PyrTeck/connexion/profile' %}
 	{% set date = ['Inscrit depuis le :', app.get('createdAt')]|join %}
 	{% set nameform = 'formLogUser' %}
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 {% else %}
 	{% set btn = 'Enregistrer' %}
 	{% set cls = 'btn btn-primary float-right' %}
 	{% set title = 'Inscription' %}
 	{% set route = 'register' %}
 	{% set nameform = 'formLogRegister' %}
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 {% endif %}
 <div class="container p-0">
 	<div class="d-flex justify-content-center h-100">

@@ -234,4 +234,18 @@ class BackController extends Controller
         $this->commentManager->updateStatut($commentId, $stat);
             header('Location: /PyrTeck/Admin/AdminComments');
     }
+    
+    /**
+     * Control if this acces is a access admin or not
+     *
+     * @return boolean
+     */
+    public function adminAccess()
+    {
+        if ($this->checkAccess() === 'ADMIN') {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

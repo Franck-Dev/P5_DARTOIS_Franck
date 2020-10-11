@@ -32,7 +32,7 @@ class BackController extends Controller
                     $post->files->get('image')->move($path, $name);
                     //This image will be resize for equal dimensions themself
                     $image_path=$path . '/' . $name;
-                    $this->resize_img($image_path, '', 1233, 633, 0, 'auto');
+                    $this->resizeImg($image_path, '', 1233, 633, 0, 'auto');
                     //Save in database
                     $this->postManager->addPost($post->request, $name);
                 } else {
@@ -126,7 +126,7 @@ class BackController extends Controller
      *
      * @return void
      */
-    public function Categories()
+    public function categories()
     {
         $categories=$this->categoryManager->getCategories();
         echo $this->twig->render('admin/category_Admin.html.twig', [
@@ -139,7 +139,7 @@ class BackController extends Controller
      *
      * @return void
      */
-    public function Posts()
+    public function posts()
     {
         $posts=$this->postManager->getPosts();
         $categories=$this->categoryManager->getCategories();
@@ -154,7 +154,7 @@ class BackController extends Controller
      *
      * @return void
      */
-    public function Comments()
+    public function comments()
     {
         $comments=$this->commentManager->getCommentsValidate();
         echo $this->twig->render('admin/comment_Admin.html.twig', [
@@ -179,7 +179,7 @@ class BackController extends Controller
      *
      * @return void
      */
-    public function Users()
+    public function users()
     {
         $users=$this->userManager->getUsers();
         echo $this->twig->render('admin/user_Admin.html.twig', [

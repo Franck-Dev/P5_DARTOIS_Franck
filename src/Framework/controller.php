@@ -77,7 +77,7 @@ abstract class Controller
      * @return string
      *
      */
-    public function resize_img($image_path, $image_dest, $width, $height, $qualite, $type)
+    public function resizeImg($image_path, $image_dest, $width, $height, $qualite, $type)
     {
         // Check existing files
         if (!file_exists($image_path)) :
@@ -88,8 +88,8 @@ abstract class Controller
             $image_dest = $image_path;
         endif;
         // Extensions rules
-        $extensions = array('jpg','jpeg','png','gif');
-        $mimes = array('image/jpeg','image/gif','image/png');
+        $extensions = ['jpg', 'jpeg', 'png', 'gif'];
+        $mimes = ['image/jpeg', 'image/gif', 'image/png'];
       
         // Found the extension file of image
         $tab_ext = explode('.', $image_path);
@@ -100,7 +100,6 @@ abstract class Controller
      
         // Extension's test to validate
         if (in_array($extension, $extensions) && in_array($image_data['mime'], $mimes)) :
-          
             // Chech origin's dimensions
             $img_width = $image_data[0];
             $img_height = $image_data[1];
@@ -128,19 +127,18 @@ abstract class Controller
                     break;
             }
             // Create the new image
-            if (imagecopyresampled($dest, $src, 0, 0, 0, 0, $new_width, $new_height, $img_width, $img_height)):
-        
+            if (imagecopyresampled($dest, $src, 0, 0, 0, 0, $new_width, $new_height, $img_width, $img_height)) :
                 // Replace image switch extension
                 switch ($extension) {
                     case 'jpg':
                     case 'jpeg':
-                        imagejpeg($dest , $image_dest, $qualite); // Pour les jpg et jpeg
+                        imagejpeg($dest, $image_dest, $qualite); // Pour les jpg et jpeg
                         break;
                     case 'png':
-                        imagepng($dest , $image_dest, $qualite); // Pour les png
+                        imagepng($dest, $image_dest, $qualite); // Pour les png
                         break;
                     case 'gif':
-                        imagegif($dest , $image_dest, $qualite); // Pour les gif
+                        imagegif($dest, $image_dest, $qualite); // Pour les gif
                         break;
                 }
                 return 'success';

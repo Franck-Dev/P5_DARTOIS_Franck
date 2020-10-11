@@ -41,7 +41,7 @@ class FrontController extends Controller
      * @param  int|null $categoryId [Choice of catogory for look a list post by herself]
      * @return void
      */
-    public function Blog($categoryId = null)
+    public function blog($categoryId = null)
     {
         $posts = $this->postManager->getPosts($categoryId);
         $commentsCount = $this->commentManager->getcommentsCount();
@@ -281,7 +281,7 @@ class FrontController extends Controller
      */
     public function readFile($file)
     {
-        header("Content-type: application/pdf"); 
+        header("Content-type: application/pdf");
         readfile("Files/".$file);
     }
 }

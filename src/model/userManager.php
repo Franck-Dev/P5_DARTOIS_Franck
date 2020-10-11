@@ -14,7 +14,7 @@ use App\src\Framework\Manager;
  * @author Franck D <franck.pyren@gmail.com>
  */
 class UserManager extends Manager
-{    
+{
     /**
      * Return object hydrated
      *

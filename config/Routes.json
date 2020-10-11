@@ -3,7 +3,7 @@
         {
           "name": "PyrTeck",
           "controller": "frontController",
-          "action": "Blog",
+          "action": "blog",
           "params": ["1"]
         }
       ],
@@ -107,7 +107,7 @@
       {
         "name": "PyrTeck/Admin/Categories",
         "controller": "backController",
-        "action": "Categories",
+        "action": "categories",
         "params": []
       }
     ],
@@ -115,7 +115,7 @@
       {
         "name": "PyrTeck/Admin/Posts",
         "controller": "backController",
-        "action": "Posts",
+        "action": "posts",
         "params": []
       }
     ],
@@ -123,7 +123,7 @@
       {
         "name": "PyrTeck/Admin/Comments",
         "controller": "backController",
-        "action": "Comments",
+        "action": "comments",
         "params": []
       }
     ],
@@ -131,7 +131,7 @@
       {
         "name": "PyrTeck/Admin/Users",
         "controller": "backController",
-        "action": "Users",
+        "action": "users",
         "params": []
       }
     ],

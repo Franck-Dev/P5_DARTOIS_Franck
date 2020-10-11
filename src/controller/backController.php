@@ -23,7 +23,7 @@ class BackController extends Controller
     {
         if ($post->get('submit')) {
             if ($post->files->get('image')) {
-                $path='../public/Images';
+                $path='/PyrTeck/public/Images';
                 $name=$post->files->get('image')->getClientOriginalName();
                 $extValide=['jpg','png','jpeg','gif','ico'];
                 $extFile=$post->files->get('image')->getClientOriginalExtension();

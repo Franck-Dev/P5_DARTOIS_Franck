@@ -27,7 +27,7 @@ class Router
         $this->frontController = new frontController();
         $this->errorController = new errorController();
         $this->backController = new backController();
-    }    
+    }
     /**
      * Accessing to good method in good controller with params by route
      *

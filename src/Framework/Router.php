@@ -27,7 +27,7 @@ class Router
         $this->frontController = new frontController();
         $this->errorController = new errorController();
         $this->backController = new backController();
-    }    
+    }
     /**
      * Accessing to good method in good controller with params by route
      *
@@ -42,11 +42,20 @@ class Router
         $wayOK = $route->matchRoutes($uri, $request);
         $controllerName = $route->module;
         $controller = $this->$controllerName;
-        $action = $route->action;
-        $params = $route->params;
+        //Control access rules it's ok for this user
+        $method = 'adminAccess';
+        if (method_exists($controller, $method) && $controller->adminAccess() != true) {
+            $controllerName ='errorController';
+            $controller = $this->$controllerName;
+            $action = 'errorAccess';
+            $params = '';
+        } else {
+            $action = $route->action;
+            $params = $route->params;
+        }
         try {
             if (method_exists($controller, $action) && $params != null) {
-                call_user_func_array([$controller,$action], $params);
+                $controller->$action(...$params);
             } else {
                 $controller->$action();
             }

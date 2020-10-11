@@ -151,4 +151,14 @@ abstract class Controller
             return 'no_img';
         endif;
     }
+    
+    /**
+     * Control if url is authorized for this user
+     *
+     * @return string
+     */
+    protected function checkAccess()
+    {
+        return $this->session->get('profil');
+    }
 }

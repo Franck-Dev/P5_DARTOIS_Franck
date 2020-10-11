@@ -23,7 +23,7 @@ class BackController extends Controller
     {
         if ($post->get('submit')) {
             if ($post->files->get('image')) {
-                $path='../public/Images';
+                $path='/PyrTeck/public/Images';
                 $name=$post->files->get('image')->getClientOriginalName();
                 $extValide=['jpg','png','jpeg','gif','ico'];
                 $extFile=$post->files->get('image')->getClientOriginalExtension();
@@ -233,5 +233,19 @@ class BackController extends Controller
         }
         $this->commentManager->updateStatut($commentId, $stat);
             header('Location: /PyrTeck/Admin/AdminComments');
+    }
+    
+    /**
+     * Control if this acces is a access admin or not
+     *
+     * @return boolean
+     */
+    public function adminAccess()
+    {
+        if ($this->checkAccess() === 'ADMIN') {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

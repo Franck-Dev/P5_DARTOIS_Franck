@@ -33,6 +33,7 @@
                                         <th scope="col">Date</th>
                                         <th scope="col">Auteur</th>
                                         <th scope="col">Statut</th>
+                                        <th scope="col">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody class="text-white">
@@ -47,9 +48,11 @@
                                                     type="button" class=" btn btn-success">Devalider</a>
                                                 {% else %}
                                                     <a href="/PyrTeck/Admin/updateStatutComment/{{item.id}}/True" 
-                                                    type="button" class=" btn btn-outline-warning">Valider</a>
+                                                    type="button" class=" btn btn-warning">Valider</a>
                                                 {% endif %}
                                             </td>
+                                            <td><a href="PyrTeck/Blog/post/deleteComment/{{item.postId}}/{{item.id}}" 
+                                                    type="button" class=" btn btn-danger">Supprimer</a></td>
                                         </tr>
                                     {% endfor %}
                                 </tbody>

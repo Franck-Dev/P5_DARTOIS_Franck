@@ -29,4 +29,13 @@ class ErrorController extends Controller
     {
         require '../templates/error/error_301.php';
     }
+
+    /**
+    * Return the template when a user without admin access want the admin page
+    */
+    public function errorAccess()
+    {
+        echo $this->twig->render('error/access_denied.html.twig');
+        //require '../templates/error/access_denied.html.twig';
+    }
 }

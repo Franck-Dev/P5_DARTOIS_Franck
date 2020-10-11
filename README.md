@@ -1,6 +1,6 @@
 # P5_DARTOIS_Franck
 
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/748ed810fb2b4d0bb151cfc8e644d0b1)](https://www.codacy.com/manual/Franck-Dev/P5_DARTOIS_Franck/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Franck-Dev/P5_DARTOIS_Franck&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/1cecf0c02f824ebfa1e24b0dd3980bc1)](https://www.codacy.com/gh/Franck-Dev/P5_DARTOIS_Franck/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Franck-Dev/P5_DARTOIS_Franck&amp;utm_campaign=Badge_Grade)
 
 Mon site s'appelle "PyrTeck"
 
